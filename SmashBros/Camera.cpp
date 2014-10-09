@@ -1,0 +1,374 @@
+
+#include "Camera.h"
+
+namespace SmashBros
+{
+	float Camera::x = 0;
+	float Camera::y = 0;
+	float Camera::Zoom = 1;
+
+	float Camera::prevCenterX = 0;
+	float Camera::prevCenterY = 0;
+	
+	boolean Camera::firstUpdate = true;
+	boolean Camera::firstFocus = true;
+
+	const double Camera::zoomOutSpeed = 0.08;
+	const double Camera::zoomInSpeed = 0.010;
+
+	byte Camera::mode = MODE_ZOOM;
+
+	void Camera::reset()
+	{
+		firstUpdate = true;
+		firstFocus = true;
+		Zoom = 1;
+		x = 0;
+		y = 0;
+		mode = MODE_ZOOM;
+	}
+
+	void Camera::Update()
+	{
+		RectangleF rect;
+		float camX;
+		float camY;
+		
+		Rect borders = Global::currentStage->getViewBorders();
+		
+		switch(mode)
+		{
+			default:
+			case MODE_FIXED:
+			{
+				rect = getFocusRect();
+				View::x = (float)(x + (float)Global::currentStage->x - (float)View::ScaleWidth()/2);
+				View::y = (float)(y + (float)Global::currentStage->y - (float)View::ScaleHeight()/2);
+				float zoomH = (float)View::ScaleHeight()/(float)(Global::currentStage->bottomViewBorder - Global::currentStage->topViewBorder);
+				float zoomW = (float)View::ScaleWidth()/(float)(Global::currentStage->rightViewBorder - Global::currentStage->leftViewBorder);
+				if(zoomH>zoomW)
+				{
+					Zoom = zoomH;
+				}
+				else
+				{
+					Zoom = zoomW;
+				}
+				float centerX = (float)(x + Global::currentStage->x);
+				float centerY = (float)(y + Global::currentStage->y);
+				
+				float left = (float)(centerX - ((float)View::ScaleWidth()/((float)2*Zoom)));
+				float right = (float)(centerX +((float)View::ScaleWidth()/((float)2*Zoom)));
+				float top = (float)(centerY - ((float)View::ScaleHeight()/((float)2*Zoom)));
+				float bottom = (float)(centerY +((float)View::ScaleHeight()/((float)2*Zoom)));
+				
+				if(left<(Global::currentStage->x + Global::currentStage->leftViewBorder))
+				{
+					centerX = (float)((Global::currentStage->x + Global::currentStage->leftViewBorder) + View::ScaleWidth()/(Zoom*2));
+				}
+				else if(right>(Global::currentStage->x + Global::currentStage->rightViewBorder))
+				{
+					centerX = (float)((Global::currentStage->x + Global::currentStage->rightViewBorder) - View::ScaleWidth()/(Zoom*2));
+				}
+				if(top<(Global::currentStage->y + Global::currentStage->topViewBorder))
+				{
+					centerY = (float)((Global::currentStage->y + Global::currentStage->topViewBorder) + View::ScaleHeight()/(Zoom*2));
+				}
+				else if(bottom>(Global::currentStage->y + Global::currentStage->bottomViewBorder))
+				{
+					centerY = (float)((Global::currentStage->y + Global::currentStage->bottomViewBorder) - View::ScaleHeight()/(Zoom*2));
+				}
+				camX = (float)((centerX*Zoom) - ((float)View::ScaleWidth()/2));
+				camY = (float)((centerY*Zoom) - ((float)View::ScaleHeight()/2));
+				
+				View::x = camX;
+				View::y = camY;
+			}
+			break;
+			
+			case MODE_FOLLOW:
+			{
+				rect = getFocusRect();
+				camX = (float)(((float)rect.x*Zoom) - (((float)View::ScaleWidth() - ((float)rect.width*Zoom))/2));
+				camY = (float)(((float)rect.y*Zoom) - (((float)View::ScaleHeight() - ((float)rect.height*Zoom))/2));
+				
+				float leftSide = (float)((Global::currentStage->x + borders.left)*Zoom);
+				float rightSide = (float)((Global::currentStage->x + borders.right)*Zoom);
+				float topSide = (float)((Global::currentStage->y + borders.top)*Zoom);
+				float bottomSide = (float)((Global::currentStage->y + borders.bottom)*Zoom);
+				
+				if(camX < leftSide)
+				{
+					camX = leftSide;
+				}
+				else if((camX + View::ScaleWidth()) > rightSide)
+				{
+					camX = (rightSide - View::ScaleWidth());
+				}
+				if(camY < topSide)
+				{
+					camY = topSide;
+				}
+				else if((camY + View::ScaleHeight()) > bottomSide)
+				{
+					camY = (bottomSide - View::ScaleHeight());
+				}
+				
+				View::x = (float)((x*Zoom) + camX);
+				View::y = (float)((y*Zoom) + camY);
+			}
+			break;
+			
+			case MODE_ZOOM:
+			{
+				rect = getFocusRect();
+				float zoomW = (float)View::ScaleWidth()/(float)rect.width;
+				float zoomH = (float)View::ScaleHeight()/(float)rect.height;
+				float expzoom;
+				
+				if((rect.width*zoomH) > View::ScaleWidth())
+				{
+					expzoom = zoomW;
+					//Zoom = zoomW;
+				}
+				else
+				{
+					expzoom = zoomH;
+					//Zoom = zoomH;
+				}
+				
+				float zoomx = (float)View::ScaleWidth()/(borders.right - borders.left);
+				float zoomy = (float)View::ScaleHeight()/(borders.bottom - borders.top);
+				float cmpzoom;
+				
+				float setZoom;
+				
+				if(zoomx > zoomy)
+				{
+					cmpzoom = zoomx;
+				}
+				else
+				{
+					cmpzoom = zoomy;
+				}
+				
+				if(expzoom < cmpzoom)
+				{
+					setZoom = cmpzoom;
+				}
+				else
+				{
+					setZoom = expzoom;
+				}
+				
+				//Zoom = setZoom;
+				
+				if(setZoom<Zoom)
+				{
+					if((Zoom - setZoom)> zoomOutSpeed)
+					{
+						Zoom -= (float)zoomOutSpeed;
+					}
+					else
+					{
+						Zoom = setZoom;
+					}
+				}
+				else if(setZoom>Zoom)
+				{
+					if((setZoom - Zoom)> zoomInSpeed)
+					{
+						Zoom += (float)zoomInSpeed;
+					}
+					else
+					{
+						Zoom = setZoom;
+					}
+				}
+				
+				//g.setColor(Color::BLUE);
+				//g.drawRect((int)(rect.x*Zoom), (int)(rect.y*Zoom), (int)(rect.width*Zoom), (int)(rect.height*Zoom));
+				
+				camX = (float)(((float)rect.x*Zoom) - (((float)View::ScaleWidth() - ((float)rect.width*Zoom))/2));
+				camY = (float)(((float)rect.y*Zoom) - (((float)View::ScaleHeight() - ((float)rect.height*Zoom))/2));
+				
+				float leftSide = (float)((Global::currentStage->x + borders.left)*Zoom);
+				float rightSide = (float)((Global::currentStage->x + borders.right)*Zoom);
+				float topSide = (float)((Global::currentStage->y + borders.top)*Zoom);
+				float bottomSide = (float)((Global::currentStage->y + borders.bottom)*Zoom);
+				
+				if(camX < leftSide)
+				{
+					camX = leftSide;
+				}
+				else if((camX + View::ScaleWidth()) > rightSide)
+				{
+					camX = (rightSide - View::ScaleWidth());
+				}
+				if(camY < topSide)
+				{
+					camY = topSide;
+				}
+				else if((camY + View::ScaleHeight()) > bottomSide)
+				{
+					camY = (bottomSide - View::ScaleHeight());
+				}
+				
+				float centerX = (float)((camX + ((float)View::ScaleWidth()/2))/Zoom);
+				float centerY = (float)((camY + ((float)View::ScaleHeight()/2))/Zoom);
+				
+				if(firstUpdate)
+				{
+					centerX = (float)Global::currentStage->x;
+					centerY = (float)Global::currentStage->y;
+					float zoom1 = (float)View::ScaleWidth()/(float)(borders.right - borders.left);
+					float zoom2 = (float)View::ScaleHeight()/(float)(borders.bottom - borders.top);
+					if(zoom1 > zoom2)
+					{
+						Zoom = zoom1;
+					}
+					else
+					{
+						Zoom = zoom2;
+					}
+				}
+				else
+				{
+					if(!firstFocus)
+					{
+						if(centerX < prevCenterX)
+						{
+							if((prevCenterX - centerX) > moveSpeed)
+							{
+								centerX = prevCenterX - moveSpeed;
+							}
+						}
+						else if(prevCenterX < centerX)
+						{
+							if((centerX - prevCenterX) > moveSpeed)
+							{
+								centerX = prevCenterX + moveSpeed;
+							}
+						}
+						
+						if(centerY < prevCenterY)
+						{
+							if((prevCenterY - centerY) > moveSpeed)
+							{
+								centerY = prevCenterY - moveSpeed;
+							}
+						}
+						else if(prevCenterY < centerY)
+						{
+							if((centerY - prevCenterY) > moveSpeed)
+							{
+								centerY = prevCenterY + moveSpeed;
+							}
+						}
+					}
+					
+					camX = (float)((centerX*Zoom) - ((float)View::ScaleWidth()/2));
+					camY = (float)((centerY*Zoom) - ((float)View::ScaleHeight()/2));
+					
+					firstFocus = false;
+				}
+				
+				prevCenterX = centerX;
+				prevCenterY = centerY;
+				
+				View::x = (float)((x*Zoom) + camX);
+				View::y = (float)((y*Zoom) + camY);
+			}
+			break;
+		}
+		firstUpdate = false;
+	}
+
+	void Camera::setMode(byte camera_mode)
+	{
+		mode = camera_mode;
+	}
+
+	RectangleF Camera::getFocusRect(ArrayList<int> players)
+	{
+		RectangleF rect;
+		
+		Vector2f ws;
+		Vector2f hs;
+		float w = 0;
+		float h = 0;
+
+		for(int i=1; i<=Global::possPlayers; i++)
+		{
+			for(int j=1; j<=Global::possPlayers; j++)
+			{
+				if(Global::characters[i]==null || !Global::characters[i]->isAlive())
+				{
+					j=(Global::possPlayers+1);
+				}
+				else if(Global::characters[j]==null || !Global::characters[j]->isAlive())
+				{
+					//
+				}
+				else if(players.size()==0 || (players.contains(Global::characters[i]->getPlayerNo()) && players.contains(Global::characters[i]->getPlayerNo())))
+				{
+					float w1 = abs(Global::characters[i]->x - Global::characters[j]->x) + (Global::characters[i]->width/2) + (Global::characters[j]->width/2) + 2*offset;
+					float h1 = abs(Global::characters[i]->y - Global::characters[j]->y) + (Global::characters[i]->height/2) + (Global::characters[j]->height/2) + 2*offset;
+					if(w1>w || w==0)
+					{
+						w = w1;
+						if(Global::characters[i]->x < Global::characters[j]->x)
+						{
+							ws.x = Global::characters[i]->x;
+							ws.y = (float)Global::characters[i]->width;
+						}
+						else
+						{
+							ws.x = Global::characters[j]->x;
+							ws.y = (float)Global::characters[j]->width;
+						}
+					}
+					if(h1>h || h==0)
+					{
+						h = h1;
+						if(Global::characters[i]->y < Global::characters[j]->y)
+						{
+							hs.x = Global::characters[i]->y;
+							hs.y = (float)Global::characters[i]->height;
+						}
+						else
+						{
+							hs.x = Global::characters[j]->y;
+							hs.y = (float)Global::characters[j]->height;
+						}
+					}
+				}
+			}
+		}
+
+		rect.x = ws.x - ws.y/2 - offset;
+		rect.y = hs.x - hs.y/2 - offset;
+		rect.width = w;
+		rect.height = h + bottomOffset;
+		
+		if(rect.width <=1 || rect.height<=1)
+		{
+			rect.width = 300;
+			rect.height = 300;
+			rect.x = Global::currentStage->x - rect.width/2;
+			rect.y = Global::currentStage->y - rect.height/2;
+		}
+		
+		return rect;
+	}
+
+	int Camera::Width()
+	{
+		return (int)((double)View::ScaleWidth()/Zoom);
+	}
+
+	int Camera::Height()
+	{
+		return (int)((double)View::ScaleHeight()/Zoom);
+	}
+}

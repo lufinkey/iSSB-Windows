@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameEngine\Actor\Actor.cpp" />
+    <ClCompile Include="GameEngine\Actor\Animation.cpp" />
+    <ClCompile Include="GameEngine\Actor\AnimationManager.cpp" />
+    <ClCompile Include="GameEngine\Actor\PrimitiveActor.cpp" />
+    <ClCompile Include="GameEngine\Actor\TextActor.cpp" />
+    <ClCompile Include="GameEngine\Actor\WireframeActor.cpp" />
+    <ClCompile Include="GameEngine\Application.cpp" />
+    <ClCompile Include="GameEngine\AssetManager.cpp" />
+    <ClCompile Include="GameEngine\BatchLoader.cpp" />
+    <ClCompile Include="GameEngine\Graphics\Graphics2D.cpp" />
+    <ClCompile Include="GameEngine\Input\Keys.cpp" />
+    <ClCompile Include="GameEngine\Output\Console.cpp" />
+    <ClCompile Include="GameEngine\ScreenManager\MenuScreen.cpp" />
+    <ClCompile Include="GameEngine\ScreenManager\Screen.cpp" />
+    <ClCompile Include="GameEngine\ScreenManager\ScreenManager.cpp" />
+    <ClCompile Include="GameEngine\Util\BufferedImage.cpp" />
+    <ClCompile Include="GameEngine\Util\Color.cpp" />
+    <ClCompile Include="GameEngine\Util\Font.cpp" />
+    <ClCompile Include="GameEngine\Util\PixelIterator.cpp" />
+    <ClCompile Include="GameEngine\Util\PrefManager.cpp" />
+    <ClCompile Include="GameEngine\Util\String.cpp" />
+    <ClCompile Include="GameEngine\Util\Thread.cpp" />
+    <ClCompile Include="GameEngine\View.cpp" />
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="SmashBros\AttackManager.cpp" />
+    <ClCompile Include="SmashBros\AttackRandomizer.cpp" />
+    <ClCompile Include="SmashBros\AttackTemplates.cpp" />
+    <ClCompile Include="SmashBros\Camera.cpp" />
+    <ClCompile Include="SmashBros\Chargebar.cpp" />
+    <ClCompile Include="SmashBros\CollisionManager.cpp" />
+    <ClCompile Include="SmashBros\Controls.cpp" />
+    <ClCompile Include="SmashBros\GameElement.cpp" />
+    <ClCompile Include="SmashBros\Game\Characters\Fox.cpp" />
+    <ClCompile Include="SmashBros\Game\Characters\Ichigo.cpp" />
+    <ClCompile Include="SmashBros\Game\Characters\Link.cpp" />
+    <ClCompile Include="SmashBros\Game\Characters\Mario.cpp" />
+    <ClCompile Include="SmashBros\Game\Characters\Pikachu.cpp" />
+    <ClCompile Include="SmashBros\Game\Characters\Sonic.cpp" />
+    <ClCompile Include="SmashBros\Game\GameScreen.cpp" />
+    <ClCompile Include="SmashBros\Game\Items\BeamSword.cpp" />
+    <ClCompile Include="SmashBros\Game\Items\HeartContainer.cpp" />
+    <ClCompile Include="SmashBros\Game\Items\PoisonMushroom.cpp" />
+    <ClCompile Include="SmashBros\Game\Items\RayGun.cpp" />
+    <ClCompile Include="SmashBros\Game\Items\SmashBall.cpp" />
+    <ClCompile Include="SmashBros\Game\Items\SuperMushroom.cpp" />
+    <ClCompile Include="SmashBros\Game\Stages\BattlefieldBrawl.cpp" />
+    <ClCompile Include="SmashBros\Game\Stages\FinalDestinationBrawl.cpp" />
+    <ClCompile Include="SmashBros\Game\Stages\FractalStage.cpp" />
+    <ClCompile Include="SmashBros\Game\Stages\HillsideBattleground.cpp" />
+    <ClCompile Include="SmashBros\Game\Stages\HyruleTemple.cpp" />
+    <ClCompile Include="SmashBros\Game\Stages\StagePieces\HangPoint.cpp" />
+    <ClCompile Include="SmashBros\Game\Stages\StagePieces\OffScreenExplode.cpp" />
+    <ClCompile Include="SmashBros\Game\Stages\StagePieces\Platform.cpp" />
+    <ClCompile Include="SmashBros\Game\WinnerScreen.cpp" />
+    <ClCompile Include="SmashBros\Global.cpp" />
+    <ClCompile Include="SmashBros\HitBox.cpp" />
+    <ClCompile Include="SmashBros\HUD.cpp" />
+    <ClCompile Include="SmashBros\Item.cpp" />
+    <ClCompile Include="SmashBros\ItemManager.cpp" />
+    <ClCompile Include="SmashBros\Loader.cpp" />
+    <ClCompile Include="SmashBros\Magnifier.cpp" />
+    <ClCompile Include="SmashBros\Menus\CharSelectScreen.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuClasses.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\ActorGrid.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\Arrows.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\MenuBar.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\MenuBarSmall.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\MenuBarSmallButton.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\MenuBarToggle.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\MenuBarValue.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\ToggleButton.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\ToggleButtons.cpp" />
+    <ClCompile Include="SmashBros\Menus\MenuPieces\TogglePane.cpp" />
+    <ClCompile Include="SmashBros\Menus\Menus.cpp" />
+    <ClCompile Include="SmashBros\Menus\StageSelectScreen.cpp" />
+    <ClCompile Include="SmashBros\Player.cpp" />
+    <ClCompile Include="SmashBros\Preferences.cpp" />
+    <ClCompile Include="SmashBros\Projectile.cpp" />
+    <ClCompile Include="SmashBros\ProjectileManager.cpp" />
+    <ClCompile Include="SmashBros\Script\ScriptedCharacter.cpp" />
+    <ClCompile Include="SmashBros\Script\ScriptModuleData.cpp" />
+    <ClCompile Include="SmashBros\Stage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameEngine\Actor\Actor.h" />
+    <ClInclude Include="GameEngine\Actor\Animation.h" />
+    <ClInclude Include="GameEngine\Actor\AnimationManager.h" />
+    <ClInclude Include="GameEngine\Actor\PrimitiveActor.h" />
+    <ClInclude Include="GameEngine\Actor\TextActor.h" />
+    <ClInclude Include="GameEngine\Actor\WireframeActor.h" />
+    <ClInclude Include="GameEngine\Application.h" />
+    <ClInclude Include="GameEngine\AssetManager.h" />
+    <ClInclude Include="GameEngine\BatchLoader.h" />
+    <ClInclude Include="GameEngine\forwards.h" />
+    <ClInclude Include="GameEngine\GameEngine.h" />
+    <ClInclude Include="GameEngine\Global.h" />
+    <ClInclude Include="GameEngine\Graphics\Graphics2D.h" />
+    <ClInclude Include="GameEngine\Input\Keys.h" />
+    <ClInclude Include="GameEngine\Input\Mouse.h" />
+    <ClInclude Include="GameEngine\Output\Console.h" />
+    <ClInclude Include="GameEngine\ScreenManager\MenuScreen.h" />
+    <ClInclude Include="GameEngine\ScreenManager\Screen.h" />
+    <ClInclude Include="GameEngine\ScreenManager\ScreenManager.h" />
+    <ClInclude Include="GameEngine\Util\ArrayList.h" />
+    <ClInclude Include="GameEngine\Util\BufferedImage.h" />
+    <ClInclude Include="GameEngine\Util\Color.h" />
+    <ClInclude Include="GameEngine\Util\Font.h" />
+    <ClInclude Include="GameEngine\Util\PixelIterator.h" />
+    <ClInclude Include="GameEngine\Util\PrefManager.h" />
+    <ClInclude Include="GameEngine\Util\String.h" />
+    <ClInclude Include="GameEngine\Util\Thread.h" />
+    <ClInclude Include="GameEngine\View.h" />
+    <ClInclude Include="SmashBros\AttackManager.h" />
+    <ClInclude Include="SmashBros\AttackRandomizer.h" />
+    <ClInclude Include="SmashBros\AttackTemplates.h" />
+    <ClInclude Include="SmashBros\Camera.h" />
+    <ClInclude Include="SmashBros\Chargebar.h" />
+    <ClInclude Include="SmashBros\CollisionManager.h" />
+    <ClInclude Include="SmashBros\Controls.h" />
+    <ClInclude Include="SmashBros\GameElement.h" />
+    <ClInclude Include="SmashBros\Game\Characters\Fox.h" />
+    <ClInclude Include="SmashBros\Game\Characters\Ichigo.h" />
+    <ClInclude Include="SmashBros\Game\Characters\Link.h" />
+    <ClInclude Include="SmashBros\Game\Characters\Mario.h" />
+    <ClInclude Include="SmashBros\Game\Characters\Pikachu.h" />
+    <ClInclude Include="SmashBros\Game\Characters\Sonic.h" />
+    <ClInclude Include="SmashBros\Game\GameScreen.h" />
+    <ClInclude Include="SmashBros\Game\Items\BeamSword.h" />
+    <ClInclude Include="SmashBros\Game\Items\HeartContainer.h" />
+    <ClInclude Include="SmashBros\Game\Items\PoisonMushroom.h" />
+    <ClInclude Include="SmashBros\Game\Items\RayGun.h" />
+    <ClInclude Include="SmashBros\Game\Items\SmashBall.h" />
+    <ClInclude Include="SmashBros\Game\Items\SuperMushroom.h" />
+    <ClInclude Include="SmashBros\Game\Stages\BattlefieldBrawl.h" />
+    <ClInclude Include="SmashBros\Game\Stages\FinalDestinationBrawl.h" />
+    <ClInclude Include="SmashBros\Game\Stages\FractalStage.h" />
+    <ClInclude Include="SmashBros\Game\Stages\HillsideBattleground.h" />
+    <ClInclude Include="SmashBros\Game\Stages\HyruleTemple.h" />
+    <ClInclude Include="SmashBros\Game\Stages\StagePieces\HangPoint.h" />
+    <ClInclude Include="SmashBros\Game\Stages\StagePieces\OffScreenExplode.h" />
+    <ClInclude Include="SmashBros\Game\Stages\StagePieces\Platform.h" />
+    <ClInclude Include="SmashBros\Game\WinnerScreen.h" />
+    <ClInclude Include="SmashBros\Global.h" />
+    <ClInclude Include="SmashBros\HitBox.h" />
+    <ClInclude Include="SmashBros\HUD.h" />
+    <ClInclude Include="SmashBros\Item.h" />
+    <ClInclude Include="SmashBros\ItemManager.h" />
+    <ClInclude Include="SmashBros\Loader.h" />
+    <ClInclude Include="SmashBros\Magnifier.h" />
+    <ClInclude Include="SmashBros\Menus\CharSelectScreen.h" />
+    <ClInclude Include="SmashBros\Menus\MenuClasses.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\ActorGrid.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\Arrows.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\MenuBar.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\MenuBarSmall.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\MenuBarSmallButton.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\MenuBarToggle.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\MenuBarValue.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\ToggleButton.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\ToggleButtons.h" />
+    <ClInclude Include="SmashBros\Menus\MenuPieces\TogglePane.h" />
+    <ClInclude Include="SmashBros\Menus\Menus.h" />
+    <ClInclude Include="SmashBros\Menus\StageSelectScreen.h" />
+    <ClInclude Include="SmashBros\Player.h" />
+    <ClInclude Include="SmashBros\Preferences.h" />
+    <ClInclude Include="SmashBros\Projectile.h" />
+    <ClInclude Include="SmashBros\ProjectileManager.h" />
+    <ClInclude Include="SmashBros\Script\ScriptedCharacter.h" />
+    <ClInclude Include="SmashBros\Script\ScriptModuleData.h" />
+    <ClInclude Include="SmashBros\Stage.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2D00558F-DA68-4F5D-9802-B90CF486B052}</ProjectGuid>
+    <RootNamespace>SFMLProject</RootNamespace>
+    <ProjectName>SmashBros</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>SFML\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>SFML\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;_MBCS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
