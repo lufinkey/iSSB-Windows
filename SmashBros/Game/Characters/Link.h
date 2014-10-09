@@ -97,6 +97,7 @@ namespace SmashBros
 		virtual void onAnimationFinish(const String&n);
 		virtual void jump();
 		virtual void onPlayerHit(Player*collide, byte dir);
+		virtual void finishPlayerRectHit(Player*collide);
 		virtual void onGroundCollide();
 
 		virtual void onFinishCharge();

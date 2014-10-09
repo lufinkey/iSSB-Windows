@@ -107,6 +107,10 @@ namespace SmashBros
 		addTwoSidedAnimation("special_finish_up_grounded", "special_finish_up_grounded.png", 6, 2, 1);
 		addTwoSidedAnimation("special_prep_down", "special_prep_down.png", 14, 6, 1);
 		addTwoSidedAnimation("special_attack_down", "special_attack_down.png", 16, 8, 1);
+		addTwoSidedAnimation("smash_charge", "smash_charge.png", 1,1,1);
+		addTwoSidedAnimation("smash_attack", "smash_attack.png", 12, 4, 1);
+		addTwoSidedAnimation("smash_attack_up", "smash_attack_up.png", 14, 5, 1);
+		addTwoSidedAnimation("smash_attack_down", "smash_attack_down.png", 16, 6, 1);
 
 		ArrayList<int> upSpecialSeq;
 		for(int i=0; i<3; i++)
@@ -292,7 +296,7 @@ namespace SmashBros
 					collide->x += getPlayerDirMult()*1;
 					causeHurt(collide, getOppPlayerDir(), 100);
 					break;
-			 
+					
 					case 1:
 					//A 2
 					causeDamage(collide,3);
@@ -301,7 +305,7 @@ namespace SmashBros
 					causeHurt(collide, getPlayerDir(), 100);
 					hitAmount++;
 					break;
-			 
+					
 					case 2:
 					//A 3
 					causeDamage(collide,5);
@@ -309,59 +313,128 @@ namespace SmashBros
 					causeHurt(collide, getOppPlayerDir(), 200);
 					hitAmount++;
 					break;
+
+					case 11:
+					//Smash Side
+					causeDamage(collide, smashPower);
+					causeHurtLaunch(collide, (int)getPlayerDirMult(),((float)smashPower/5),3.6f, -1,((float)smashPower/5.6f),3.1f);
+					causeHurt(collide, getOppPlayerDir(), 400);
+					break;
+
+					case 12:
+					//Smash Up
+					if(getPlayerDir()==getRelPlayerDir(collide))
+					{
+						causeDamage(collide, smashPower);
+						causeHurtLaunch(collide, (int)getPlayerDirMult(),0.2f,2.4f, -1,((float)smashPower/5),3.8f);
+						causeHurt(collide, getOppPlayerDir(), 300);
+					}
+					break;
+
+					case 13:
+					//Smash Down
+					causeDamage(collide, smashPower);
+					causeHurtLaunch(collide, (int)getPlayerDirMult(),0.4f,2.4f, -1,((float)smashPower/5),3.6f);
+					causeHurt(collide, getOppPlayerDir(), 500);
+					break;
 				}
-			}
-			switch(attacksHolder)
-			{
-				case 10:
-				//TODO add damage for special attack up
-				break;
 			}
 			break;
 			
 			case DIR_UP:
 			{
-				/*switch(attacksHolder)
+				case 11:
+				//Smash Side
+				if(getPlayerDir()==getRelPlayerDir(collide))
 				{
-					//
-				}*/
+					causeDamage(collide, smashPower);
+					causeHurtLaunch(collide, (int)getPlayerDirMult(),((float)smashPower/5.4f),3.3f, -1,((float)smashPower/5),3.1f);
+					causeHurt(collide, getOppPlayerDir(), 400);
+				}
+				break;
+
+				case 12:
+				//Smash Up
+				causeDamage(collide, smashPower);
+				causeHurtLaunch(collide, (int)getPlayerDirMult(),1,2.4f, -1,((float)smashPower/5),4.1f);
+				causeHurt(collide, getOppPlayerDir(), 500);
+				break;
 			}
 			break;
 			
 			case DIR_DOWN:
 			{
-				/*switch(attacksHolder)
-				{
-					//
-				}*/
+				case 18:
+				//Smash Down
+				causeDamage(collide, smashPower);
+				causeHurtLaunch(collide, (int)getPlayerDirMult(),0,0, 1,((float)smashPower/5),3.4f);
+				causeHurt(collide, getOppPlayerDir(), 600);
+				break;
 			}
 			break;
 		}
 
-		if (attacksHolder == 10)
+		if(attacksHolder==10)
 		{
-			switch (hitAmount)
+			if(isOnGround())
 			{
-				case 0:
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-				case 5:
-				causeDamage(collide, 2);
-				collide->y = y - ((height/2) + (10*Scale));
-				collide->yvelocity -= 2;
-				hitAmount += 1;
-				causeHurt(collide, collide->getRelPlayerDir(this), 100);
-				break;
-
-				case 6:
-				causeDamage(collide, 2);
-				hitAmount += 1;
-				causeHurtLaunch(collide, 0, 0, 0, -1, 2.8f, 3.3f);
-				causeHurt(collide, collide->getPlayerDir(), 300);
-				break;
+				causeDamage(collide, 4);
+				causeHurtLaunch(collide, (int)getPlayerDirMult(getRelPlayerDir(collide)),4.1f, 3.3f, -1, 1.6f,1.2f);
+				causeHurt(collide, collide->getRelPlayerDir(this), 300);
 			}
+			else
+			{
+				switch(hitAmount)
+				{
+					case 0:
+					case 1:
+					case 2:
+					causeDamage(collide, 2);
+					collide->y = y - ((height/2) + (12*Scale));
+					collide->yvelocity -= 2;
+					hitAmount += 1;
+					causeHurt(collide, collide->getRelPlayerDir(this), 100);
+					break;
+
+					case 3:
+					{
+						double dist = distance(x,y,collide->x,collide->y);
+						float xDif = collide->x - x;
+
+						int multX = 1;
+						if(collide->x<x)
+						{
+							multX = -1;
+						}
+
+						causeDamage(collide, 4);
+						hitAmount += 1;
+						causeHurtLaunch(collide, multX,(float)std::abs(xDif/dist)*1.6f,3.3f, -1, 2.6f, 3.1f);
+						causeHurt(collide, collide->getPlayerDir(), 300);
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	void Link::finishPlayerRectHit(Player*collide)
+	{
+		if(attacksHolder==10 && hitAmount<3 && hitAmount>0 && collide->isHurt() && !isOnGround())
+		{
+			Console::WriteLine((String)"finishing hit " + hitAmount);
+			double dist = distance(x,y,collide->x,collide->y);
+			float xDif = collide->x - x;
+
+			int multX = 1;
+			if(collide->x<x)
+			{
+				multX = -1;
+			}
+
+			causeDamage(collide, 4);
+			causeHurtLaunch(collide, multX,(float)std::abs(xDif/dist)*1.6f,3.3f, -1, 2.6f, 3.1f);
+			causeHurt(collide, collide->getPlayerDir(), 300);
 		}
 	}
 
@@ -532,6 +605,7 @@ namespace SmashBros
 		if(!bUp)
 		{
 			//10
+			hitAmount = 0;
 			attacksHolder = 10;
 			attacksPriority = 3.1f;
 			if(isOnGround())
@@ -569,7 +643,7 @@ namespace SmashBros
 		{
 			if(isOnGround())
 			{
-				//side smash
+				AttackTemplates::normalSmash(this, 11, 2.63, type, AttackTemplates::SMASH_SIDE, 1800, 12, 20);
 			}
 			else
 			{
@@ -584,7 +658,7 @@ namespace SmashBros
 		{
 			if(isOnGround())
 			{
-				//up smash
+				AttackTemplates::normalSmash(this, 12, 2.73, type, AttackTemplates::SMASH_UP, 1600, 11, 18);
 			}
 			else
 			{
@@ -599,7 +673,7 @@ namespace SmashBros
 		{
 			if(isOnGround())
 			{
-				//down smash
+				AttackTemplates::normalSmash(this, 13, 2.83, type, AttackTemplates::SMASH_DOWN, 1700, 12, 19);
 			}
 			else
 			{
