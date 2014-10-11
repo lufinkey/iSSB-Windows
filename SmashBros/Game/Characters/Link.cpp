@@ -5,6 +5,9 @@
 
 namespace SmashBros
 {
+	const float Link::finalsmashOffsetX = 16;
+	const float Link::finalsmashOffsetY = 0;
+
 	Link::Link(float x1, float y1, byte playerNo, byte team) : Player(x1, y1, playerNo, team)
 	{
 		walkSpeed = 1.5f;
@@ -16,6 +19,7 @@ namespace SmashBros
 		
 		prepping = false;
 		finishing = false;
+		finalsmash_snatching = false;
 		charging = 0;
 		
 		weight = 0.09;
@@ -111,6 +115,7 @@ namespace SmashBros
 		addTwoSidedAnimation("smash_attack", "smash_attack.png", 12, 4, 1);
 		addTwoSidedAnimation("smash_attack_up", "smash_attack_up.png", 14, 5, 1);
 		addTwoSidedAnimation("smash_attack_down", "smash_attack_down.png", 16, 6, 1);
+		addTwoSidedAnimation("finalsmash_firststrike", "finalsmash_firststrike.png", 12, 6, 1);
 
 		ArrayList<int> upSpecialSeq;
 		for(int i=0; i<3; i++)
@@ -147,6 +152,42 @@ namespace SmashBros
 		anim->addFrame(folderPath + "special_attack_up_grounded.png");
 		anim->mirror(true);
 		addAnimation(anim);
+
+		anim = new Animation("finalsmash_left", 20);
+		int finalsmashSeqArr[27] = {1,2,3,4,5,6,1,2,3,7,8,1,2,3,9,10,9,11,9,12,9,7,8,13,14,14,14};
+		for(int i=0; i<27; i++)
+		{
+			String framename = (String)"finalsmash_pose" + finalsmashSeqArr[i] + ".png";
+			anim->addFrame(framename);
+		}
+		addAnimation(anim);
+
+		anim = new Animation("finalsmash_right", 20);
+		for(int i=0; i<27; i++)
+		{
+			String framename = (String)"finalsmash_pose" + finalsmashSeqArr[i] + ".png";
+			anim->addFrame(framename);
+		}
+		anim->mirror(true);
+		addAnimation(anim);
+
+		anim = new Animation("finalsmash_finish_left", 20);
+		int finalsmashFinishSeqArr[6] = {15,16,17,18,19,20};
+		for(int i=0; i<6; i++)
+		{
+			String framename = (String)"finalsmash_pose" + finalsmashFinishSeqArr[i] + ".png";
+			anim->addFrame(framename);
+		}
+		addAnimation(anim);
+
+		anim = new Animation("finalsmash_finish_right", 20);
+		for(int i=0; i<6; i++)
+		{
+			String framename = (String)"finalsmash_pose" + finalsmashFinishSeqArr[i] + ".png";
+			anim->addFrame(framename);
+		}
+		anim->mirror(true);
+		addAnimation(anim);
 	}
 	
 	void Link::LoadAttackTypes()
@@ -161,6 +202,7 @@ namespace SmashBros
 	
 	void Link::Update(long gameTime)
 	{
+
 		if(isOnGround() && attacksHolder==9)
 		{
 			animFinish();
@@ -169,8 +211,19 @@ namespace SmashBros
 			changeTwoSidedAnimation("air_finish_down_grounded", FORWARD);
 		}
 
+		if(attacksPriority==7)
+		{
+			yvelocity = 0;
+			xvelocity = 0;
+			xVel = 0;
+			yVel = 0;
+		}
+
 		Player::Update(gameTime);
-		updateGravity();
+		if(attacksPriority!=7)
+		{
+			updateGravity();
+		}
 		updateFrame();
 		
 		updateMovement();
@@ -184,6 +237,11 @@ namespace SmashBros
 			{
 				x += 0.8f;
 			}
+		}
+		else if(attacksPriority==7)
+		{
+			attacksHolder = 14;
+
 		}
 		
 		updateHanging();
@@ -414,6 +472,28 @@ namespace SmashBros
 					}
 					break;
 				}
+			}
+		}
+		else if(attacksHolder==14)
+		{
+			if(finalsmash_snatching)
+			{
+				bool hasVictim = false;
+				for(int i=0; i<finalsmashVictims.size(); i++)
+				{
+					if(collide==finalsmashVictims.get(i))
+					{
+						hasVictim = true;
+						i = finalsmashVictims.size();
+					}
+				}
+
+				if(!hasVictim)
+				{
+					finalsmashVictims.add(collide);
+				}
+
+				causeDamage(collide, 4);
 			}
 		}
 	}
@@ -684,7 +764,11 @@ namespace SmashBros
 	
 	void Link::attackFinalSmash()
 	{
-		//final smash
+		finalsmash_snatching = true;
+		lastFinalsmashFrame = 0;
+		finalsmashVictims.clear();
+		AttackTemplates::finalSmash(this, 14);
+		changeTwoSidedAnimation("finalsmash_firststrike", FORWARD);
 	}
 
 	Link::Arrow::Arrow(byte playerNo, float x1, float y1, float power) : Projectile(playerNo, x1, y1)

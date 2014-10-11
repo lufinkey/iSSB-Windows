@@ -79,9 +79,15 @@ namespace SmashBros
 			void explode();
 		};
 
+		static const float finalsmashOffsetX;
+		static const float finalsmashOffsetY;
+
 		bool prepping;
 		bool finishing;
 		byte charging;
+		bool finalsmash_snatching;
+		int lastFinalsmashFrame;
+		ArrayList<Player*> finalsmashVictims;
 
 	public:
 		Link(float x1, float y1, byte playerNo, byte team);

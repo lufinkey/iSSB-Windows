@@ -1536,7 +1536,7 @@ namespace SmashBros
 		Animation*anim = new Animation("bounce", 20, 5, 1);
 		anim->addFrame("Images/Game/Characters/Sonic/spring_bounce.png");
 		addAnimation(anim);
-			
+		
 		changeAnimation("normal",FORWARD);
 
 		owner = (Sonic*)Global::getPlayerActor(playerNo);
@@ -1601,19 +1601,19 @@ namespace SmashBros
 		switch(dir)
 		{
 			case DIR_UP:
-			yvelocity*=0;
+			yvelocity=0;
 			break;
 				
 			case DIR_DOWN:
-			yvelocity*=0;
+			yvelocity=0;
 			break;
 				
 			case DIR_LEFT:
-			xvelocity*=0;
+			xvelocity=0;
 			break;
 				
 			case DIR_RIGHT:
-			xvelocity*=0;
+			xvelocity=0;
 			break;
 		}
 	}
