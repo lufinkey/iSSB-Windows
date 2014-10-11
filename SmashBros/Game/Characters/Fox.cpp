@@ -1039,11 +1039,7 @@ namespace SmashBros
 	
 	void Fox::Landmaster::onAnimationFinish(const String&n)
 	{
-		if(n.equals("hover_left") || n.equals("hover_right"))
-		{
-			idle();
-		}
-		else if(n.equals("shoot_left") || n.equals("shoot_right"))
+		if(n.equals("shoot_left") || n.equals("shoot_right"))
 		{
 			Player*owner = Global::getPlayerActor(getPlayerNo());
 			switch(attack)
