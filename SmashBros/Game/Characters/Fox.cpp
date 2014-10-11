@@ -978,7 +978,7 @@ namespace SmashBros
 			break;
 		}
 		x = owner->x;
-		y = owner->y + 30;
+		y = owner->y + (30*Scale);
 	}
 
 	void Fox::LandmasterHoverBlast::onAnimationFinish(const String&name)
@@ -1080,7 +1080,7 @@ namespace SmashBros
 					break;
 				}
 				yvelocity -= 5;
-				LandmasterHoverBlast* hoverBlast = new LandmasterHoverBlast(getPlayerNo(), x, y+30);
+				LandmasterHoverBlast* hoverBlast = new LandmasterHoverBlast(getPlayerNo(), x, y+(30*Scale));
 				hoverBlast->Scale = Scale;
 				createProjectile(hoverBlast);
 			}
