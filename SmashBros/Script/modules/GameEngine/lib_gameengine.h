@@ -5,8 +5,9 @@
 #include "../../../../GameEngine/GameEngine.h"
 #include <chaiscript/chaiscript.hpp>
 
-chaiscript::ModulePtr load_module_GameEngine_types();
+CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_GameEngine();
 
+chaiscript::ModulePtr load_module_GameEngine_types();
 chaiscript::ModulePtr load_module_GameEngine_actor();
 chaiscript::ModulePtr load_module_GameEngine_global();
 chaiscript::ModulePtr load_module_GameEngine_graphics();

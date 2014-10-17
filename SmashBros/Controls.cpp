@@ -216,7 +216,7 @@ namespace SmashBros
 		switch(type)
 		{
 			case DOWN:
-			playr->smashTime=Global::worldTime+100;
+			playr->smashTime=Global::worldTime+200;
 			playr->buttondir=1;
 			playr->checkAttacks();
 			playr->upKey=true;
@@ -275,7 +275,7 @@ namespace SmashBros
 			case DOWN:
 			playr->buttondir=3;
 			playr->checkAttacks();
-			playr->smashTime=Global::worldTime+100;
+			playr->smashTime=Global::worldTime+200;
 			playr->moveDown();
 			break;
 	 
@@ -325,7 +325,7 @@ namespace SmashBros
 		{
 			case DOWN:
 			playr->buttondir=4;
-			playr->smashTime=Global::worldTime+100;
+			playr->smashTime=Global::worldTime+200;
 			if((Global::worldTime<=playr->runTime && playr->isOnGround())||(playr->moveRight==2))
 			{
 				playr->moveLeft=2;
@@ -335,7 +335,7 @@ namespace SmashBros
 				playr->moveLeft=1;
 				if(playr->isOnGround())
 				{
-					playr->runTime=Global::worldTime+100;
+					playr->runTime=Global::worldTime+300;
 				}
 			}
 			if(playr->hanging)
@@ -416,7 +416,7 @@ namespace SmashBros
 				playr->moveRight=1;
 				if(playr->isOnGround())
 				{
-					playr->runTime=Global::worldTime+100;
+					playr->runTime=Global::worldTime+300;
 				}
 			}
 			if(playr->hanging)

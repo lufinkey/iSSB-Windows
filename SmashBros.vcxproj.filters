@@ -414,6 +414,9 @@
     <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_math.cpp">
       <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_gameengine.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine\Actor\Actor.h">

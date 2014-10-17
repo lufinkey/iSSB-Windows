@@ -237,6 +237,7 @@
     <ClCompile Include="SmashBros\Preferences.cpp" />
     <ClCompile Include="SmashBros\Projectile.cpp" />
     <ClCompile Include="SmashBros\ProjectileManager.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_gameengine.cpp" />
     <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_actor.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

@@ -4,6 +4,7 @@
 #include "SmashBros/Controls.h"
 #include "SmashBros/Menus/Menus.h"
 #include "SmashBros/Game/GameScreen.h"
+#include "SmashBros/Script/ScriptManager.h"
 
 namespace SmashBros
 {
@@ -49,6 +50,8 @@ namespace SmashBros
 		Menus::loadMenus();
 		ScreenManager::Add(new GameScreen("Game"));
 		ScreenManager::GoToScreen("TitleScreen");
+
+		ScriptManager::loadModules();
 	}
 
 	void Game::UnloadContent()

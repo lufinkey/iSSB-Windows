@@ -1,0 +1,850 @@
+/*
+def constructor()
+{
+	walkSpeed = 3; //normal walking speed
+	runSpeed = 4; //normal running speed
+	fallWalk = 2; //"walking" speed when you're in the air
+	fallRun = 2; //"running" speed when you're in the air
+	
+	//character's weight
+	weight = 0.1;
+	
+	//x and y offset when the character is hanging from a platform
+	//setHangPoint(5, 20);
+	
+	//character's hitbox. first 2 arguments are the offset from the center of the character, second 2 are the width and height
+	setHitbox(-10, -9, 20, 28);
+}
+*/
+/*
+def destructor()
+{
+	//destructor. called when the game ends and this Player object is disposed. Probably won't need to put anything in here
+}
+*/
+/*
+def onCreate()
+{
+	//event called when the character is created on the map
+}
+*/
+/*
+def Load()
+{
+	//called to load the character animations
+	
+	//sets the folder path for the character's animation files
+	setFolderPath("Images/Game/Characters/Kirby/");
+	
+	//function called to add an animation. arguments are:
+	//1: name: the name of the animation. Adds 2 animations with _left and _right suffixes (stand_left and stand_right)
+		//you can call changeTwoSidedAnimation("stand", FORWARD); to change the animation to stand
+		//you could also call changeAnimation("stand_left", FORWARD); or changeAnimation("stand_right", FORWARD);
+		//the FORWARD argument just states what direction the animation is playing
+	//2: fileName: file name of the animation
+	//3: fps: frames per second for the animation
+	//4: verticalFrames: total vertical frames of the animation
+	//5: horizontalFrames: total horizontal frames of the animation
+	addTwoSidedAnimation("stand", "stand.png", 10, 9, 1);
+	addTwoSidedAnimation("walk", "walk.png", 10, 4, 1);
+	addTwoSidedAnimation("run", "run.png", 15, 8, 1);
+	addTwoSidedAnimation("jump", "jump.png", 10, 6, 1);
+	//etc...
+}
+*/
+/*
+def LoadAttackTypes()
+{
+	//called to specify the type of attacks each attack is. Used for the AI
+	
+	//function called to add an attack type. arguments are:
+	//1: attackName: the actual attack being specified. Can be ATTACK_A, ATTACK_SIDEA, ATTACK_UPA, ATTACK_DOWNA, ATTACK_B, etc...
+	//2: attackType: the type of attack it is. Can be ATTACKTYPE_MELEE, ATTACKTYPE_UPMELEE, ATTACKTYPE_PROJECTILE, etc...
+	//3: attackProbability: the probability that the attack will be called for the character. The higher the number, the greater the probability.
+		//you should probably keep the probability numbers under 6, for balance purposes
+	addAIAttackType(ATTACK_A,		 ATTACKTYPE_MELEE, 6);
+	addAIAttackType(ATTACK_SIDEA,	 ATTACKTYPE_MELEE, 3);
+	addAIAttackType(ATTACK_UPA,	   ATTACKTYPE_UPMELEE, 1);
+	addAIAttackType(ATTACK_DOWNA,	 ATTACKTYPE_DOWNMELEE, 1);
+	addAIAttackType(ATTACK_DOWNA,	 ATTACKTYPE_MELEE, 1);
+	addAIAttackType(ATTACK_B,		 ATTACKTYPE_PROJECTILE, 1);
+	addAIAttackType(ATTACK_SIDEB,	 ATTACKTYPE_MELEE, 1);
+	addAIAttackType(ATTACK_SIDEB,	 ATTACKTYPE_DEFENSIVE, 1);
+	//etc...
+}
+*/
+/*
+def onAnimationFinish(const String&name)
+{
+	//event called when an animation finishes its cycle
+	
+	//use name.equals("animation_name") to check what the animation is that just finished.
+	//you can check it for any animation. I'm just using special_attack as an example
+	if(name.equals("special_attack_left") || name.equals("special_attack_right"))
+	{
+		//do something (or remove this if/else block if you don't need anything for special_attack finishing
+		
+		//you can change the animation to something else.
+			//For example if you divided up the special attack into seperate animations,
+			// then you can make one animation change after the other finishes
+		changeTwoSidedAnimation("special_finish", FORWARD);
+	}
+	else
+	{
+		//always call the parent class's onAnimationFinish event if you aren't going to make changes to the character's animation
+		//this can also be called to re-enable character's movement if it's disabled (because he was attacking or something like that)
+		Player::onAnimationFinish(name);
+	}
+}
+*/
+/*
+def setToDefaultValues()
+{
+	//usually called inside of Player::onAnimationFinish(String) or if you respawn or die.
+	
+	//if you have any variables that the player uses, that should be reset to a certain value when
+	// the player finishes attacking or doing something, or after he respawns, you can make it
+	// set its default value here
+	
+	//example:
+	//charging_attackB = false;
+	
+	//(charging_attackB isn't an actual variable. This is just an example. You can give the character
+	// its own variables and name them whatever you want
+}
+*/
+/*
+def checkIfAble()
+{
+	//called to check if you want something to restrict the character's ability to move or
+	// perform attacks. For example if you're performing an attack and you haven't set attacksHolder
+	// or attacksPriority, you can have something else that checks if you're doing that attack and
+	// returns false to prevent the user from moving the character around while he's doing that attack.
+	
+	//return true to allow the character to move, return false to prevent him from being able to move
+	return true;
+	
+	//note: just because you return true in this function doesn't always mean the character
+	// will always be able to move no matter what its doing. There are other checks that restrict
+	// the character's movement. This is just if you want to make a specific condition when the player
+	// cannot move. If you want to check if the player is actually able to move somewhere in your code,
+	// call CanDo() and it will return true or false. Don't call it inside of this function, however, because
+	// this function gets called inside of CanDo()
+}
+*/
+/*
+def onDestroy()
+{
+	//event called when the character is destroyed (as in, he is hit out of the map by another character)
+}
+*/
+/*
+def jump()
+{
+	//function called to make the character jump.
+	
+	//you should call the other jump function to perform a regular jump.
+	// the first argument is the velocity of the first jump from the ground.
+	// the second argument is the velocity of the "double" jump in the air.
+	jump(5.1f, 4.9f);
+	
+	//if you have a character that performs multiple double jumps, you can set the doubleJump variable to a
+	// specific value if the character is on the ground, and then adjust the second argument of jump(float,float)
+	// depending on the value of doubleJump.
+}
+*/
+/*
+def Update(long gameTime)
+{
+	//event called every frame.
+	//If you want to edit some variable every frame, or do something every frame, or check something every frame, do it here.
+	
+	//always call the parent class's Update function, or it may cause issues.
+	Player::Update(gameTime);
+	
+	updateGravity();//updates the downward movement of the character from gravity
+	updateFrame();//updates any special overlay colors and such on the Player.
+	
+	updateMovement();//updates the movement of the character (as in walking left and right)
+	
+	updateHanging();//updates the "hanging" state of the character (if he's hanging on a ledge)
+	updateHurt(); //updates the hurt delay of the character if he's been hit and is in a "hurt" state
+	updateDrop(); //updates the character dropping through a platform (if he's dropping through a platform)
+	
+	updateAI(); //updates the AI actions of the character
+}
+*/
+/*
+def Draw(Graphics2D&g, long gameTime)
+{
+	//event called when the character is drawn on the screen.
+	
+	//always call the parent class's Draw function, or the character will not be drawn on the screen
+	Player::Draw(g, gameTime);
+	
+	//IMPORTANT NOTE: ONLY override this if you're putting custom drawing logic in (such as if you have some sprite you
+	// want to draw on top of the character or something. Do NOT put game logic in here. It may work, but that does not
+	// mean you should do it, because Draw is still called even if the game is paused.
+}
+*/
+/*
+def onPlatformCollide(Platform*collide, byte dir)
+{
+	//event called when the character collides against a platform side
+		//the dir argument specifies which side the character collided on the platform.
+		// for example: if dir equals DIR_UP, that means that the character has collided on the top side
+		// of the platform. DIR_LEFT means that the character has collided on the left side of the platform,
+		// DIR_DOWN means its collided on the bottom side of the platform, and DIR_RIGHT means its collided
+		// on the right side of the platform.
+	
+	//always call the parent class's onPlatformCollide function, unless you want to add special behavior when
+	// the character collides on a certain side of the platform
+	Player::onPlatformCollide(collide, dir);
+}
+*/
+/*
+def finishPlatformCollide(Platform*collide, byte dir)
+{
+	//event called when the character finishes colliding against a platform side
+		//the dir argument specifies which side the character was colliding against on the platform.
+		// for example: if dir equals DIR_UP, that means that the character was colliding on the top side
+		// of the platform. DIR_LEFT means that the character was colliding on the left side of the platform,
+		// DIR_DOWN means it was colliding on the bottom side of the platform, and DIR_RIGHT means it was
+		// colliding on the right side of the platform.
+	
+	//always call the parent class's finishPlatformCollide function, unless you want to add special behavior when
+	// the character finishes colliding on a certain side of the platform
+	Player::finishPlatformCollide(collide, dir);
+}
+*/
+/*
+def onGroundCollide()
+{
+	//event called when the character lands on some sort of ground.
+	// (usually also called when onPlatformCollide is called for DIR_UP)
+	
+	//always call the parent class's onGroundCollide function, unless you want to add special behavior when
+	// the character lands on the ground.
+	Player::onGroundCollide();
+}
+*/
+/*
+def whilePlayerColliding(Player*collide, byte dir)
+{
+	//event called while the character is colliding with another character.
+}
+*/
+/*
+def onPlayerHit(Player*collide, byte dir)
+{
+	//event called when your character is performing an attack and hits another character
+	
+	//you can check what attack was being performed by checking the value you assigned to
+	// attacksHolder. You can also check what side you hit the other character by checking
+	// the dir argument's value. If dir equals DIR_LEFT, you hit the character on your left
+	// side. If dir equals DIR_UP, you hit the character on your top side.
+	
+	//add custom actions here for when you hit a character during an attack. (such as sending him
+	// flying or giving him damage)
+	
+	//you don't need to include this switch block unless you want to do actually something when you hit another character
+	switch(dir)
+	{
+		case DIR_LEFT
+		case DIR_RIGHT:
+		//when you hit the character on your left or right side
+		
+		//compareDirPlayerDir checks if the colliding character is on the same side of you that your character is currently facing.
+			//you don't need to add this unless you want to have an attack that only hits on the direction the player
+			// is facing.
+			//getPlayerDir function returns either LEFT or RIGHT.
+			//compareDirPlayerDir function can return:
+				//CMPDIRPDIR_EQUAL: if the dir argument is the same as the playerdir that the character is facing
+				//CMPDIRPDIR_OPP: if the dir argument is the opposite of the playerdir that the character is facing
+				//CMPDIRPDIR_INVALID: if the dir argument is not DIR_LEFT or DIR_RIGHT, or the playerdir arument is not LEFT or RIGHT
+		if(compareDirPlayerDir(dir, getPlayerDir())==CMPDIRPDIR_EQUAL)
+		{
+			switch(attacksHolder)
+			{
+				case 0:
+				//when the attack's id is zero (whichever attack or attacks you identified as attack 0)
+				
+				//causeDamage causes whatever specified percent damage to the character you're hitting
+				causeDamage(collide,5); //< this attack in particular causes 5% damage
+				
+				//causeHurtLaunch sends the other character flying with the values specifed. The arguments are:
+					//1. collide: the other character being hit.
+					//2. xDir - can be either 1 or -1. The direction of the x knockback of the enemy. 1 for right, -1 for left
+						//you usually want to use (int)getPlayerDirMult() so you don't have to make separate switch blocks for
+						// DIR_LEFT and DIR_RIGHT.
+						//getPlayerDirMult() returns a float that is either -1 if your character is facing LEFT, or 1 if your character is facing RIGHT
+					//3. xAmount - the x velocity of the knockback.
+					//4. xMult - the x multiplier for the knockback as the percentage grows.
+						//The formula I have for the multiplier is weird, so just look at other characters for reference on
+						// normal values for this
+					//5. yDir - same as xDir, except in terms of y. -1 is up, 1 is down
+					//6. yAmount - the y velocity of the knockback
+					//7. yMult - the y multiplier for the knockback as the percentage grows.
+				causeHurtLaunch(collide, (int)getPlayerDirMult(),3,2.4f),  -1,3.1f,2.6f);
+				
+				//causeHurt sets the hurt animation of the other character, and makes him unable to move for a certain amount of time.
+				// arguments are:
+					//1. collide: the other character being hit.
+					//2. playerdir: the direction you want the other character to face.
+						//You usually want to make the other character facing you when he goes flying, so use
+						// getOppPlayerDir() to get the opposite playerdir of yourself (ex: if you're facing LEFT, it returns RIGHT)
+					//3. delayTime: prevents the other character's movement for a certain amount of milliseconds. Basically "stuns" the other character.
+				causeHurt(collide, getOppPlayerDir(), 300);
+}
+*/
+/*
+def whilePlayerHitting(Player*collide, byte dir)
+{
+	//event called while your character is hitting another character during an attack (if you hit him for more than
+	// 1 frame)
+	
+	//you can check what attack was being performed by checking the value you assigned to
+	// attacksHolder. You can also check what side you hit the other character by checking
+	// the dir argument's value. If dir equals DIR_LEFT, you hit the character on your left
+	// side. If dir equals DIR_UP, you hit the character on your top side.
+}
+*/
+/*
+def finishPlayerHit(Player*collide)
+{
+	//event called when you finish hitting another character. (ie. the character is knocked away, or you finish the attack)
+}
+*/
+/*
+def onPlayerRectHit(Player*collide, byte dir)
+{
+	//event called when your character is performing an attack your bounding box hits another character
+	
+	//see onPlayerHit for reference about the arguments and what you should do within this function
+}
+*/
+/*
+def whilePlayerRectHitting(Player*collide, byte dir)
+{
+	//event called while your character's bounding box is hitting another character during an attack
+	// (if you hit him for more than 1 frame)
+	
+	//see whilePlayerHitting for reference about the arguments and what you should do within this function
+}
+*/
+/*
+def finishPlayerRectHit(Player*collide)
+{
+	//event called when your character's bounding box finishes hitting another character.
+	// (ie. the character is knocked away, or you finish the attack)
+}
+*/
+/*
+def onDeflectPlayerDamage(Player*collide, int damage)
+{
+	//event called to check if your character should deflect damage issued by another character.
+	
+	//if you are deflecting damage, you should call causeDamage(collide, damage); and return true.
+	// otherwise, return false.
+	return false;
+}
+*/
+/*
+def onDeflectPlayerLaunch(Player*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
+{
+	//event called if you return true in the onDeflectPlayerDamage function
+	
+	//The values passed in are the same values that the other character was going to use on your
+	// character through the causeHurtLaunch function.
+	
+	//if you want to reflect the other character's causeHurtLaunch to the other character, you
+	// should call causeHurtLaunch(collide, -xDir,xAmount,xMult, yDir,yAmount,yMult); to send the
+	// other character flying in the opposite direction.
+	
+	//since you already returned true inside onDeflectPlayerDamage, you won't have any consequences if
+	// you don't do anything inside this function (such as being sent flying).
+}
+*/
+/*
+def onDeflectItemCollision(Item*collide, byte dir)
+{
+	//event called to check if your character should deflect an item being thrown at it.
+	
+	//if you want to deflect the Item, call collide->deflect(dir); and return true.
+	// otherwise, return false.
+	return false;
+}
+*/
+/*
+def onDeflectItemDamage(Item*collide, int damage)
+{
+	//event called to check if your character should deflect damage inflicted on you by an
+	// item hitting you, such as a beamsword.
+	
+	//you can use collide->isHeld() to see if the item is being held by another character, and
+	// use causeDamage(collide->getPlayer(), damage) to inflict damage onto the other character
+	// holding it. Then return true.
+	// If you don't deflect the damage anything, return false.
+	return false;
+}
+*/
+/*
+def onDeflectItemLaunch(Item*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
+{
+	//event called if you returned true in the onDeflectItemDamage funtion.
+	
+	//The values passed in are the same values that the item was going to use on your
+	// character through the causeHurtLaunch function.
+	
+	//if you want to reflect the item's causeHurtLaunch to the other character holding the item, you
+	// should call causeHurtLaunch(collide->getPlayer(), -xDir,xAmount,xMult, yDir,yAmount,yMult);
+	// to send the other character flying in the opposite direction.
+	
+	//since you already returned true inside onDeflectItemDamage, you won't have any consequences if
+	// you don't do anything inside this function (such as being sent flying).
+}
+*/
+/*
+def onDeflectProjectileCollision(Projectile*collide, byte dir)
+{
+	//event called to check if your character should deflect a projectile being thrown at it.
+	
+	//if you want to deflect the Projectile, call collide->deflect(dir); and return true.
+	// otherwise, return false.
+	return false;
+}
+*/
+/*
+def onDeflectProjectileDamage(Projectile*collide, int damage)
+{
+	//event called to check if your character should deflect damage inflicted on you by a
+	// projectile hitting you, such as a fireball.
+	
+	//you can't call causeDamage on a projectile, and a projectile isn't being held by another character.
+	// (although it may be sent by another character). However, some characters may have a special attack
+	// that lets them absorb the damage inflicted on them. You also may just want to have a shield attack
+	// that prevents you from being hurt by projectiles, in which case you would return true.
+	//If you are deflecting the damage, return true. Otherwise, return false.
+	return false;
+}
+*/
+/*
+def onDeflectProjectileLaunch(Projectile*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
+{
+	//event called if you returned true in the onDeflectProjectileDamage funtion.
+	
+	//you can't call causeDamage on a projectile, and a projectile isn't being held by another character.
+	// (although it may be sent by another character). However, some characters may have a special attack
+	// that lets them absorb the damage inflicted on them. You also may just want to have a shield attack
+	// that prevents you from being hurt by projectiles.
+	
+	//since you already returned true inside onDeflectProjectileDamage, you won't have any consequences if
+	// you don't do anything inside this function (such as being sent flying).
+}
+*/
+/*
+def onFinishCharge()
+{
+	//event called if your character finishes charging an attack.
+	
+	//charging attacks are usually created inside of the character's attack functions (attackB(), attackUpB(), etc)
+	// using the AttackTemplates::chargeB function.
+	//note: this event is not called for the AttackTemplates::normalSmash function.
+}
+*/
+/*
+def doChargingAttack(byte button)
+{
+	//event called if your character releases the button on the controller being held to charge the attack.
+	
+	//the button argument can be one of the following values:
+		//BUTTON_UP: the up button.
+		//BUTTON_DOWN: the down button.
+		//BUTTON_LEFT: the left button.
+		//BUTTON_RIGHT: the right button.
+		//BUTTON_SPECIAL: the B button, also known as the special attack button.
+}
+*/
+/*
+def attackA()
+{
+	//function called to perform the character's A attack.
+	
+	//addAttackInfo adds attack info for attacks, so you don't need to override onPlayerHit for every attack.
+	// arguments for addAttackInfo are:
+		//1. dir - this is the side of the player that is hitting the enemy.
+			//So if you pass in DIR_UP, this is the info for when the enemy hits the top of 
+			// your character during that attack. If you pass in DIR_LEFT, its goes the left side,
+			// etc. You can do separate dir arguments for if the player is facing the left side or
+			// right side.
+		//2. attackNo - the number that identifies the attack.
+			//You assign a number to identify each attack (in the attacksHolder variable,
+			// usually assigned through an AttackTemplates function) and then use it here.
+		//3. playerdir - can be either LEFT or RIGHT.
+			//This is the direction your character is facing for the attack scenerio. So if
+			// you have DIR_LEFT passed in for the dir argument, and LEFT passed in for this
+			// argument, that means the player is facing the left side, and the enemy has hit
+			// on the left side.
+		//4. damage - the amount of damage caused by the attack.
+		//5. delayTime - the amount of time, in milliseconds, that the player is stunned by the attack.
+			//Try to keep this relatively low, for balance purposes. No more than 1000 milliseconds.
+			// Usually go with around 200 - 400 ish
+		//6. xDir - can be either 1 or -1. The direction of the x knockback of the enemy.
+			//1 for right, -1 for left
+		//7. xAmount - the x velocity of the knockback.
+		//8. xMult - the x multiplier for the knockback as the percentage grows.
+			//The formula I have for the multiplier is weird, so just look at other characters for reference
+			// on normal values this.
+		//9. yDir - same as xDir, except in terms of y. -1 is up, 1 is down
+		//10. yAmount - y velocity of the knockback.
+		//11. yMult - y multiplier for the knockback as the percentage grows.
+	addAttackInfo(DIR_LEFT, 6, LEFT, 10, 500, -1,1,1.5f, -1,1.1f,2.1f);
+	addAttackInfo(DIR_RIGHT,6,RIGHT, 10, 500,  1,1,1.5f, -1,1.1f,2.1f);
+	addAttackInfo(DIR_DOWN, 6, LEFT, 10, 400, 0,0,0, 1,3,2);
+	addAttackInfo(DIR_DOWN, 6,RIGHT, 10, 400, 0,0,0, 1,3,2);
+	
+	if(!checkItemUse())
+	//checks whether an item (being held) can be used or an item can be picked up instead of this attack
+	{
+		if(isOnGround())//checks if the character is on the ground
+		{
+			//AttackTemplates::combo3A performs a 3 part combo A attack. Arguments are:
+				//1. playr - the character performing this attack (you)
+				//2. attackNo1 - the attack number that you want to use to identify the first part of this combo
+					//attacksHolder will equal this value while the first part of this combo is being performed.
+				//3. attackPr1 - the priority you want to assign to the first part of this combo.
+					//attacksPriority will equal this value during the first part of this combo.
+				//4. attackNo2 - the attack number that you want to use to identify the second part of this combo
+					//attacksHolder will equal this value during the second part of this combo.
+				//5. attackPr2 - the priority you want to assign to the second part of this combo.
+					//attacksPriority will equal this value during the second part of this combo.
+				//6. attackNo3 - the attack number that you want to use to identify the third part of this combo
+					//attacksHolder will equal this value during the third part of this combo.
+				//7. attackPr3 - the priority you want to assign to the third part of this combo.
+					//attacksPriority will equal this value during the third part of this combo.
+			AttackTemplates::combo3A(this, 600, 0,1, 1,1, 2,1.8);
+		}
+		else//if the character is not on the ground
+		{
+			if(!bUp)//prevents you from performing this air attack if you've already done your Up B attack
+			{
+				//AttackTemplates::normalAirA performs a normal air A attack. Arguments are:
+					//1. playr - the character performing this attack (you).
+					//2. attackNo - the attack number used to identify this attack.
+						//attacksHolder will equal this value during the attack.
+					//3. attackPr - the priority of this attack.
+						//attacksPriority will equal this value during the attack.
+				AttackTemplates::normalAirA(this, 6,1.2);
+			}
+		}
+	}
+}
+*/
+/*
+def attackSideA()
+{
+	//function called to perform the character's Side A attack.
+	
+	//addAttackInfo adds attack info for attacks.
+		//see comments inside of attackSideA for a better description
+	addAttackInfo(DIR_LEFT, 3, LEFT, 8, 500, -1,2,2.6f, -1,1.5f,2.5f);
+	addAttackInfo(DIR_RIGHT,3,RIGHT, 8, 500,  1,2,2.6f, -1,1.5f,2.5f);
+	addAttackInfo(DIR_DOWN, 3, LEFT, 8, 500, -1,2,2.6f, -1,1.5f,2.5f);
+	addAttackInfo(DIR_DOWN, 3,RIGHT, 8, 500,  1,2,2.6f, -1,1.5f,2.5f);
+	addAttackInfo(DIR_LEFT, 7, LEFT, 10, 600, -1,2,2.9f, -1,0.5f,0);
+	addAttackInfo(DIR_RIGHT,7,RIGHT, 10, 600,  1,2,2.9f, -1,0.5f,0);
+	addAttackInfo(DIR_DOWN, 7, LEFT, 10, 400, 0,0,0, 1,6,6);
+	addAttackInfo(DIR_DOWN, 7,RIGHT, 10, 400, 0,0,0, 1,6,6);
+	
+	if(((moveLeft==2) || (moveRight==2)) && (isOnGround()))
+	//checks if the character is running left or right, and is on the ground
+	{
+		//AttackTemplates::normalDashA performs a normal dash attack. Arguments are:
+			//1. playr - the character performing this attack (you).
+			//2. attackNo - the attack number used to identify this attack.
+				//attacksHolder will equal this value during the attack.
+			//3. attackPr - the priority of this attack.
+				//attacksPriority will equal this value during the attack.
+			//4. speed - the speed of the dash attack.
+		AttackTemplates::normalDashA(this, 3,2.3, 5.0f);
+	}
+	else
+	{
+		if(!checkItemUseSide())
+		//checks if an item is being held and can be used instead of this attack
+		{
+			if(isOnGround())//checks if the character is on the ground
+			{
+				//AttackTemplates::normalSideA performs a normal Side A attack. Arguments are:
+					//1. playr - the character performing this attack (you).
+					//2. attackNo - the attack number used to identify this attack.
+						//attacksHolder will equal this value during the attack.
+					//3. attackPr - the priority of this attack.
+						//attacksPriority will equal this value during the attack.
+				AttackTemplates::normalSideA(this, 3,2.1);
+			}
+			else//if the character is not on the ground
+			{
+				if(!bUp)//prevents you from performing this air attack if you've already done your Up B attack
+				{
+					//AttackTemplates::normalAir SideA performs a normal Air Side A attack. Arguments are:
+						//1. playr - the character performing this attack (you).
+						//2. attackNo - the attack number used to identify this attack.
+							//attacksHolder will equal this value during the attack.
+						//3. attackPr - the priority of this attack.
+							//attacksPriority will equal this value during the attack.
+					AttackTemplates::normalAirSideA(this, 7,2.8);
+				}
+			}
+		}
+	}
+}
+*/
+/*
+def attackUpA()
+{
+	//function called to perform the character's Up A attack.
+	
+	//note: you can addAttackInfo here (see attackA or attackSideA for a better description)
+	
+	if(!checkItemUseUp())
+	//checks if an item is being held and can be used instead of this attack
+	{
+		if(isOnGround())//checks if the character is on the ground
+		{
+			//normal AttackTemplates attack function. (see attackA or attackSideA for a better description)
+			AttackTemplates::normalUpA(this, 4, 0.95);
+		}
+		else//if the character is not on the ground
+		{
+			if(!bUp)//prevents you from performing this air attack if you've already done your Up B attack
+			{
+				//normal AttackTemplates attack function. (see attackA or attackSideA for a better description)
+				AttackTemplates::normalAirUpA(this, 8,2.949);
+			}
+		}
+	}
+}
+*/
+/*
+def attackDownA()
+{
+	//function called to perform the character's Down A attack.
+	
+	//note: you can addAttackInfo here (see attackA or attackSideA for a better description)
+	
+	if(!checkItemUseDown())
+	//checks if an item is being held and can be used instead of this attack
+	{
+		if(isOnGround())//checks if the character is on the ground
+		{
+			//normal AttackTemplates attack function. (see attackA or attackSideA for a better description)
+			AttackTemplates::normalDownA(this, 5,2.85);
+		}
+		else//if the character is not on the ground
+		{
+			if(!bUp)//prevents you from performing this air attack if you've already done your Up B attack
+			{
+				//normal AttackTemplates attack function. (see attackA or attackSideA for a better description)
+				AttackTemplates::singleAirDownA(this, 9,3.12);
+			}
+		}
+	}
+}
+*/
+/*
+def attackB()
+{
+	//function called to perform the character's B attack
+	
+	//note: you can addAttackInfo here (see attackA or attackSideA for a better description)
+	
+	if(!bUp)//prevents you from performing this attack if you've already done your Up B attack
+	{
+		if(canFinalSmash())//checks if you have gotten the smash ball and are able to do your final smash
+		{
+			//performs your final smash attack
+			attackFinalSmash();
+		}
+		else//if you don't have the smash ball
+		{
+			//TODO do some sort of special attack here.
+		}
+	}
+}
+*/
+/*
+def attackSideB()
+{
+	//function called to perform the character's Side B attack
+	
+	//note: you can addAttackInfo here (see attackA or attackSideA for a better description)
+	
+	if(!bUp)//prevents you from performing this attack if you've already done your Up B attack
+	{
+		//TODO do some sort of special attack here.
+	}
+}
+*/
+/*
+def attackUpB()
+{
+	//function called to perform the character's Up B attack
+	
+	//note: you can addAttackInfo here (see attackA or attackSideA for a better description)
+	
+	if(!bUp)//prevents you from performing this attack if you've already done your Up B attack
+	{
+		//TODO do some sort of special attack here.
+	}
+}
+*/
+/*
+def attackDownB()
+{
+	//function called to perform the character's Down B attack
+	
+	//note: you can addAttackInfo here (see attackA or attackSideA for a better description)
+	
+	if(!bUp)//prevents you from performing this attack if you've already done your Up B attack
+	{
+		//TODO do some sort of special attack here.
+	}
+}
+*/
+/*
+def attackSideSmash(byte type)
+{
+	//function called to perform the character's Side Smash attack
+	
+	//the type argument can equal either SMASH_CHARGE or SMASH_GO.
+	// (specifies whether this is being called to charge or to attack.
+	
+	//IMPORTANT NOTE: do NOT addAttackInfo here. Since this is an attack that gets charged, you will
+	// not have a constant damage or knockback for the attack. use onPlayerHit to write this behavior.
+	
+	//prevents you from performing this attack if you've already done your Up B attack.
+	//also checks if an item is being held and can be used instead of this attack
+	if(!bUp && !checkItemUseSideSmash(type))
+	{
+		if(isOnGround())//checks if character is on the ground
+		{
+			//AttackTemplates::normalSmash performs a normal smash attack. Arguments are:
+				//1. playr - the character performing this attack (you).
+				//2. attackNo - the attack number used to identify this attack.
+					//attacksHolder will equal this value during the attack.
+				//3. attackPr - the priority of this attack.
+					//attacksPriority will equal this value during the attack.
+				//4. type - //Specifies whether you're charging the attack or performing it.
+					//can be either SMASH_CHARGE or SMASH_GO.
+				//5. smashType - specifies which smash attack is being called.
+					//can be AttackTemplates::SMASH_SIDE, AttackTemplates::SMASH_UP, or AttackTemplates::SMASH_DOWN
+				//6. chargeTime - the amount of time, in milliseconds, that it will take to charge the attack
+				//7. chargeMin - the minimum damage of the smash attack.
+					//when the attack is performed, the damage number is stored in the smashPower variable.
+				//8. chargeMax - the maximum damage of the smash attack.
+					//when the attack is performed, the damage number is stored in the smashPower variable.
+			AttackTemplates::normalSmash(this, 14, 3.38, type, AttackTemplates::SMASH_SIDE, 1500, 11, 20);
+		}
+		else//if the character is not on the ground
+		{
+			//calls the normal Side A attack
+			attackSideA();
+		}
+	}
+}
+*/
+/*
+def attackUpSmash(byte type)
+{
+	//function called to perform the character's Up Smash attack
+	
+	//the type argument can equal either SMASH_CHARGE or SMASH_GO.
+	// (specifies whether this is being called to charge or to attack.
+	
+	//IMPORTANT NOTE: do NOT addAttackInfo here. Since this is an attack that gets charged, you will
+	// not have a constant damage or knockback for the attack. use onPlayerHit to write this behavior.
+	
+	//prevents you from performing this attack if you've already done your Up B attack.
+	//also checks if an item is being held and can be used instead of this attack
+	if(!bUp && !checkItemUseUpSmash(type))
+	{
+		if(isOnGround())//checks if character is on the ground
+		{
+			//AttackTemplates::normalSmash performs a normal smash attack. Arguments are:
+				//1. playr - the character performing this attack (you).
+				//2. attackNo - the attack number used to identify this attack.
+					//attacksHolder will equal this value during the attack.
+				//3. attackPr - the priority of this attack.
+					//attacksPriority will equal this value during the attack.
+				//4. type - //Specifies whether you're charging the attack or performing it.
+					//can be either SMASH_CHARGE or SMASH_GO.
+				//5. smashType - specifies which smash attack is being called.
+					//can be AttackTemplates::SMASH_SIDE, AttackTemplates::SMASH_UP, or AttackTemplates::SMASH_DOWN
+				//6. chargeTime - the amount of time, in milliseconds, that it will take to charge the attack
+				//7. chargeMin - the minimum damage of the smash attack.
+					//when the attack is performed, the damage number is stored in the smashPower variable.
+				//8. chargeMax - the maximum damage of the smash attack.
+					//when the attack is performed, the damage number is stored in the smashPower variable.
+			AttackTemplates::normalSmash(this, 15, 3.36, type, AttackTemplates::SMASH_UP, 1500, 10, 20);
+		}
+		else//if the character is not on the ground
+		{
+			//calls the normal Up A attack
+			attackUpA();
+		}
+	}
+}
+*/
+/*
+def attackDownSmash(byte type)
+{
+	//function called to perform the character's Down Smash attack
+	
+	//the type argument can equal either SMASH_CHARGE or SMASH_GO.
+	// (specifies whether this is being called to charge or to attack.
+	
+	//IMPORTANT NOTE: do NOT addAttackInfo here. Since this is an attack that gets charged, you will
+	// not have a constant damage or knockback for the attack. use onPlayerHit to write this behavior.
+	
+	//prevents you from performing this attack if you've already done your Up B attack.
+	//also checks if an item is being held and can be used instead of this attack
+	if(!bUp && !checkItemUseDownSmash(type))
+	{
+		if(isOnGround())//checks if character is on the ground
+		{
+			//AttackTemplates::normalSmash performs a normal smash attack. Arguments are:
+				//1. playr - the character performing this attack (you).
+				//2. attackNo - the attack number used to identify this attack.
+					//attacksHolder will equal this value during the attack.
+				//3. attackPr - the priority of this attack.
+					//attacksPriority will equal this value during the attack.
+				//4. type - //Specifies whether you're charging the attack or performing it.
+					//can be either SMASH_CHARGE or SMASH_GO.
+				//5. smashType - specifies which smash attack is being called.
+					//can be AttackTemplates::SMASH_SIDE, AttackTemplates::SMASH_UP, or AttackTemplates::SMASH_DOWN
+				//6. chargeTime - the amount of time, in milliseconds, that it will take to charge the attack
+				//7. chargeMin - the minimum damage of the smash attack.
+					//when the attack is performed, the damage number is stored in the smashPower variable.
+				//8. chargeMax - the maximum damage of the smash attack.
+					//when the attack is performed, the damage number is stored in the smashPower variable.
+			AttackTemplates::normalSmash(this, 16, 3.37, type, AttackTemplates::SMASH_DOWN, 1500, 10, 20);
+		}
+		else//if the character is not on the ground
+		{
+			//calls the normal Down A attack
+			attackDownA();
+		}
+	}
+}
+*/
+/*
+def attackFinalSmash()
+{
+	//function called to perform the character's Final Smash attack
+	
+	//note: you can addAttackInfo here (see attackA or attackSideA for a better description)
+	
+	//TODO start some sort of final smash here.
+}
+*/
