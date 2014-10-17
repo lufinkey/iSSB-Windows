@@ -5,6 +5,7 @@
 #include "../Util/BufferedImage.h"
 #include "../Util/Color.h"
 #include "../Util/String.h"
+#include "../Util/Vector2.h"
 
 #pragma once
 
@@ -12,15 +13,15 @@ namespace GameEngine
 {
 	class Graphics2D
 	{
+		friend class Application;
+		friend class View;
 		private:
 			sf::Color color;
 			sf::Color imageColor;
 
 			Font*defaultFont;
-			friend class View;
 			Font*font;
 			sf::RenderWindow*window;
-			friend class Application;
 
 			float Rotation;
 			float cosRad;
@@ -31,14 +32,18 @@ namespace GameEngine
 			Color overlayColor;
 			unsigned char alpha;
 
+			bool created;
+
 			void reset();
-			friend class Application;
 			sf::Vector2f getRotationCoords(float x1, float y1);
 			Color getColorWithAlpha(const Color&color);
 
 		public:
 			Graphics2D(void);
+			Graphics2D(const Graphics2D&graphics);
 			virtual ~Graphics2D(void);
+
+			Graphics2D create();
 
 			void setRotation(float rotation);
 			void setRotation(float rotation, float x1, float y1);
@@ -48,21 +53,22 @@ namespace GameEngine
 
 			void setScale(float scalex, float scaley);
 			void scale(float scalex, float scaley);
-			sf::Vector2f getScale();
+			Vector2f getScale();
 
 			void setTranslation(float x1, float y1);
 			void translate(float x1, float y1);
 
 			void setColor(const Color&color);
-			Color getColor();
+			const Color& getColor();
 
 			void setImageMask(const Color&color);
-			Color getImageMask();
+			const Color& getImageMask();
 
 			void setAlpha(unsigned char alpha);
 			unsigned char getAlpha();
 
 			void setFont(Font*font);
+			Font*getFont();
 			Font*getDefaultFont();
 
 			void drawString(const String&text, float x1, float y1);

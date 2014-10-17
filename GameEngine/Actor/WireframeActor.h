@@ -17,6 +17,7 @@ namespace GameEngine
 		Color color;
 		bool mouseover;
 		float xSpeed,ySpeed;
+		float xprev, yprev;
 		Rect getCollideOverlapArea(Actor*a2);
 
 	protected:
@@ -28,14 +29,17 @@ namespace GameEngine
 		static const unsigned char EVENT_MOUSEENTER = 2;
 		static const unsigned char EVENT_MOUSELEAVE = 3;
 		
-		float xprev, yprev;
 		float xvelocity,yvelocity;
 
 		virtual ~WireframeActor();
+		WireframeActor(const WireframeActor&actor);
 		WireframeActor(float x1=0, float y1=0, int w=1, int h=1);
 		
 		void setVisible(bool toggle);
-		void isFilled(bool toggle);
+		bool isVisible();
+
+		void setFilled(bool toggle);
+		bool isFilled();
 		
 		void setColor(const Color&c);
 		Color getColor();
@@ -51,9 +55,8 @@ namespace GameEngine
 		virtual void Update(long gameTime);
 		virtual void Draw(Graphics2D& g,long gameTime);
 		
-		bool eventEnabled(unsigned char eventCode);
-		void eventEnable(unsigned char eventCode);
-		void eventDisable(unsigned char eventCode);
+		bool isEventEnabled(unsigned char eventCode);
+		void setEventEnabled(unsigned char eventCode, bool toggle);
 		
 		virtual void onMouseEnter();
 		virtual void onMouseLeave();
@@ -69,5 +72,8 @@ namespace GameEngine
 
 		float getXSpeed();
 		float getYSpeed();
+
+		float getXPrev();
+		float getYPrev();
 	};
 }

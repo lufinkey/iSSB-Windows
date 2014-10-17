@@ -74,7 +74,7 @@ namespace GameEngine
 		String& operator+=(const std::string& str);
 		String& operator+=(const char*str);
 		String& operator+=(const wchar_t*str);
-		String& operator+=(const std::wstring str);
+		String& operator+=(const std::wstring& str);
 		String& operator+=(const bool b);
 		String& operator+=(const char c);
 		String& operator+=(const unsigned char num);
@@ -98,8 +98,8 @@ namespace GameEngine
 		String& operator=(const float num);
 		String& operator=(const double num);
 
-		bool operator==(String& cmp);
-		bool operator==(const char*cmp);
+		bool operator==(const char*cmp) const;
+		bool operator==(const String& cmp) const;
 
 		friend std::ostream& operator<<(std::ostream& stream, const String& str);
 

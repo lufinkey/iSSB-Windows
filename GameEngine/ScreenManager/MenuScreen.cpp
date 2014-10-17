@@ -98,7 +98,7 @@ namespace GameEngine
 		Items.add(new MenuItem(new ImageMenuItem(this, x1,y1,anim,hoverColor,clickColor,target)));
 	}
 
-	void MenuScreen::addItem(float x1, float y1,const String&normAnim, String hoverAnim, const String&target)
+	void MenuScreen::addItem(float x1, float y1,const String&normAnim,const String&hoverAnim, const String&target)
 	{
 		Animation*norm = new Animation("normal",1);
 		norm->addFrame(normAnim);
@@ -107,7 +107,7 @@ namespace GameEngine
 		Items.add(new MenuItem(new ImageMenuItem(this, x1,y1,norm,hover,target)));
 	}
 
-	void MenuScreen::addItem(float x1, float y1,const String&normAnim, String hoverAnim, String clickAnim, const String&target)
+	void MenuScreen::addItem(float x1, float y1,const String&normAnim,const String&hoverAnim,const String&clickAnim, const String&target)
 	{
 		Animation*norm = new Animation("normal",1);
 		norm->addFrame(normAnim);

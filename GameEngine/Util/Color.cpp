@@ -8,8 +8,8 @@ namespace GameEngine
 	const Color Color::CYAN = Color(0,255,255);
 	const Color Color::DARKGRAY = Color(64,64,64);
 	const Color Color::GRAY = Color(128,128,128);
+	const Color Color::LIGHTGRAY = Color(192, 192, 192);
 	const Color Color::GREEN = Color(0,255,0);
-	const Color Color::LIGHTGRAY = Color(192,192,192);
 	const Color Color::MAGENTA = Color(255,0,255);
 	const Color Color::ORANGE = Color(255,200,0);
 	const Color Color::PINK = Color(255,175,175);

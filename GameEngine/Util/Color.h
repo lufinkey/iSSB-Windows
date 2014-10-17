@@ -1,6 +1,8 @@
 
 #include "SFML\Graphics\Color.hpp"
 
+#undef TRANSPARENT
+
 #pragma once
 
 namespace GameEngine
@@ -13,8 +15,8 @@ namespace GameEngine
 		static const Color CYAN;
 		static const Color DARKGRAY;
 		static const Color GRAY;
-		static const Color GREEN;
 		static const Color LIGHTGRAY;
+		static const Color GREEN;
 		static const Color MAGENTA;
 		static const Color ORANGE;
 		static const Color PINK;

@@ -27,6 +27,7 @@ namespace SmashBros
 		friend class ItemManager;
 		friend class Projectile;
 		friend class ProjectileManager;
+		friend class ScriptManager;
 		friend class Stage;
 	private:
 		static const float jumpXBoost;
@@ -147,7 +148,7 @@ namespace SmashBros
 		boolean checkDirRelation(byte dir, byte cmp1, byte cmp2);
 		double getClosestDistanceUnSqr(Vector2f self, GameEngine::Rectangle rect);
 		Vector2f getClosestPoint(GameEngine::Rectangle rect, byte dir);
-		boolean getDirSeparating(Vector2f target, Rectangle rect);
+		boolean getDirSeparating(Vector2f target, GameEngine::Rectangle rect);
 		GameEngine::Rectangle getRectSeparating(Vector2f target);
 		void followEnemy(boolean canAttack, int level);
 		boolean checkEnemyHang();
@@ -230,6 +231,7 @@ namespace SmashBros
 
 		void setOnGround(boolean toggle);
 		void setItemOffset(float x1, float y1);
+		void setIndicatorOffset(float x1, float y1);
 
 		void setCantDo();
 		void setHanging(boolean toggle);
@@ -247,6 +249,7 @@ namespace SmashBros
 		void setHangPoint(int x1, int y1);
 		void destroyCharge();
 		void animFinish();
+		void checkAttacks();
 
 		void updateGravity();
 		void updateFrame();
@@ -282,11 +285,6 @@ namespace SmashBros
 		void climbUpAttack();
 
 	public:
-		static const byte TEAM_RED = 1;
-		static const byte TEAM_BLUE = 2;
-		static const byte TEAM_GREEN = 3;
-		static const byte TEAM_YELLOW = 4;
-
 		static const byte LEFT = 1;
 		static const byte RIGHT = 2;
 
@@ -419,8 +417,8 @@ namespace SmashBros
 		static int compareDirPlayerDir(byte dir, byte playerdir);
 		byte getPlayerNo();
 		boolean CanDo();
-		boolean isGrabbed();
 		int getStock();
+		boolean isGrabbed();
 		boolean hasGrabbed();
 		boolean isGrabbing();
 		boolean isJumping();
@@ -429,9 +427,7 @@ namespace SmashBros
 		byte getMoveLeft();
 		byte getMoveRight();
 		WireframeActor*getHitbox();
-		void setIndicatorOffset(float x1, float y1);
 		String getFolderPath();
-		void checkAttacks();
 		boolean pickUpItem(Item*item);
 
 		boolean hitboxRectsColliding(HitBox*collide);

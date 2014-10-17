@@ -12,11 +12,11 @@ namespace GameEngine
 {
 	class Application
 	{
+		friend class View;
 		private:
 			static String windowTitle;
 
 			static sf::RenderWindow*window;
-			friend class View;
 			static Application*game;
 			static Graphics2D*graphics;
 			static LoadThread*loadThread;
@@ -41,17 +41,13 @@ namespace GameEngine
 			static float loadCurrent;
 
 			static long realFPS;
-			friend class View;
 			static bool showfps;
-			friend class View;
 
 			static long lastFrame;
 			static long firstFrame;
 
 			static bool isFullScreen;
-			friend class View;
 			static bool scalescreen;
-			friend class View;
 
 			static sf::Color bgColor;
 

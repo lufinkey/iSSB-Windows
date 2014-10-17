@@ -71,7 +71,7 @@ namespace SmashBros
 	boolean RayGun::use(byte attackDir)
 	{
 		this->attackDir = attackDir;
-		if(attackDir==ATTACK_NORMAL)
+		if(attackDir==Player::ATTACK_A)
 		{
 			if(!active)
 			{
@@ -85,7 +85,7 @@ namespace SmashBros
 			}
 			return true;
 		}
-		else if(attackDir==ATTACK_SIDE)
+		else if(attackDir==Player::ATTACK_SIDEA)
 		{
 			if(!active)
 			{
@@ -104,7 +104,7 @@ namespace SmashBros
 	
 	boolean RayGun::holderCanDo()
 	{
-		if(active && attackDir==ATTACK_NORMAL)
+		if(active && attackDir==Player::ATTACK_A)
 		{
 			return false;
 		}

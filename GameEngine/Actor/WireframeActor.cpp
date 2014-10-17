@@ -26,6 +26,33 @@ namespace GameEngine
 	{
 		//
 	}
+
+	WireframeActor::WireframeActor(const WireframeActor&actor)
+	{
+		x = actor.x;
+		y = actor.y;
+		width = actor.width;
+		height = actor.height;
+		xprev = actor.xprev;
+		yprev = actor.yprev;
+		xvelocity = actor.xvelocity;
+		yvelocity = actor.yvelocity;
+		xSpeed = actor.xSpeed;
+		ySpeed = actor.ySpeed;
+		color = actor.color;
+		mouseover = actor.mouseover;
+		visible = actor.visible;
+		filled = actor.filled;
+		clicked = actor.clicked;
+		prevclicked = actor.prevclicked;
+
+		actorType = 2;
+
+		for (int i = 0; i<totalEvents; i++)
+		{
+			enabledEvents[i] = actor.enabledEvents[i];
+		}
+	}
 		
 	WireframeActor::WireframeActor(float x1, float y1, int w, int h) //Constructor to pass in x,y,width,height
 	{
@@ -58,17 +85,27 @@ namespace GameEngine
 	{
 		visible = toggle;
 	}
-		
-	void WireframeActor::isFilled(bool toggle) //toggles whether wireframe is filled
+
+	bool WireframeActor::isVisible()
+	{
+		return visible;
+	}
+	
+	void WireframeActor::setFilled(bool toggle) //toggles whether wireframe is filled
 	{
 		filled = toggle;
 	}
-		
+
+	bool WireframeActor::isFilled()
+	{
+		return filled;
+	}
+	
 	void WireframeActor::setColor(const Color&c) //changes color of wireframe
 	{
 		color = c;
 	}
-		
+	
 	Color WireframeActor::getColor() //returns color of wireframe
 	{
 		return color;
@@ -340,7 +377,7 @@ namespace GameEngine
 			if(!mouseover)
 			{
 				mouseover=true;
-				if(eventEnabled(EVENT_MOUSEENTER))
+				if(isEventEnabled(EVENT_MOUSEENTER))
 				{
 					onMouseEnter();
 				}
@@ -348,7 +385,7 @@ namespace GameEngine
 			if(Application::MouseState(Mouse::LEFTCLICK) && !Application::PrevMouseState(Mouse::LEFTCLICK))
 			{
 				clicked = true;
-				if(eventEnabled(EVENT_MOUSECLICK))
+				if(isEventEnabled(EVENT_MOUSECLICK))
 				{
 					onClick();
 				}
@@ -357,7 +394,7 @@ namespace GameEngine
 		else if(mouseover)
 		{
 			mouseover=false;
-			if(eventEnabled(EVENT_MOUSELEAVE))
+			if(isEventEnabled(EVENT_MOUSELEAVE))
 			{
 				onMouseLeave();
 			}
@@ -365,7 +402,7 @@ namespace GameEngine
 		if(clicked && !Application::MouseState(Mouse::LEFTCLICK))
 		{
 			clicked = false;
-			if(eventEnabled(EVENT_MOUSERELEASE))
+			if(isEventEnabled(EVENT_MOUSERELEASE))
 			{
 				onRelease();
 			}
@@ -377,7 +414,7 @@ namespace GameEngine
 		drawActor(g,gameTime,x,y,1);
 	}
 		
-	bool WireframeActor::eventEnabled(unsigned char eventCode)
+	bool WireframeActor::isEventEnabled(unsigned char eventCode)
 	{
 		if(eventCode>totalEvents)
 		{
@@ -390,7 +427,7 @@ namespace GameEngine
 		}
 	}
 		
-	void WireframeActor::eventEnable(unsigned char eventCode)
+	void WireframeActor::setEventEnabled(unsigned char eventCode, bool toggle)
 	{
 		if(eventCode>totalEvents)
 		{
@@ -398,19 +435,7 @@ namespace GameEngine
 		}
 		else
 		{
-			enabledEvents[eventCode]=true;
-		}
-	}
-		
-	void WireframeActor::eventDisable(unsigned char eventCode)
-	{
-		if(eventCode>totalEvents)
-		{
-			Console::WriteLine((String)"Error: EventDisable(unsigned char). Invalid argument " + eventCode + (String)". Event does not exist");
-		}
-		else
-		{
-			enabledEvents[eventCode]=false;
+			enabledEvents[eventCode]=toggle;
 		}
 	}
 		
@@ -498,5 +523,15 @@ namespace GameEngine
 	float WireframeActor::getYSpeed()
 	{
 		return ySpeed;
+	}
+
+	float WireframeActor::getXPrev()
+	{
+		return xprev;
+	}
+
+	float WireframeActor::getYPrev()
+	{
+		return yprev;
 	}
 }

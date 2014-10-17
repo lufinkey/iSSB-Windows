@@ -38,11 +38,11 @@ namespace GameEngine
 		loaded = true;
 	}
 
-	BufferedImage::BufferedImage(unsigned int w, unsigned int h)
+	BufferedImage::BufferedImage(unsigned int w, unsigned int h, const GameEngine::Color&color)
 	{
 		texture = new sf::Texture();
 		sf::Image img;
-		img.create(w,h,sf::Color::White);
+		img.create(w,h,color);
 		texture->loadFromImage(img);
 
 		int total = w*h;
@@ -174,7 +174,7 @@ namespace GameEngine
 		return pixels[(width*y1)+x1];
 	}
 
-	sf::Texture*BufferedImage::getTexture()
+	sf::Texture*BufferedImage::getTexture() const
 	{
 		return texture;
 	}

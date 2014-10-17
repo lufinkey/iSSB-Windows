@@ -74,7 +74,7 @@ namespace GameEngine
 				x = movePoint[0];
 				y = movePoint[1];
 				moving = false;
-				if(eventEnabled(EVENT_MOVEFINISH))
+				if(isEventEnabled(EVENT_MOVEFINISH))
 				{
 					onMoveFinish();
 				}
@@ -95,11 +95,11 @@ namespace GameEngine
 		bool mirror = false;
 		bool mirrorVertical = false;
 
-		if((lastAnim->mirrored() && !this->mirrored) || (!lastAnim->mirrored() && this->mirrored))
+		if((lastAnim->isMirrored() && !this->mirrored) || (!lastAnim->isMirrored() && this->mirrored))
 		{
 			mirror = true;
 		}
-		if((lastAnim->mirroredVertical() && !this->mirroredVertical) || (!lastAnim->mirroredVertical() && this->mirroredVertical))
+		if((lastAnim->isMirroredVertical() && !this->mirroredVertical) || (!lastAnim->isMirroredVertical() && this->mirroredVertical))
 		{
 			mirrorVertical = true;
 		}
@@ -382,7 +382,7 @@ namespace GameEngine
 			if(!mouseover)
 			{
 				mouseover=true;
-				if(eventEnabled(EVENT_MOUSEENTER))
+				if(isEventEnabled(EVENT_MOUSEENTER))
 				{
 					onMouseEnter();
 				}
@@ -390,7 +390,7 @@ namespace GameEngine
 			if (Application::MouseState(Mouse::LEFTCLICK) && !Application::PrevMouseState(Mouse::LEFTCLICK))
 			{
 				clicked = true;
-				if(eventEnabled(EVENT_MOUSECLICK))
+				if(isEventEnabled(EVENT_MOUSECLICK))
 				{
 					onClick();
 				}
@@ -399,7 +399,7 @@ namespace GameEngine
 		else if(mouseover)
 		{
 			mouseover=false;
-			if(eventEnabled(EVENT_MOUSELEAVE))
+			if(isEventEnabled(EVENT_MOUSELEAVE))
 			{
 				onMouseLeave();
 			}
@@ -407,7 +407,7 @@ namespace GameEngine
 		if(clicked && !Application::MouseState(Mouse::LEFTCLICK))
 		{
 			clicked = false;
-			if(eventEnabled(EVENT_MOUSERELEASE))
+			if(isEventEnabled(EVENT_MOUSERELEASE))
 			{
 				onRelease();
 			}
@@ -428,12 +428,22 @@ namespace GameEngine
 	{
 		this->mirroredVertical = toggle;
 	}
+
+	bool Actor::isMirrored()
+	{
+		return mirrored;
+	}
+
+	bool Actor::isMirroredVertical()
+	{
+		return mirroredVertical;
+	}
 	
-	bool Actor::eventEnabled(unsigned char eventCode)
+	bool Actor::isEventEnabled(unsigned char eventCode)
 	{
 		if(eventCode>totalEvents)
 		{
-			Console::WriteLine((String)"Error: EventEnabled(unsigned char). Invalid argument " + eventCode + (String)". Event does not exist");
+			Console::WriteLine((String)"Error: isEventEnabled(unsigned char). Invalid argument " + eventCode + ". Event does not exist");
 			return false;
 		}
 		else
@@ -442,27 +452,15 @@ namespace GameEngine
 		}
 	}
 	
-	void Actor::eventEnable(unsigned char eventCode)
+	void Actor::setEventEnabled(unsigned char eventCode, bool toggle)
 	{
 		if(eventCode>totalEvents)
 		{
-			Console::WriteLine((String)"Error: EventEnable(unsigned char). Invalid argument " + eventCode + (String)". Event does not exist");
+			Console::WriteLine((String)"Error: setEventEnabled(unsigned char,bool). Invalid argument " + eventCode + ". Event does not exist");
 		}
 		else
 		{
-			enabledEvents[eventCode]=true;
-		}
-	}
-	
-	void Actor::eventDisable(unsigned char eventCode)
-	{
-		if(eventCode>totalEvents)
-		{
-			Console::WriteLine((String)"Error: EventDisable(unsigned char). Invalid argument " + eventCode + (String)". Event does not exist");
-		}
-		else
-		{
-			enabledEvents[eventCode]=false;
+			enabledEvents[eventCode]=toggle;
 		}
 	}
 
@@ -564,9 +562,14 @@ namespace GameEngine
 		return lastAnim;
 	}
 
-	void Actor::relativeToView(bool toggle)
+	void Actor::setRelativeToView(bool toggle)
 	{
 		relative = toggle;
+	}
+
+	bool Actor::isRelativeToView()
+	{
+		return relative;
 	}
 
 	void Actor::mouseOverUsesPixel(bool toggle)
@@ -746,7 +749,7 @@ namespace GameEngine
 		return false;
 	}
 	
-	String Actor::getAnimName()
+	const String& Actor::getAnimName()
 	{
 		return anim->name;
 	}
@@ -1196,7 +1199,7 @@ namespace GameEngine
 		color = c;
 	}
 		
-	Color Actor::getColor() //returns the current color of the actor
+	const Color& Actor::getColor() //returns the current color of the actor
 	{
 		return color;
 	}
@@ -1224,5 +1227,10 @@ namespace GameEngine
 	void Actor::setVisible(bool toggle)
 	{
 		visible = toggle;
+	}
+
+	bool Actor::isVisible()
+	{
+		return visible;
 	}
 }

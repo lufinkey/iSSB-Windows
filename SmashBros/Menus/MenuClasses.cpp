@@ -19,7 +19,7 @@ namespace SmashBros
 
 	void TitleScreen::TitleScreenActor::onRelease()
 	{
-		eventDisable(Actor::EVENT_MOUSERELEASE);
+		setEventEnabled(Actor::EVENT_MOUSERELEASE, false);
 		screen->changing = true;
 		screen->changeTime = Game::getGameTime() + 1600;
 		//maintheme.stop();
@@ -61,7 +61,7 @@ namespace SmashBros
 		{
 			//maintheme.play();
 		}
-		titleScreen->eventEnable(Actor::EVENT_MOUSERELEASE);
+		titleScreen->setEventEnabled(Actor::EVENT_MOUSERELEASE, true);
 		Game::showBackground(false);
 		Menus::menuNo = -1;
 		Animation*anim = new Animation("title",1);
@@ -484,11 +484,11 @@ namespace SmashBros
 		rules_arrows->Update(gameTime);
 		if(rules_arrows->wasClicked())
 		{
-			rules_bar->eventDisable(Actor::EVENT_MOUSERELEASE);
+			rules_bar->setEventEnabled(Actor::EVENT_MOUSERELEASE, false);
 		}
 		else
 		{
-			rules_bar->eventEnable(Actor::EVENT_MOUSERELEASE);
+			rules_bar->setEventEnabled(Actor::EVENT_MOUSERELEASE, true);
 		}
 		rules_bar->Update(gameTime);
 		switch(Global::gameMode)

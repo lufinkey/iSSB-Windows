@@ -61,9 +61,36 @@ namespace GameEngine
 		ty = 0;
 	}
 
+	Graphics2D::Graphics2D(const Graphics2D&g)
+	{
+		created = true;
+		color = g.color;
+		imageColor = g.imageColor;
+		overlayColor = g.overlayColor;
+		defaultFont = g.defaultFont;
+		font = g.font;
+		alpha = g.alpha;
+		Rotation = g.Rotation;
+		ScaleX = g.ScaleX;
+		ScaleY = g.ScaleY;
+		rotX = g.rotX;
+		rotY = g.rotY;
+		tx = g.tx;
+		ty = g.ty;
+		window = g.window;
+	}
+
 	Graphics2D::~Graphics2D(void)
 	{
-		delete defaultFont;
+		if (!created)
+		{
+			delete defaultFont;
+		}
+	}
+
+	Graphics2D Graphics2D::create()
+	{
+		return *this;
 	}
 
 	void Graphics2D::setRotation(float rotation)
@@ -151,9 +178,9 @@ namespace GameEngine
 		ScaleY*=scaley;
 	}
 
-	sf::Vector2f Graphics2D::getScale()
+	Vector2f Graphics2D::getScale()
 	{
-		return sf::Vector2f(ScaleX,ScaleY);
+		return Vector2f(ScaleX,ScaleY);
 	}
 
 	void Graphics2D::setTranslation(float x1, float y1)
@@ -173,7 +200,7 @@ namespace GameEngine
 		this->color = color;
 	}
 
-	Color Graphics2D::getColor()
+	const Color& Graphics2D::getColor()
 	{
 		return color;
 	}
@@ -183,7 +210,7 @@ namespace GameEngine
 		this->imageColor = color;
 	}
 
-	Color Graphics2D::getImageMask()
+	const Color& Graphics2D::getImageMask()
 	{
 		return imageColor;
 	}
@@ -201,6 +228,11 @@ namespace GameEngine
 	void Graphics2D::setFont(Font*font)
 	{
 		this->font = font;
+	}
+
+	Font*Graphics2D::getFont()
+	{
+		return font;
 	}
 
 	Font*Graphics2D::getDefaultFont()

@@ -16,7 +16,7 @@ namespace SmashBros
 			magnifier->Scale = 0.8f;
 			magnifier->addAnimation(new Animation("normal", 1, "Images/Game/Misc/magnifier.png"));
 			magnifier->changeAnimation("normal", FORWARD);
-			magnifier->relativeToView(false);
+			magnifier->setRelativeToView(false);
 		}
 	}
 
@@ -31,13 +31,13 @@ namespace SmashBros
 
 			byte dir = 0;
 
-			if((y+(h/2)) <= 0)
+			if((y-(h/2)) <= 0)
 			{
-				if((x+(w/2)) <= 0)
+				if((x-(w/2)) <= 0)
 				{
 					dir = PrimitiveActor::DIR_UPLEFT;
 				}
-				else if((x-(w)) >= View::ScaleWidth())
+				else if((x+(w/2)) >= View::ScaleWidth())
 				{
 					dir = PrimitiveActor::DIR_UPRIGHT;
 				}
@@ -46,13 +46,13 @@ namespace SmashBros
 					dir = PrimitiveActor::DIR_UP;
 				}
 			}
-			else if((y-(h/2)) >= View::ScaleHeight())
+			else if((y+(h/2)) >= View::ScaleHeight())
 			{
-				if((x+(w/2)) <= 0)
+				if((x-(w/2)) <= 0)
 				{
 					dir = PrimitiveActor::DIR_DOWNLEFT;
 				}
-				else if((x-(w/2)) >= View::ScaleWidth())
+				else if((x+(w/2)) >= View::ScaleWidth())
 				{
 					dir = PrimitiveActor::DIR_DOWNRIGHT;
 				}
@@ -61,11 +61,11 @@ namespace SmashBros
 					dir = PrimitiveActor::DIR_DOWN;
 				}
 			}
-			else if((x+(w/2)) <= 0)
+			else if((x-(w/2)) <= 0)
 			{
 				dir = PrimitiveActor::DIR_LEFT;
 			}
-			else if((x-(w/2)) >= View::ScaleWidth())
+			else if((x+(w/2)) >= View::ScaleWidth())
 			{
 				dir = PrimitiveActor::DIR_RIGHT;
 			}

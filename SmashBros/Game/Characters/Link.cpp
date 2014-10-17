@@ -5,8 +5,12 @@
 
 namespace SmashBros
 {
-	const float Link::finalsmashOffsetX = 16;
+	const float Link::finalsmashOffsetX = 60;
 	const float Link::finalsmashOffsetY = 0;
+
+#define LINK_FINALSMASH_SEQUENCE {1,2,3,4,5,6,1,2,3,7,8,1,2,3,9,10,9,11,9,12,9,7,8,13,14,14,14,15}
+#define LINK_FINALSMASHFINISH_SEQUENCE {16,17,18,19,20}
+#define LINK_FINALSMASH_SEQUENCE_HITFRAMES {2,5,7,10,11,12,13}
 
 	Link::Link(float x1, float y1, byte playerNo, byte team) : Player(x1, y1, playerNo, team)
 	{
@@ -20,6 +24,7 @@ namespace SmashBros
 		prepping = false;
 		finishing = false;
 		finalsmash_snatching = false;
+		lastFinalsmashFrame = 0;
 		charging = 0;
 		
 		weight = 0.09;
@@ -154,36 +159,38 @@ namespace SmashBros
 		addAnimation(anim);
 
 		anim = new Animation("finalsmash_left", 20);
-		int finalsmashSeqArr[27] = {1,2,3,4,5,6,1,2,3,7,8,1,2,3,9,10,9,11,9,12,9,7,8,13,14,14,14};
-		for(int i=0; i<27; i++)
+		int finalsmashSeqArr[] = LINK_FINALSMASH_SEQUENCE;
+		int finalsmashSeqArrTotal = sizeof(finalsmashSeqArr)/sizeof(int);
+		for(int i=0; i<finalsmashSeqArrTotal; i++)
 		{
-			String framename = (String)"finalsmash_pose" + finalsmashSeqArr[i] + ".png";
+			String framename = folderPath + "finalsmash_pose" + finalsmashSeqArr[i] + ".png";
 			anim->addFrame(framename);
 		}
 		addAnimation(anim);
 
 		anim = new Animation("finalsmash_right", 20);
-		for(int i=0; i<27; i++)
+		for(int i=0; i<finalsmashSeqArrTotal; i++)
 		{
-			String framename = (String)"finalsmash_pose" + finalsmashSeqArr[i] + ".png";
+			String framename = folderPath + "finalsmash_pose" + finalsmashSeqArr[i] + ".png";
 			anim->addFrame(framename);
 		}
 		anim->mirror(true);
 		addAnimation(anim);
 
 		anim = new Animation("finalsmash_finish_left", 20);
-		int finalsmashFinishSeqArr[6] = {15,16,17,18,19,20};
-		for(int i=0; i<6; i++)
+		int finalsmashFinishSeqArr[] = LINK_FINALSMASHFINISH_SEQUENCE;
+		int finalsmashFinishSeqArrTotal = sizeof(finalsmashFinishSeqArr)/sizeof(int);
+		for(int i=0; i<finalsmashFinishSeqArrTotal; i++)
 		{
-			String framename = (String)"finalsmash_pose" + finalsmashFinishSeqArr[i] + ".png";
+			String framename = folderPath + "finalsmash_pose" + finalsmashFinishSeqArr[i] + ".png";
 			anim->addFrame(framename);
 		}
 		addAnimation(anim);
 
 		anim = new Animation("finalsmash_finish_right", 20);
-		for(int i=0; i<6; i++)
+		for(int i=0; i<finalsmashFinishSeqArrTotal; i++)
 		{
-			String framename = (String)"finalsmash_pose" + finalsmashFinishSeqArr[i] + ".png";
+			String framename = folderPath + "finalsmash_pose" + finalsmashFinishSeqArr[i] + ".png";
 			anim->addFrame(framename);
 		}
 		anim->mirror(true);
@@ -240,8 +247,46 @@ namespace SmashBros
 		}
 		else if(attacksPriority==7)
 		{
+			for(int i=0; i<finalsmashVictims.size(); i++)
+			{
+				Player* collide = finalsmashVictims.get(i);
+				collide->x = x + (finalsmashOffsetX*getPlayerDirMult()*Scale);
+				collide->y = y;
+			}
+
 			attacksHolder = 14;
 
+			int finalsmashSeq[] = LINK_FINALSMASH_SEQUENCE;
+			int finalsmashSeqTotal = sizeof(finalsmashSeq)/sizeof(int);
+			int finalsmashHitSeq[] = LINK_FINALSMASH_SEQUENCE_HITFRAMES;
+			int finalsmashHitSeqTotal = sizeof(finalsmashHitSeq)/sizeof(int);
+
+			int currentFrame = getCurrentFrame();
+			if(currentFrame != lastFinalsmashFrame)
+			{
+				bool hitting = false;
+				int seqNum = finalsmashSeq[currentFrame];
+				for(int i=0; i<finalsmashHitSeqTotal; i++)
+				{
+					if(seqNum == finalsmashHitSeq[i])
+					{
+						hitting = true;
+						i = finalsmashHitSeqTotal;
+					}
+				}
+
+				if(hitting)
+				{
+					for(int i=0; i<finalsmashVictims.size(); i++)
+					{
+						Player* collide = finalsmashVictims.get(i);
+						causeDamage(collide, 4);
+						causeHurt(collide, collide->getRelPlayerDir(this), 1000);
+					}
+				}
+			}
+			
+			lastFinalsmashFrame = currentFrame;
 		}
 		
 		updateHanging();
@@ -320,6 +365,58 @@ namespace SmashBros
 			Player::onAnimationFinish(n);
 			finishing = true;
 			changeTwoSidedAnimation("special_finish_up_grounded", FORWARD);
+		}
+		else if(n.equals("finalsmash_firststrike_left") || n.equals("finalsmash_firststrike_right"))
+		{
+			if(finalsmashVictims.size() > 0)
+			{
+				if(n.equals("finalsmash_firststrike_left"))
+				{
+					changeAnimation("finalsmash_left", FORWARD);
+					setPlayerDir(LEFT);
+				}
+				else if(n.equals("finalsmash_firststrike_right"))
+				{
+					changeAnimation("finalsmash_right", FORWARD);
+					setPlayerDir(RIGHT);
+				}
+			}
+			else
+			{
+				AttackTemplates::finishFinalSmash(this);
+				Player::onAnimationFinish(n);
+			}
+		}
+		else if(n.equals("finalsmash_left"))
+		{
+			changeAnimation("finalsmash_finish_left", FORWARD);
+			for(int i=0; i<finalsmashVictims.size(); i++)
+			{
+				Player* collide = finalsmashVictims.get(i);
+				causeDamage(collide, 14);
+				causeHurtLaunch(collide, -1,4.8f,3.4f, -1,4.8f,3.4f);
+				causeHurt(collide, RIGHT, 600);
+			}
+			finalsmash_snatching = false;
+			finalsmashVictims.clear();
+		}
+		else if(n.equals("finalsmash_right"))
+		{
+			changeAnimation("finalsmash_finish_right", FORWARD);
+			for(int i=0; i<finalsmashVictims.size(); i++)
+			{
+				Player* collide = finalsmashVictims.get(i);
+				causeDamage(collide, 14);
+				causeHurtLaunch(collide, 1,4.8f,3.4f, -1,4.8f,3.4f);
+				causeHurt(collide, LEFT, 600);
+			}
+			finalsmash_snatching = false;
+			finalsmashVictims.clear();
+		}
+		else if(n.equals("finalsmash_finish_left") || n.equals("finalsmash_finish_right"))
+		{
+			AttackTemplates::finishFinalSmash(this);
+			Player::onAnimationFinish(n);
 		}
 		else
 		{
@@ -491,9 +588,15 @@ namespace SmashBros
 				if(!hasVictim)
 				{
 					finalsmashVictims.add(collide);
+					causeDamage(collide, 4);
+					causeHurt(collide, collide->getRelPlayerDir(this), 1000);
 				}
-
-				causeDamage(collide, 4);
+			}
+			else
+			{
+				causeDamage(collide, 8);
+				causeHurtLaunch(collide, (int)getPlayerDirMult(getRelPlayerDir(collide)),4.1f,2.6f, -1,4.1f,2.6f);
+				causeHurt(collide, collide->getRelPlayerDir(this), 300);
 			}
 		}
 	}
@@ -707,7 +810,7 @@ namespace SmashBros
 		{
 			if(isHoldingItem())
 			{
-				tossItem(Item::ATTACK_NORMAL);
+				tossItem(Player::ATTACK_A);
 			}
 			else
 			{
@@ -1290,11 +1393,13 @@ namespace SmashBros
 	void Link::Bomb::onPickUp(Player*collide)
 	{
 		active = false;
+		setHitState(false);
 	}
 
 	void Link::Bomb::onDiscard(Player*discarder)
 	{
 		active = true;
+		setHitState(true);
 	}
 
 	void Link::Bomb::onPlayerHit(Player*collide, byte dir)
@@ -1363,6 +1468,8 @@ namespace SmashBros
 	{
 		if(!exploded)
 		{
+			setHitState(false);
+			setHitState(true);
 			xvelocity = 0;
 			yvelocity = 0;
 			exploded = true;

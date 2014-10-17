@@ -109,8 +109,8 @@ namespace GameEngine
 		void addItem(float x1, float y1,Animation*normAnim, Animation*hoverAnim, Animation*clickAnim, const String&target);
 		void addItem(float x1, float y1,Animation*anim, const Color&hoverColor, const String&target);
 		void addItem(float x1, float y1,Animation*anim, const Color&hoverColor, const Color&clickColor, const String&target);
-		void addItem(float x1, float y1,const String&normAnim, String hoverAnim, const String&target);
-		void addItem(float x1, float y1,const String&normAnim, String hoverAnim, String clickAnim, const String&target);
+		void addItem(float x1, float y1,const String&normAnim, const String&hoverAnim, const String&target);
+		void addItem(float x1, float y1,const String&normAnim, const String&hoverAnim, const String&clickAnim, const String&target);
 		void addItem(float x1, float y1,const String&anim, const Color&hoverColor, const String&target);
 		void addItem(float x1, float y1,const String&anim, const Color&hoverColor, const Color&clickColor, const String&target);
 

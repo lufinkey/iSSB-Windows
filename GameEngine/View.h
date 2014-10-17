@@ -7,21 +7,16 @@ namespace GameEngine
 {
 	class View
 	{
+		friend class Application;
 		private:
 			static int windowWidth;
-			friend class Application;
 			static int windowHeight;
-			friend class Application;
 
 			static int prevWidth;
-			friend class Application;
 			static int prevHeight;
-			friend class Application;
 
 			static int scaleWidth;
-			friend class Application;
 			static int scaleHeight;
-			friend class Application;
 
 			static float multScale;
 			static float letterBoxW;

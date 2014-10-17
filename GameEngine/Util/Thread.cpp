@@ -19,9 +19,15 @@ namespace GameEngine
 	{
 		this->run();
 		alive = false;
+		this->finish();
 	}
 
 	void Thread::run()
+	{
+		//Open for implementation
+	}
+
+	void Thread::finish()
 	{
 		//Open for implementation
 	}

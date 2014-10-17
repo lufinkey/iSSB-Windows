@@ -1256,7 +1256,7 @@ namespace GameEngine
 		return *this;
 	}
 
-	String& String::operator+=(const std::wstring str)
+	String& String::operator+=(const std::wstring& str)
 	{
 		String str2(str);
 		int total2 = total + str2.length();
@@ -1591,12 +1591,12 @@ namespace GameEngine
 		return *this;
 	}
 
-	bool String::operator==(String& cmp)
+	bool String::operator==(const String& cmp) const
 	{
 		return equals(cmp);
 	}
 
-	bool String::operator==(const char*cmp)
+	bool String::operator==(const char*cmp) const
 	{
 		return equals(cmp);
 	}

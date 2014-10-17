@@ -10,6 +10,7 @@ namespace GameEngine
 {
 	class TextActor : public PrimitiveActor
 	{
+		friend class PrimitiveActor;
 	private:
 		Color wireframeColor;
 		
@@ -46,12 +47,9 @@ namespace GameEngine
 		void updateSize();
 
 		float getCenterX();
-		friend class PrimitiveActor;
 		float getCenterY();
-		friend class PrimitiveActor;
 		
 		Rectangle getRect();
-		friend class PrimitiveActor;
 
 	protected:
 		void drawActor(Graphics2D& g, long gameTime, bool relativeToScreen);
@@ -62,12 +60,14 @@ namespace GameEngine
 		static const unsigned char ALIGN_CENTER = 2;
 		static const unsigned char ALIGN_TOPLEFT = 3;
 		static const unsigned char ALIGN_TOPRIGHT = 4;
+
+		float Scale;
 		
-		TextActor(String s, Font*f, const Color&c);
-		TextActor(float x1, float y1,String s, Font*f, const Color&c);
+		TextActor(const String&s, Font*f, const Color&c);
+		TextActor(float x1, float y1,const String&s, Font*f, const Color&c);
 		virtual ~TextActor();
 		
-		String toString();
+		const String& toString();
 		
 		void formatToBox(int width, int height);
 		
@@ -79,8 +79,8 @@ namespace GameEngine
 		void showWireframe(bool toggle);
 		void setWireframeColor(const Color&c);
 
-		void setText(String s);
-		String getText();
+		void setText(const String&s);
+		const String& getText();
 		
 		void setFont(Font*f);
 		Font*getFont();
@@ -89,16 +89,18 @@ namespace GameEngine
 		int getSize();
 		
 		void setStyle(int style);
+		int getStyle();
 
 		void setColor(const Color&c);
-		Color getColor();
+		const Color& getColor();
 
 		void setAlignment(unsigned char align);
 		unsigned char getAlignment();
 
 		void setLineSpacing(unsigned int space);
 
-		void relativeToView(bool toggle);
+		void setRelativeToView(bool toggle);
+		bool isRelativeToView();
 		
 		virtual void onMouseEnter();
 		virtual void onMouseLeave();
@@ -110,7 +112,8 @@ namespace GameEngine
 		bool isClicked();
 		bool wasClicked();
 		
-		void antiAliasing(bool toggle);
+		void setAntiAliasing(bool toggle);
+		bool getAntiAliasing();
 		
 		void setRotation(double degrees);
 		double getRotation();

@@ -7,8 +7,13 @@
 
 namespace GameEngine
 {
-	void TextActor::drawString(Graphics2D& g, String text, float x1, float y1)
+	void TextActor::drawString(Graphics2D& graphics, String text, float x1, float y1)
 	{
+		Graphics2D g(graphics);
+		g.scale(Scale, Scale);
+		x1 = x1 / Scale;
+		y1 = y1 / Scale;
+
 		String currentLine = "";
 		ArrayList<String> lines = ArrayList<String>();
 			
@@ -180,8 +185,10 @@ namespace GameEngine
 		return Rectangle((int)(getCenterX() - width/2), (int)(getCenterY() - height/2), width, height);
 	}
 
-	void TextActor::drawActor(Graphics2D& g, long gameTime, bool relativeToScreen)
+	void TextActor::drawActor(Graphics2D& graphics, long gameTime, bool relativeToScreen)
 	{
+		Graphics2D g(graphics);
+
 		unsigned int originalSize = font->getSize();
 		int originalStyle = font->getStyle();
 		this->font->setSize(fontSize);
@@ -193,9 +200,9 @@ namespace GameEngine
 		{
 			//graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		}
-			
+		
 		updateSize();
-			
+		
 		g.setColor(color);
 		g.setAlpha((unsigned char)(255 - (Alpha*255)));
 		g.setFont(this->font);
@@ -214,6 +221,9 @@ namespace GameEngine
 		}
 			
 		bool onscreen = isOnScreen();
+
+		float width = (this->width*Scale);
+		float height = (this->height*Scale);
 			
 		if((onscreen && relativeToScreen)||(!relativeToScreen))
 		{
@@ -231,10 +241,10 @@ namespace GameEngine
 				g.rotate((float)Rotation,x1-width,y1);
 				drawString(g, text, x1-width, y1);
 				break;
-					
+				
 				case ALIGN_CENTER:
-				g.rotate((float)Rotation,x1-(width/2),y1+(height/2));
-				drawString(g, text, x1-(width/2), y1+(height/2));
+				g.rotate((float)Rotation,x1-((float)width/2),y1+((float)height/2));
+				drawString(g, text, x1-((float)width/2), y1+((float)height/2));
 				break;
 					
 				case ALIGN_TOPLEFT:
@@ -266,7 +276,7 @@ namespace GameEngine
 				break;
 				
 				case ALIGN_CENTER:
-				g.drawRect(x1-(width/2), y1-(height/2), (float)width, (float)height);
+				g.drawRect(x1-((float)width/2), y1-((float)height/2), (float)width, (float)height);
 				break;
 				
 				case ALIGN_TOPLEFT:
@@ -281,9 +291,9 @@ namespace GameEngine
 
 		font->setSize(originalSize);
 		font->setStyle(originalStyle);
-		
-		g.setRotation(0,0,0);
-		g.setAlpha(255);
+
+		this->width = (int)(width);
+		this->height = (int)(height);
 	}
 
 	static const unsigned char ALIGN_BOTTOMLEFT = 0;
@@ -292,7 +302,7 @@ namespace GameEngine
 	static const unsigned char ALIGN_TOPLEFT = 3;
 	static const unsigned char ALIGN_TOPRIGHT = 4;
 		
-	TextActor::TextActor(String s, Font*f, const Color&c)
+	TextActor::TextActor(const String&s, Font*f, const Color&c)
 	{
 		alignment = ALIGN_BOTTOMLEFT;
 		text = s;
@@ -300,6 +310,7 @@ namespace GameEngine
 		color = c;
 		x=0;
 		y=0;
+		Scale=1;
 
 		fontSize = font->getSize();
 		fontStyle = font->getStyle();
@@ -320,8 +331,8 @@ namespace GameEngine
 		antialiasing = false;
 		relative = true;
 	}
-		
-	TextActor::TextActor(float x1, float y1,String s, Font*f, const Color&c)
+	
+	TextActor::TextActor(float x1, float y1, const String&s, Font*f, const Color&c)
 	{
 		alignment = ALIGN_BOTTOMLEFT;
 		text = s;
@@ -329,6 +340,7 @@ namespace GameEngine
 		color = c;
 		x=x1;
 		y=y1;
+		Scale=1;
 
 		fontSize = font->getSize();
 		fontStyle = font->getStyle();
@@ -355,7 +367,7 @@ namespace GameEngine
 		//
 	}
 		
-	String TextActor::toString()
+	const String& TextActor::toString()
 	{
 		return originalText;
 	}
@@ -437,6 +449,9 @@ namespace GameEngine
 		
 		text = newText;
 		updateSize();
+
+		this->width = (int)(this->width*Scale);
+		this->height = (int)(this->height*Scale);
 	}
 		
 	void TextActor::Update(long gameTime)
@@ -522,14 +537,16 @@ namespace GameEngine
 		wireframeColor = c;
 	}
 		
-	void TextActor::setText(String s)
+	void TextActor::setText(const String&s)
 	{
 		text = s;
 		originalText = text;
 		updateSize();
+		this->width = (int)((float)width*Scale);
+		this->height = (int)((float)height*Scale);
 	}
 		
-	String TextActor::getText()
+	const String& TextActor::getText()
 	{
 		return text;
 	}
@@ -538,6 +555,8 @@ namespace GameEngine
 	{
 		font = f;
 		updateSize();
+		this->width = (int)((float)width*Scale);
+		this->height = (int)((float)height*Scale);
 	}
 		
 	Font*TextActor::getFont()
@@ -555,18 +574,26 @@ namespace GameEngine
 	{
 		return fontSize;
 	}
-		
+	
 	void TextActor::setStyle(int style)
 	{
 		fontStyle = style;
+		updateSize();
+		this->width = (int)((float)width*Scale);
+		this->height = (int)((float)height*Scale);
 	}
-		
+
+	int TextActor::getStyle()
+	{
+		return fontStyle;
+	}
+	
 	void TextActor::setColor(const Color&c)
 	{
 		color = c;
 	}
 		
-	Color TextActor::getColor()
+	const Color& TextActor::getColor()
 	{
 		return color;
 	}
@@ -591,11 +618,19 @@ namespace GameEngine
 	void TextActor::setLineSpacing(unsigned int space)
 	{
 		lineSpace = space;
+		updateSize();
+		this->width = (int)((float)width*Scale);
+		this->height = (int)((float)height*Scale);
 	}
 	
-	void TextActor::relativeToView(bool toggle)
+	void TextActor::setRelativeToView(bool toggle)
 	{
 		relative = toggle;
+	}
+
+	bool TextActor::isRelativeToView()
+	{
+		return relative;
 	}
 
 	void TextActor::onMouseEnter() //When mouse enters Actor
@@ -681,10 +716,15 @@ namespace GameEngine
 	{
 		return prevclicked;
 	}
-		
-	void TextActor::antiAliasing(bool toggle)
+	
+	void TextActor::setAntiAliasing(bool toggle)
 	{
 		antialiasing = toggle;
+	}
+
+	bool TextActor::getAntiAliasing()
+	{
+		return antialiasing;
 	}
 		
 	void TextActor::setRotation(double degrees) //sets rotation of Actor in degrees

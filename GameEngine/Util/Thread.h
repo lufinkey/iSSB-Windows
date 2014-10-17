@@ -17,6 +17,7 @@ namespace GameEngine
 		virtual ~Thread();
 
 		virtual void run();
+		virtual void finish();
 
 		void start();
 		void stop();

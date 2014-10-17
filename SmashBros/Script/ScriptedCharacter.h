@@ -8,17 +8,10 @@ namespace SmashBros
 	class ScriptedCharacter : public Player
 	{
 	private:
-		typedef struct
-		{
-			String name;
-			String args;
-			String body;
-		} ScriptFunction;
-		
-		ArrayList<ScriptFunction> scriptFunctions;
+		void* chaiModule;
 
 	public:
-		ScriptedCharacter(const String&charModule, float x1, float y1, byte playerNo, byte team);
+		ScriptedCharacter(float x1, float y1, byte playerNo, byte team);
 		virtual ~ScriptedCharacter();
 
 		virtual void onCreate();

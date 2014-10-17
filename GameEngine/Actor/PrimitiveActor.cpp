@@ -5,6 +5,16 @@
 
 namespace GameEngine
 {
+	PrimitiveActor::PrimitiveActor()
+	{
+		//
+	}
+
+	PrimitiveActor::~PrimitiveActor()
+	{
+
+	}
+
 	unsigned char PrimitiveActor::getDir(float x1,float y1,float x2,float y2) //returns the direction of the second set of xy coords based on the first set
 	{
 		x2-=x1;
@@ -129,7 +139,7 @@ namespace GameEngine
 		return 0;
 	}
 
-	unsigned char PrimitiveActor::getDir(RectangleF& r1, RectangleF& r2) //returns the direction of the second set of xy coords based on the first set
+	unsigned char PrimitiveActor::getDir(const RectangleF& r1, const RectangleF& r2) //returns the direction of the second set of xy coords based on the first set
 	{																//directions in this method are based on the corners of the bounding box
 		float rx2 = (float)((float)r2.x + (float)r2.width/2) - (float)((float)r1.x + (float)r1.width/2);
 		float ry2 = (float)((float)r2.y + (float)r2.height/2) - (float)((float)r1.y + (float)r1.height/2);
@@ -221,7 +231,7 @@ namespace GameEngine
 		}
 	}
 		
-	unsigned char PrimitiveActor::getDir(Rectangle& r1, Rectangle& r2) //returns the direction of the second set of xy coords based on the first set
+	unsigned char PrimitiveActor::getDir(const Rectangle& r1, const Rectangle& r2) //returns the direction of the second set of xy coords based on the first set
 	{																//directions in this method are based on the corners of the bounding box
 		float rx2 = (float)((float)r2.x + (float)r2.width/2) - (float)((float)r1.x + (float)r1.width/2);
 		float ry2 = (float)((float)r2.y + (float)r2.height/2) - (float)((float)r1.y + (float)r1.height/2);

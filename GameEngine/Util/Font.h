@@ -13,8 +13,8 @@ namespace GameEngine
 
 			unsigned int size;
 			int style;
-		public:
 
+		public:
 			static const int PLAIN = 0;
 			static const int BOLD = 1;
 			static const int ITALIC = 2;

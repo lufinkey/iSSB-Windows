@@ -11,6 +11,7 @@ namespace GameEngine
 		private:
 			String name;
 			friend class ScreenManager;
+
 		public:
 			Screen(const String&name);
 			virtual ~Screen();

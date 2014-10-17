@@ -2,6 +2,8 @@
 #include "ArrayList.h"
 #include "String.h"
 
+#pragma once
+
 namespace GameEngine
 {
 	class PrefManager

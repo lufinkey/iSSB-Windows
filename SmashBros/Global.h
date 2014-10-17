@@ -10,6 +10,8 @@ namespace SmashBros
 {
 	class Global
 	{
+		friend class Game;
+		friend class GameScreen;
 	public:
 		static const int possPlayers = 4;
 		static const int possTeams = 4;
@@ -124,10 +126,8 @@ namespace SmashBros
 
 	private:
 		static void init();
-		friend class Game;
 
 		static void createHUD();
-		friend class GameScreen;
 		
 		static void createPlayers();
 

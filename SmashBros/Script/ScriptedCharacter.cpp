@@ -1,11 +1,12 @@
 
 #include "ScriptedCharacter.h"
+#include <chaiscript/chaiscript.hpp>
 
 namespace SmashBros
 {
-	ScriptedCharacter::ScriptedCharacter(const String& charModule, float x1, float y1, byte playerNo, byte team) : Player(x1, y1, playerNo, team)
+	ScriptedCharacter::ScriptedCharacter(float x1, float y1, byte playerNo, byte team) : Player(x1, y1, playerNo, team)
 	{
-		
+		//
 	}
 
 	ScriptedCharacter::~ScriptedCharacter()

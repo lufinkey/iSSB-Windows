@@ -58,7 +58,7 @@ namespace SmashBros
 	
 	boolean BeamSword::holderCanDo()
 	{
-		if(active && (attackDir==ATTACK_NORMAL || attackDir==ATTACK_SIDESMASH))
+		if(active && (attackDir==Player::ATTACK_A || attackDir==Player::ATTACK_SIDESMASH))
 		{
 			return false;
 		}
@@ -87,7 +87,7 @@ namespace SmashBros
 	
 	boolean BeamSword::chargeSmash(byte attackDir)
 	{
-		if(attackDir==ATTACK_SIDESMASH)
+		if(attackDir==Player::ATTACK_SIDESMASH)
 		{
 			Player*playr = getPlayer();
 			AttackTemplates::normalSmash(playr, 0, 0, Player::STEP_CHARGE, 1, 1600, 4, 11);
@@ -99,7 +99,7 @@ namespace SmashBros
 	boolean BeamSword::use(byte attackDir)
 	{
 		this->attackDir = attackDir;
-		if(attackDir==ATTACK_NORMAL)
+		if(attackDir==Player::ATTACK_A)
 		{
 			if(!active)
 			{
@@ -118,12 +118,12 @@ namespace SmashBros
 			}
 			return true;
 		}
-		else if(attackDir==ATTACK_SIDE)
+		else if(attackDir==Player::ATTACK_SIDEA)
 		{
 			if(!active)
 			{
 				Player*playr = getPlayer();
-				if(attackDir==ATTACK_SIDESMASH)
+				if(attackDir==Player::ATTACK_SIDESMASH)
 				{
 					smashPower = playr->getSmashPower();
 					AttackTemplates::stopSmashAttack(playr);
@@ -143,12 +143,12 @@ namespace SmashBros
 			}
 			return true;
 		}
-		else if(attackDir==ATTACK_SIDESMASH)
+		else if(attackDir==Player::ATTACK_SIDESMASH)
 		{
 			if(!active)
 			{
 				Player*playr = getPlayer();
-				if(attackDir==ATTACK_SIDESMASH)
+				if(attackDir==Player::ATTACK_SIDESMASH)
 				{
 					smashPower = playr->getSmashPower();
 					AttackTemplates::stopSmashAttack(playr);
@@ -175,7 +175,7 @@ namespace SmashBros
 	{
 		if(isHeld())
 		{
-			if(attackDir==ATTACK_NORMAL)
+			if(attackDir==Player::ATTACK_A)
 			{
 				causeDamage(collide,2);
 				switch(getPlayer()->getPlayerDir())
@@ -191,7 +191,7 @@ namespace SmashBros
 					break;
 				}
 			}
-			else if(attackDir==ATTACK_SIDE)
+			else if(attackDir==Player::ATTACK_SIDEA)
 			{
 				causeDamage(collide,3);
 				switch(getPlayer()->getPlayerDir())
@@ -207,7 +207,7 @@ namespace SmashBros
 					break;
 				}
 			}
-			else if(attackDir==ATTACK_SIDESMASH)
+			else if(attackDir==Player::ATTACK_SIDESMASH)
 			{
 				causeDamage(collide,smashPower);
 				switch(getPlayer()->getPlayerDir())
