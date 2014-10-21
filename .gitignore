@@ -43,3 +43,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Output directories
+Debug/
+Debug\ Static/
+Release/
+Release\ Static/
+

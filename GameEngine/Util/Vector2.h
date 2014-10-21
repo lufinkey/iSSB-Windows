@@ -51,42 +51,42 @@ namespace GameEngine
 			y = vect.y;
 		}
 
-		Vector2<T> operator+(const Vector2<T>&vect)
+		Vector2<T> operator+(const Vector2<T>&vect) const
 		{
 			return Vector2<T>(x + vect.x, y + vect.y);
 		}
 
-		Vector2<T> operator+(const sf::Vector2<T>&vect)
+		Vector2<T> operator+(const sf::Vector2<T>&vect) const
 		{
 			return Vector2<T>(x + vect.x, y + vect.y);
 		}
 
-		Vector2<T> operator-(const Vector2<T>&vect)
+		Vector2<T> operator-(const Vector2<T>&vect) const
 		{
 			return Vector2<T>(x - vect.x, y - vect.y);
 		}
 
-		Vector2<T> operator-(const sf::Vector2<T>&vect)
+		Vector2<T> operator-(const sf::Vector2<T>&vect) const
 		{
 			return Vector2<T>(x - vect.x, y - vect.y);
 		}
 
-		Vector2<T> operator*(const Vector2<T>&vect)
+		Vector2<T> operator*(const Vector2<T>&vect) const
 		{
 			return Vector2<T>(x - vect.x, y - vect.y);
 		}
 
-		Vector2<T> operator*(const sf::Vector2<T>&vect)
+		Vector2<T> operator*(const sf::Vector2<T>&vect) const
 		{
 			return Vector2<T>(x * vect.x, y * vect.y);
 		}
 
-		Vector2<T> operator/(const Vector2<T>&vect)
+		Vector2<T> operator/(const Vector2<T>&vect) const
 		{
 			return Vector2<T>(x / vect.x, y / vect.y);
 		}
 
-		Vector2<T> operator/(const sf::Vector2<T>&vect)
+		Vector2<T> operator/(const sf::Vector2<T>&vect) const
 		{
 			return Vector2<T>(x / vect.x, y / vect.y);
 		}

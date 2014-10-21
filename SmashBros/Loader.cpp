@@ -165,6 +165,11 @@ namespace SmashBros
 			winhold_fps = 6;
 			winhold_rows = 10;
 			break;
+
+			case Global::CHAR_LINK:
+			win_fps = 8;
+			win_rows = 4;
+			break;
 		}
 		
 		String charFolder = getFolder(charNo);

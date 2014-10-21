@@ -31,17 +31,17 @@ void load_module_GameEngine_vector2(chaiscript::Module*& module, const char* typ
 	module->add(chaiscript::fun((void(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)) &GameEngine::Vector2<T>::operator=), "=");
 	module->add(chaiscript::fun((void(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)) &GameEngine::Vector2<T>::operator=), "=");
 
-	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)) &GameEngine::Vector2<T>::operator+), "+");
-	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)) &GameEngine::Vector2<T>::operator+), "+");
+	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)const) &GameEngine::Vector2<T>::operator+), "+");
+	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)const) &GameEngine::Vector2<T>::operator+), "+");
 
-	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)) &GameEngine::Vector2<T>::operator-), "-");
-	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)) &GameEngine::Vector2<T>::operator-), "-");
+	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)const) &GameEngine::Vector2<T>::operator-), "-");
+	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)const) &GameEngine::Vector2<T>::operator-), "-");
 
-	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)) &GameEngine::Vector2<T>::operator*), "*");
-	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)) &GameEngine::Vector2<T>::operator*), "*");
-
-	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)) &GameEngine::Vector2<T>::operator/), "/");
-	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)) &GameEngine::Vector2<T>::operator/), "/");
+	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)const) &GameEngine::Vector2<T>::operator*), "*");
+	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)const) &GameEngine::Vector2<T>::operator*), "*");
+	
+	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)const) &GameEngine::Vector2<T>::operator/), "/");
+	module->add(chaiscript::fun((GameEngine::Vector2<T>(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)const) &GameEngine::Vector2<T>::operator/), "/");
 
 	module->add(chaiscript::fun((GameEngine::Vector2<T>&(GameEngine::Vector2<T>::*)(const GameEngine::Vector2<T>&)) &GameEngine::Vector2<T>::operator+=), "+=");
 	module->add(chaiscript::fun((GameEngine::Vector2<T>&(GameEngine::Vector2<T>::*)(const sf::Vector2<T>&)) &GameEngine::Vector2<T>::operator+=), "+=");

@@ -6,7 +6,7 @@
 namespace SmashBros
 {
 	const float Link::finalsmashOffsetX = 60;
-	const float Link::finalsmashOffsetY = 0;
+	const float Link::finalsmashOffsetY = 10;
 
 #define LINK_FINALSMASH_SEQUENCE {1,2,3,4,5,6,1,2,3,7,8,1,2,3,9,10,9,11,9,12,9,7,8,13,14,14,14,15}
 #define LINK_FINALSMASHFINISH_SEQUENCE {16,17,18,19,20}
@@ -251,7 +251,7 @@ namespace SmashBros
 			{
 				Player* collide = finalsmashVictims.get(i);
 				collide->x = x + (finalsmashOffsetX*getPlayerDirMult()*Scale);
-				collide->y = y;
+				collide->y = y + (finalsmashOffsetY*Scale);
 			}
 
 			attacksHolder = 14;
