@@ -7,7 +7,10 @@ namespace SmashBros
 {
 	AttackRandomizer::AttackProbability::AttackProbability()
 	{
-		//
+		attack = 0;
+		probability = 0;
+		charge = false;
+		randomizer = NULL;
 	}
 
 	AttackRandomizer::AttackProbability::AttackProbability(AttackRandomizer*randomizer, byte attack, float probability, boolean charge)
@@ -321,7 +324,7 @@ namespace SmashBros
 		{
 			int indexNo = -1;
 			byte type = Player::ATTACKTYPE_MELEE;
-			while(type<=7)
+			while(type<=9)
 			{
 				ArrayList<AttackProbability>*list = getAttackList(type);
 				indexNo = getAttackIndex(list, attack);

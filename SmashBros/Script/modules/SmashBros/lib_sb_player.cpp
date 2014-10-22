@@ -31,8 +31,6 @@ chaiscript::ModulePtr load_module_SmashBros_player()
 	m_public_player_public->add(chaiscript::fun(&SmashBros::Player::attackDownSmash), "attackDownSmash");
 
 	m_public_player_public->add(chaiscript::fun(&SmashBros::Player::respawn), "respawn");
-	m_public_player_public->add(chaiscript::fun((void(SmashBros::Player::*)(byte, byte, float)) &SmashBros::Player::addAIAttackType), "addAttackType");
-	m_public_player_public->add(chaiscript::fun((void(SmashBros::Player::*)(byte, byte, float, boolean)) &SmashBros::Player::addAIAttackType), "addAttackType");
 	m_public_player_public->add(chaiscript::fun(&SmashBros::Player::addAnimation), "addAnimation");
 	m_public_player_public->add(chaiscript::fun((void(SmashBros::Player::*)(const String&, byte)) &SmashBros::Player::changeTwoSidedAnimation), "changeTwoSidedAnimation");
 	m_public_player_public->add(chaiscript::fun((void(SmashBros::Player::*)(const String&, byte, byte)) &SmashBros::Player::changeTwoSidedAnimation), "changeTwoSidedAnimation");

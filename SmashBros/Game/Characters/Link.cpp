@@ -199,7 +199,20 @@ namespace SmashBros
 	
 	void Link::LoadAttackTypes()
 	{
-		//
+		addAIAttackType(ATTACK_A,		  ATTACKTYPE_MELEE, 6);
+		addAIAttackType(ATTACK_SIDEA,	  ATTACKTYPE_MELEE, 3);
+		addAIAttackType(ATTACK_UPA,	      ATTACKTYPE_UPMELEE, 1);
+		addAIAttackType(ATTACK_DOWNA,	  ATTACKTYPE_DOWNMELEE, 1);
+		addAIAttackType(ATTACK_DOWNA,	  ATTACKTYPE_MELEE, 2);
+		addAIAttackType(ATTACK_B,	      ATTACKTYPE_PROJECTILE, 2, true);
+		addAIAttackType(ATTACK_SIDEB,	  ATTACKTYPE_PROJECTILE, 2);
+		addAIAttackType(ATTACK_DOWNB,     ATTACKTYPE_PROJECTILE, 1);
+		addAIAttackType(ATTACK_UPB,	      ATTACKTYPE_STRONGMELEE, 1);
+		addAIAttackType(ATTACK_UPB,       ATTACKTYPE_UPMOVE, 1);
+		addAIAttackType(ATTACK_SIDESMASH, ATTACKTYPE_STRONGMELEE, 2, true);
+		addAIAttackType(ATTACK_UPSMASH,   ATTACKTYPE_STRONGMELEE, 1, true);
+		addAIAttackType(ATTACK_DOWNSMASH, ATTACKTYPE_STRONGMELEE, 1, true);
+		addAIAttackType(ATTACK_FINALSMASH,ATTACKTYPE_MELEE, 1);
 	}
 	
 	void Link::Unload()
@@ -238,11 +251,17 @@ namespace SmashBros
 		{
 			if(moveLeft>0)
 			{
-				x -= 0.8f;
+				if(xvelocity > -0.14f)
+				{
+					xvelocity -= 0.1f;
+				}
 			}
 			if(moveRight>0)
 			{
-				x += 0.8f;
+				if(xvelocity < 0.14f)
+				{
+					xvelocity += 0.1f;
+				}
 			}
 		}
 		else if(attacksPriority==7)
