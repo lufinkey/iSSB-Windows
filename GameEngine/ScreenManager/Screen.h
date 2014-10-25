@@ -8,9 +8,9 @@ namespace GameEngine
 {
 	class Screen
 	{
+		friend class ScreenManager;
 		private:
 			String name;
-			friend class ScreenManager;
 
 		public:
 			Screen(const String&name);

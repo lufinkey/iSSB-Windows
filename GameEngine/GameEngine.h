@@ -48,3 +48,7 @@ typedef unsigned char byte;
 typedef bool boolean;
 
 #undef TRANSPARENT
+
+#ifndef _COMMA
+#define _COMMA ,
+#endif

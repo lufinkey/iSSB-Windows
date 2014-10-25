@@ -1,5 +1,4 @@
-/*
-def constructor()
+def constructor()
 {
 	walkSpeed = 3; //normal walking speed
 	runSpeed = 4; //normal running speed
@@ -13,23 +12,17 @@ def constructor()
 	//setHangPoint(5, 20);
 	
 	//character's hitbox. first 2 arguments are the offset from the center of the character, second 2 are the width and height
-	setHitbox(-10, -9, 20, 28);
+	setHitbox(-10, -9, 20, 28);		return this;
 }
-*/
-/*
-def destructor()
+def destructor()
 {
 	//destructor. called when the game ends and this Player object is disposed. Probably won't need to put anything in here
 }
-*/
-/*
-def onCreate()
+def onCreate()
 {
 	//event called when the character is created on the map
 }
-*/
-/*
-def Load()
+def Load()
 {
 	//called to load the character animations
 	
@@ -51,9 +44,7 @@ def Load()
 	addTwoSidedAnimation("jump", "jump.png", 10, 6, 1);
 	//etc...
 }
-*/
-/*
-def LoadAttackTypes()
+def LoadAttackTypes()
 {
 	//called to specify the type of attacks each attack is. Used for the AI
 	
@@ -72,9 +63,7 @@ def LoadAttackTypes()
 	addAIAttackType(ATTACK_SIDEB,	 ATTACKTYPE_DEFENSIVE, 1);
 	//etc...
 }
-*/
-/*
-def onAnimationFinish(const String&name)
+def onAnimationFinish(const String&name)
 {
 	//event called when an animation finishes its cycle
 	
@@ -96,9 +85,7 @@ def onAnimationFinish(const String&name)
 		Player::onAnimationFinish(name);
 	}
 }
-*/
-/*
-def setToDefaultValues()
+def setToDefaultValues()
 {
 	//usually called inside of Player::onAnimationFinish(String) or if you respawn or die.
 	
@@ -112,9 +99,7 @@ def setToDefaultValues()
 	//(charging_attackB isn't an actual variable. This is just an example. You can give the character
 	// its own variables and name them whatever you want
 }
-*/
-/*
-def checkIfAble()
+def checkIfAble()
 {
 	//called to check if you want something to restrict the character's ability to move or
 	// perform attacks. For example if you're performing an attack and you haven't set attacksHolder
@@ -131,15 +116,11 @@ def checkIfAble()
 	// call CanDo() and it will return true or false. Don't call it inside of this function, however, because
 	// this function gets called inside of CanDo()
 }
-*/
-/*
-def onDestroy()
+def onDestroy()
 {
 	//event called when the character is destroyed (as in, he is hit out of the map by another character)
 }
-*/
-/*
-def jump()
+def jump()
 {
 	//function called to make the character jump.
 	
@@ -152,9 +133,7 @@ def jump()
 	// specific value if the character is on the ground, and then adjust the second argument of jump(float,float)
 	// depending on the value of doubleJump.
 }
-*/
-/*
-def Update(long gameTime)
+def Update(long gameTime)
 {
 	//event called every frame.
 	//If you want to edit some variable every frame, or do something every frame, or check something every frame, do it here.
@@ -173,9 +152,7 @@ def Update(long gameTime)
 	
 	updateAI(); //updates the AI actions of the character
 }
-*/
-/*
-def Draw(Graphics2D&g, long gameTime)
+def Draw(Graphics2D&g, long gameTime)
 {
 	//event called when the character is drawn on the screen.
 	
@@ -186,9 +163,7 @@ def Draw(Graphics2D&g, long gameTime)
 	// want to draw on top of the character or something. Do NOT put game logic in here. It may work, but that does not
 	// mean you should do it, because Draw is still called even if the game is paused.
 }
-*/
-/*
-def onPlatformCollide(Platform*collide, byte dir)
+def onPlatformCollide(Platform*collide, byte dir)
 {
 	//event called when the character collides against a platform side
 		//the dir argument specifies which side the character collided on the platform.
@@ -201,9 +176,7 @@ def onPlatformCollide(Platform*collide, byte dir)
 	// the character collides on a certain side of the platform
 	Player::onPlatformCollide(collide, dir);
 }
-*/
-/*
-def finishPlatformCollide(Platform*collide, byte dir)
+def finishPlatformCollide(Platform*collide, byte dir)
 {
 	//event called when the character finishes colliding against a platform side
 		//the dir argument specifies which side the character was colliding against on the platform.
@@ -216,9 +189,7 @@ def finishPlatformCollide(Platform*collide, byte dir)
 	// the character finishes colliding on a certain side of the platform
 	Player::finishPlatformCollide(collide, dir);
 }
-*/
-/*
-def onGroundCollide()
+def onGroundCollide()
 {
 	//event called when the character lands on some sort of ground.
 	// (usually also called when onPlatformCollide is called for DIR_UP)
@@ -227,15 +198,11 @@ def onGroundCollide()
 	// the character lands on the ground.
 	Player::onGroundCollide();
 }
-*/
-/*
-def whilePlayerColliding(Player*collide, byte dir)
+def whilePlayerColliding(Player*collide, byte dir)
 {
 	//event called while the character is colliding with another character.
 }
-*/
-/*
-def onPlayerHit(Player*collide, byte dir)
+def onPlayerHit(Player*collide, byte dir)
 {
 	//event called when your character is performing an attack and hits another character
 	
@@ -296,9 +263,7 @@ def onPlayerHit(Player*collide, byte dir)
 					//3. delayTime: prevents the other character's movement for a certain amount of milliseconds. Basically "stuns" the other character.
 				causeHurt(collide, getOppPlayerDir(), 300);
 }
-*/
-/*
-def whilePlayerHitting(Player*collide, byte dir)
+def whilePlayerHitting(Player*collide, byte dir)
 {
 	//event called while your character is hitting another character during an attack (if you hit him for more than
 	// 1 frame)
@@ -308,39 +273,29 @@ def whilePlayerHitting(Player*collide, byte dir)
 	// the dir argument's value. If dir equals DIR_LEFT, you hit the character on your left
 	// side. If dir equals DIR_UP, you hit the character on your top side.
 }
-*/
-/*
-def finishPlayerHit(Player*collide)
+def finishPlayerHit(Player*collide)
 {
 	//event called when you finish hitting another character. (ie. the character is knocked away, or you finish the attack)
 }
-*/
-/*
-def onPlayerRectHit(Player*collide, byte dir)
+def onPlayerRectHit(Player*collide, byte dir)
 {
 	//event called when your character is performing an attack your bounding box hits another character
 	
 	//see onPlayerHit for reference about the arguments and what you should do within this function
 }
-*/
-/*
-def whilePlayerRectHitting(Player*collide, byte dir)
+def whilePlayerRectHitting(Player*collide, byte dir)
 {
 	//event called while your character's bounding box is hitting another character during an attack
 	// (if you hit him for more than 1 frame)
 	
 	//see whilePlayerHitting for reference about the arguments and what you should do within this function
 }
-*/
-/*
-def finishPlayerRectHit(Player*collide)
+def finishPlayerRectHit(Player*collide)
 {
 	//event called when your character's bounding box finishes hitting another character.
 	// (ie. the character is knocked away, or you finish the attack)
 }
-*/
-/*
-def onDeflectPlayerDamage(Player*collide, int damage)
+def onDeflectPlayerDamage(Player*collide, int damage)
 {
 	//event called to check if your character should deflect damage issued by another character.
 	
@@ -348,9 +303,7 @@ def onDeflectPlayerDamage(Player*collide, int damage)
 	// otherwise, return false.
 	return false;
 }
-*/
-/*
-def onDeflectPlayerLaunch(Player*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
+def onDeflectPlayerLaunch(Player*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
 {
 	//event called if you return true in the onDeflectPlayerDamage function
 	
@@ -364,9 +317,7 @@ def onDeflectPlayerLaunch(Player*collide, int xDir, float xAmount, float xMult, 
 	//since you already returned true inside onDeflectPlayerDamage, you won't have any consequences if
 	// you don't do anything inside this function (such as being sent flying).
 }
-*/
-/*
-def onDeflectItemCollision(Item*collide, byte dir)
+def onDeflectItemCollision(Item*collide, byte dir)
 {
 	//event called to check if your character should deflect an item being thrown at it.
 	
@@ -374,9 +325,7 @@ def onDeflectItemCollision(Item*collide, byte dir)
 	// otherwise, return false.
 	return false;
 }
-*/
-/*
-def onDeflectItemDamage(Item*collide, int damage)
+def onDeflectItemDamage(Item*collide, int damage)
 {
 	//event called to check if your character should deflect damage inflicted on you by an
 	// item hitting you, such as a beamsword.
@@ -387,9 +336,7 @@ def onDeflectItemDamage(Item*collide, int damage)
 	// If you don't deflect the damage anything, return false.
 	return false;
 }
-*/
-/*
-def onDeflectItemLaunch(Item*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
+def onDeflectItemLaunch(Item*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
 {
 	//event called if you returned true in the onDeflectItemDamage funtion.
 	
@@ -403,9 +350,7 @@ def onDeflectItemLaunch(Item*collide, int xDir, float xAmount, float xMult, int 
 	//since you already returned true inside onDeflectItemDamage, you won't have any consequences if
 	// you don't do anything inside this function (such as being sent flying).
 }
-*/
-/*
-def onDeflectProjectileCollision(Projectile*collide, byte dir)
+def onDeflectProjectileCollision(Projectile*collide, byte dir)
 {
 	//event called to check if your character should deflect a projectile being thrown at it.
 	
@@ -413,9 +358,7 @@ def onDeflectProjectileCollision(Projectile*collide, byte dir)
 	// otherwise, return false.
 	return false;
 }
-*/
-/*
-def onDeflectProjectileDamage(Projectile*collide, int damage)
+def onDeflectProjectileDamage(Projectile*collide, int damage)
 {
 	//event called to check if your character should deflect damage inflicted on you by a
 	// projectile hitting you, such as a fireball.
@@ -427,9 +370,7 @@ def onDeflectProjectileDamage(Projectile*collide, int damage)
 	//If you are deflecting the damage, return true. Otherwise, return false.
 	return false;
 }
-*/
-/*
-def onDeflectProjectileLaunch(Projectile*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
+def onDeflectProjectileLaunch(Projectile*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
 {
 	//event called if you returned true in the onDeflectProjectileDamage funtion.
 	
@@ -441,9 +382,7 @@ def onDeflectProjectileLaunch(Projectile*collide, int xDir, float xAmount, float
 	//since you already returned true inside onDeflectProjectileDamage, you won't have any consequences if
 	// you don't do anything inside this function (such as being sent flying).
 }
-*/
-/*
-def onFinishCharge()
+def onFinishCharge()
 {
 	//event called if your character finishes charging an attack.
 	
@@ -451,9 +390,7 @@ def onFinishCharge()
 	// using the AttackTemplates::chargeB function.
 	//note: this event is not called for the AttackTemplates::normalSmash function.
 }
-*/
-/*
-def doChargingAttack(byte button)
+def doChargingAttack(byte button)
 {
 	//event called if your character releases the button on the controller being held to charge the attack.
 	
@@ -464,9 +401,7 @@ def doChargingAttack(byte button)
 		//BUTTON_RIGHT: the right button.
 		//BUTTON_SPECIAL: the B button, also known as the special attack button.
 }
-*/
-/*
-def attackA()
+def attackA()
 {
 	//function called to perform the character's A attack.
 	
@@ -539,9 +474,7 @@ def attackA()
 		}
 	}
 }
-*/
-/*
-def attackSideA()
+def attackSideA()
 {
 	//function called to perform the character's Side A attack.
 	
@@ -599,9 +532,7 @@ def attackSideA()
 		}
 	}
 }
-*/
-/*
-def attackUpA()
+def attackUpA()
 {
 	//function called to perform the character's Up A attack.
 	
@@ -625,9 +556,7 @@ def attackUpA()
 		}
 	}
 }
-*/
-/*
-def attackDownA()
+def attackDownA()
 {
 	//function called to perform the character's Down A attack.
 	
@@ -651,9 +580,7 @@ def attackDownA()
 		}
 	}
 }
-*/
-/*
-def attackB()
+def attackB()
 {
 	//function called to perform the character's B attack
 	
@@ -672,9 +599,7 @@ def attackB()
 		}
 	}
 }
-*/
-/*
-def attackSideB()
+def attackSideB()
 {
 	//function called to perform the character's Side B attack
 	
@@ -685,9 +610,7 @@ def attackSideB()
 		//TODO do some sort of special attack here.
 	}
 }
-*/
-/*
-def attackUpB()
+def attackUpB()
 {
 	//function called to perform the character's Up B attack
 	
@@ -698,9 +621,7 @@ def attackUpB()
 		//TODO do some sort of special attack here.
 	}
 }
-*/
-/*
-def attackDownB()
+def attackDownB()
 {
 	//function called to perform the character's Down B attack
 	
@@ -711,9 +632,7 @@ def attackDownB()
 		//TODO do some sort of special attack here.
 	}
 }
-*/
-/*
-def attackSideSmash(byte type)
+def attackSideSmash(byte type)
 {
 	//function called to perform the character's Side Smash attack
 	
@@ -753,9 +672,7 @@ def attackSideSmash(byte type)
 		}
 	}
 }
-*/
-/*
-def attackUpSmash(byte type)
+def attackUpSmash(byte type)
 {
 	//function called to perform the character's Up Smash attack
 	
@@ -795,9 +712,7 @@ def attackUpSmash(byte type)
 		}
 	}
 }
-*/
-/*
-def attackDownSmash(byte type)
+def attackDownSmash(byte type)
 {
 	//function called to perform the character's Down Smash attack
 	
@@ -837,9 +752,7 @@ def attackDownSmash(byte type)
 		}
 	}
 }
-*/
-/*
-def attackFinalSmash()
+def attackFinalSmash()
 {
 	//function called to perform the character's Final Smash attack
 	
@@ -847,4 +760,3 @@ def attackFinalSmash()
 	
 	//TODO start some sort of final smash here.
 }
-*/

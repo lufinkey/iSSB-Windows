@@ -698,9 +698,9 @@ int countArray(const array_type& array)
 
 void readPlist(std::istream& stream, boost::any& message)
 {
-	int start = stream.tellg();
+	unsigned int start = (unsigned int)stream.tellg();
 	stream.seekg(0, std::ifstream::end);
-	int size = ((int) stream.tellg()) - start;
+	unsigned int size = ((unsigned int) stream.tellg()) - start;
 	if(size > 0)
 	{
 		stream.seekg(0, std::ifstream::beg);

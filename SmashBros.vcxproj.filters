@@ -127,6 +127,18 @@
     <Filter Include="Source Files\SmashBros\Script\modules\SmashBros">
       <UniqueIdentifier>{ebd51b30-f35b-43b1-b6e8-55d8b5640582}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SmashBros\Script\modules\SmashBros\inherit">
+      <UniqueIdentifier>{9cf61bcf-84f1-444c-b623-a8263fc57cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SmashBros\Script\modules\SmashBros\inherit">
+      <UniqueIdentifier>{09cf7776-cccd-40dd-bde0-decce0845f61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PlistCpp">
+      <UniqueIdentifier>{a27c4981-8541-472f-acd2-ce2881e20970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PlistCpp">
+      <UniqueIdentifier>{2cbf74cc-abaa-4370-a3d2-f8ab589a182b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine\Actor\Actor.cpp">
@@ -372,9 +384,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SmashBros\Script\ScriptedCharacter.cpp">
-      <Filter>Source Files\SmashBros\Script</Filter>
-    </ClCompile>
     <ClCompile Include="SmashBros\Script\ScriptManager.cpp">
       <Filter>Source Files\SmashBros\Script</Filter>
     </ClCompile>
@@ -416,6 +425,21 @@
     </ClCompile>
     <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_gameengine.cpp">
       <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\ScriptEntity.cpp">
+      <Filter>Source Files\SmashBros\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_player.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\SmashBros\inherit</Filter>
+    </ClCompile>
+    <ClCompile Include="PlistCpp\src\Plist.cpp">
+      <Filter>Source Files\PlistCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PlistCpp\src\PlistDate.cpp">
+      <Filter>Source Files\PlistCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PlistCpp\src\pugixml.cpp">
+      <Filter>Source Files\PlistCpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -671,9 +695,6 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SmashBros\Script\ScriptedCharacter.h">
-      <Filter>Header Files\SmashBros\Script</Filter>
-    </ClInclude>
     <ClInclude Include="SmashBros\Script\ScriptManager.h">
       <Filter>Header Files\SmashBros\Script</Filter>
     </ClInclude>
@@ -700,6 +721,30 @@
     </ClInclude>
     <ClInclude Include="GameEngine\Util\Vector2.h">
       <Filter>Header Files\GameEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\ScriptEntity.h">
+      <Filter>Header Files\SmashBros\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_player.h">
+      <Filter>Header Files\SmashBros\Script\modules\SmashBros\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="PlistCpp\src\base64.hpp">
+      <Filter>Header Files\PlistCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlistCpp\src\Plist.hpp">
+      <Filter>Header Files\PlistCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlistCpp\src\PlistDate.hpp">
+      <Filter>Header Files\PlistCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlistCpp\src\pugiconfig.hpp">
+      <Filter>Header Files\PlistCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlistCpp\src\pugixml.hpp">
+      <Filter>Header Files\PlistCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\ScriptMacros.h">
+      <Filter>Header Files\SmashBros\Script</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -47,6 +47,8 @@ namespace GameEngine
 		String(const long num);
 		virtual ~String();
 
+		std::wstring wstring() const;
+
 		operator char*();
 		operator const char*();
 		operator std::string();

@@ -890,6 +890,15 @@ namespace GameEngine
 		characters = NULL;
 	}
 
+	std::wstring String::wstring() const
+	{
+		wchar_t*str = new wchar_t[total+1];
+		mbstowcs(str,characters,total+1);
+		std::wstring newStr(str);
+		delete[] str;
+		return newStr;
+	}
+
 	String::operator char*()
 	{
 		return characters;

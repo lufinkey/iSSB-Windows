@@ -102,6 +102,9 @@ namespace GameEngine
 
 			static void Exit();
 
+			static void showMessage(const String&message);
+			static void showMessage(const String&title, const String&message);
+
 			static int GetLastKey();
 			static bool KeyPressed(int key);
 			static bool PrevKeyPressed(int key);

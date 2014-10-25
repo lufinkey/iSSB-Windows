@@ -519,7 +519,7 @@ namespace SmashBros
 					break;
 	 
 					case 1:
-					if(Global::worldTime<=playr->smashTime+100)
+					if(Global::worldTime<=playr->smashTime)
 					{
 						playr->attackUpSmash(Player::STEP_CHARGE);
 						if(playr->jumping)
@@ -535,7 +535,7 @@ namespace SmashBros
 					break;
 	 
 					case 2:
-					if(Global::worldTime<=playr->smashTime+100)
+					if(Global::worldTime<=playr->smashTime)
 					{
 						playr->attackSideSmash(Player::STEP_CHARGE);
 					}
@@ -546,7 +546,7 @@ namespace SmashBros
 					break;
 					
 					case 3:
-					if(Global::worldTime<=playr->smashTime+100)
+					if(Global::worldTime<=playr->smashTime)
 					{
 						playr->attackDownSmash(Player::STEP_CHARGE);
 						playr->canDropThrough=false;
@@ -560,7 +560,7 @@ namespace SmashBros
 					break;
 	 
 					case 4:
-					if(Global::worldTime<=playr->smashTime+100)
+					if(Global::worldTime<=playr->smashTime)
 					{
 						playr->attackSideSmash(Player::STEP_CHARGE);
 					}

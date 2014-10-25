@@ -3,6 +3,10 @@
 #include "AssetManager.h"
 #include <time.h>
 
+#if defined(_WIN32)
+#include <Windows.h>
+#endif
+
 namespace GameEngine
 {
 	String Application::windowTitle = "Program";
@@ -293,6 +297,20 @@ namespace GameEngine
 	void Application::Exit()
 	{
 		exiting = true;
+	}
+
+	void Application::showMessage(const String&message)
+	{
+#if defined(_WIN32)
+		MessageBox(NULL, message.wstring().c_str(), L"",  MB_OK);
+#endif
+	}
+
+	void Application::showMessage(const String&title, const String&message)
+	{
+#if defined(_WIN32)
+		MessageBox(NULL, message.wstring().c_str(), title.wstring().c_str(),  MB_OK);
+#endif
 	}
 
 	int Application::GetLastKey()
