@@ -1,7 +1,7 @@
 
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
-chaiscript::ModulePtr load_module_GameEngine_screenmanager()
+chaiscript::ModulePtr load_module_GameEngine_ScreenManager()
 {
 	chaiscript::Module* m_gameengine_screenmanager = new chaiscript::Module();
 

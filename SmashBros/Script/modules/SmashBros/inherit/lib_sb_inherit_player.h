@@ -10,18 +10,9 @@
 
 namespace SmashBros
 {
-	class SCRIPTEDCLASS_CLASSNAME(Player) : public SmashBros::Player
+	SCRIPTEDCLASS_CLASSHEADER(SmashBros, Player)
 	{
-	public:
-		SCRIPTEDCLASS_CLASSNAME(Player)(ScriptData*scriptData, float x1, float y1, byte playerNo, byte team);
-		virtual ~SCRIPTEDCLASS_CLASSNAME(Player)();
-
-	private:
-		chaiscript::ChaiScript* script;
-		ScriptData* scriptData;
-
-		std::function<SCRIPTEDCLASS_CLASSNAME(Player)*()> func_constructor;
-		std::function<void()> func_destructor;
+		SCRIPTEDCLASS_MEMBERS(SmashBros, Player, float x1, float y1, byte playerNo, byte team)
 
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onCreate, void)
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Load, void)

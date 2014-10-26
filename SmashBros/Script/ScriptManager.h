@@ -10,20 +10,20 @@ namespace SmashBros
 	{
 		friend class ScriptedPlayer;
 	private:
-		static chaiscript::ModulePtr module_gameengine;
+		static chaiscript::ModulePtr module_GameEngine;
 
-		static chaiscript::ModulePtr module_protected_actor;
-		static chaiscript::ModulePtr module_protected_textactor;
-		static chaiscript::ModulePtr module_protected_wireframeactor;
-		static chaiscript::ModulePtr module_protected_menuscreen;
+		static chaiscript::ModulePtr module_GameEngine_Actor_protected;
+		static chaiscript::ModulePtr module_GameEngine_TextActor_protected;
+		static chaiscript::ModulePtr module_GameEngine_WireframeActor_protected;
+		static chaiscript::ModulePtr module_GameEngine_MenuScreen_protected;
 
-		static chaiscript::ModulePtr module_smashbros;
+		static chaiscript::ModulePtr module_SmashBros;
 
-		static chaiscript::ModulePtr module_protected_gameelement;
-		static chaiscript::ModulePtr module_protected_player;
-		static chaiscript::ModulePtr module_protected_stage;
-		static chaiscript::ModulePtr module_protected_item;
-		static chaiscript::ModulePtr module_protected_projectile;
+		static chaiscript::ModulePtr module_SmashBros_GameElement_protected;
+		static chaiscript::ModulePtr module_SmashBros_Player_protected;
+		static chaiscript::ModulePtr module_SmashBros_Stage_protected;
+		static chaiscript::ModulePtr module_SmashBros_Item_protected;
+		static chaiscript::ModulePtr module_SmashBros_Projectile_protected;
 		
 		static bool loaded;
 

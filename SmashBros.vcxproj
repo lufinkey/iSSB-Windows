@@ -240,23 +240,22 @@
     <ClCompile Include="SmashBros\Preferences.cpp" />
     <ClCompile Include="SmashBros\Projectile.cpp" />
     <ClCompile Include="SmashBros\ProjectileManager.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_gameengine.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_actor.cpp">
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_GameEngine.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Actor.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_global.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_graphics.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_io.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_math.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_screenmanager.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_types.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_util.cpp">
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Global.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Graphics.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_IO.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Math.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_ScreenManager.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Util.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_player.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_global.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_player.cpp" />
-    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_types.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_Player.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_Global.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_Player.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_SmashBros.cpp" />
     <ClCompile Include="SmashBros\Script\ScriptEntity.cpp" />
     <ClCompile Include="SmashBros\Script\ScriptManager.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -355,12 +354,12 @@
     <ClInclude Include="SmashBros\Preferences.h" />
     <ClInclude Include="SmashBros\Projectile.h" />
     <ClInclude Include="SmashBros\ProjectileManager.h" />
-    <ClInclude Include="SmashBros\Script\modules\GameEngine\arraylist.h" />
-    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_gameengine.h" />
-    <ClInclude Include="SmashBros\Script\modules\GameEngine\thread.h" />
-    <ClInclude Include="SmashBros\Script\modules\GameEngine\vector2.h" />
-    <ClInclude Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_player.h" />
-    <ClInclude Include="SmashBros\Script\modules\SmashBros\lib_smashbros.h" />
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_ArrayList.h" />
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_GameEngine.h" />
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_Thread.h" />
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_Vector2.h" />
+    <ClInclude Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_Player.h" />
+    <ClInclude Include="SmashBros\Script\modules\SmashBros\lib_SmashBros.h" />
     <ClInclude Include="SmashBros\Script\ScriptEntity.h" />
     <ClInclude Include="SmashBros\Script\ScriptMacros.h" />
     <ClInclude Include="SmashBros\Script\ScriptManager.h" />

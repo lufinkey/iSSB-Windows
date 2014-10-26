@@ -1,5 +1,5 @@
 
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
 #include "../../ScriptOperatorOverloads.h"
 
@@ -36,7 +36,7 @@ namespace GameEngine
 	}
 }
 
-chaiscript::ModulePtr load_module_GameEngine_global()
+chaiscript::ModulePtr load_module_GameEngine_Global()
 {
 	chaiscript::Module* m_gameengine_global = new chaiscript::Module();
 

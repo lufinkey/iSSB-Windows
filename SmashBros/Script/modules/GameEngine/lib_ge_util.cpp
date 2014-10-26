@@ -1,10 +1,10 @@
 
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
 #include "../../ScriptOperatorOverloads.h"
-#include "arraylist.h"
-#include "thread.h"
-#include "vector2.h"
+#include "lib_ge_ArrayList.h"
+#include "lib_ge_Thread.h"
+#include "lib_ge_Vector2.h"
 
 #undef TRANSPARENT
 
@@ -108,13 +108,13 @@ namespace GameEngine
 
 	//Thread
 
-	ScriptThread::ScriptThread(const chaiscript::Boxed_Value& data, const std::function<void(const chaiscript::Boxed_Value&)>& runCallback)
+	ScriptThread::ScriptThread(chaiscript::Boxed_Value& data, std::function<void(chaiscript::Boxed_Value&)>& runCallback)
 	{
 		this->data = data;
 		this->runCallback = runCallback;
 	}
 
-	ScriptThread::ScriptThread(const chaiscript::Boxed_Value& data, const std::function<void(const chaiscript::Boxed_Value&)>& runCallback, const std::function<void(const chaiscript::Boxed_Value&)>& finishCallback)
+	ScriptThread::ScriptThread(chaiscript::Boxed_Value& data, std::function<void(chaiscript::Boxed_Value&)>& runCallback, std::function<void(chaiscript::Boxed_Value&)>& finishCallback)
 	{
 		this->data = data;
 		this->runCallback = runCallback;
@@ -142,12 +142,12 @@ namespace GameEngine
 		}
 	}
 
-	ScriptThread* new_ScriptThread(const chaiscript::Boxed_Value& data, const std::function<void(const chaiscript::Boxed_Value&)>& runCallback)
+	ScriptThread* new_ScriptThread(chaiscript::Boxed_Value& data, std::function<void(chaiscript::Boxed_Value&)>& runCallback)
 	{
 		return new ScriptThread(data, runCallback);
 	}
 
-	ScriptThread* new_ScriptThread(const chaiscript::Boxed_Value& data, const std::function<void(const chaiscript::Boxed_Value&)>& runCallback, const std::function<void(const chaiscript::Boxed_Value&)>& finishCallback)
+	ScriptThread* new_ScriptThread(chaiscript::Boxed_Value& data, std::function<void(chaiscript::Boxed_Value&)>& runCallback, std::function<void(chaiscript::Boxed_Value&)>& finishCallback)
 	{
 		return new ScriptThread(data, runCallback, finishCallback);
 	}
@@ -158,39 +158,39 @@ namespace GameEngine
 	}
 }
 
-chaiscript::ModulePtr load_module_GameEngine_util()
+chaiscript::ModulePtr load_module_GameEngine_Util()
 {
 	chaiscript::Module* m_gameengine_util = new chaiscript::Module();
 
 	//ArrayList
-	load_module_GameEngine_arraylist<chaiscript::Boxed_Value>(m_gameengine_util, "List");
-	//load_module_GameEngine_arraylist<void*>(m_gameengine_util, "VoidList");
-	load_module_GameEngine_arraylist<bool>(m_gameengine_util, "BoolList");
-	load_module_GameEngine_arraylist<boolean>(m_gameengine_util, "BooleanList");
-	load_module_GameEngine_arraylist<byte>(m_gameengine_util, "ByteList");
-	load_module_GameEngine_arraylist<char>(m_gameengine_util, "CharList");
-	load_module_GameEngine_arraylist<short>(m_gameengine_util, "ShortList");
-	load_module_GameEngine_arraylist<int>(m_gameengine_util, "IntList");
-	load_module_GameEngine_arraylist<int*>(m_gameengine_util, "IntPtrList");
-	load_module_GameEngine_arraylist<unsigned int>(m_gameengine_util, "UnsignedIntList");
-	load_module_GameEngine_arraylist<float>(m_gameengine_util, "FloatList");
-	load_module_GameEngine_arraylist<double>(m_gameengine_util, "DoubleList");
-	load_module_GameEngine_arraylist<long>(m_gameengine_util, "LongList");
-	load_module_GameEngine_arraylist<unsigned long>(m_gameengine_util, "UnsignedLongList");
-	load_module_GameEngine_arraylist<long long>(m_gameengine_util, "LongLongList");
-	load_module_GameEngine_arraylist<unsigned long long>(m_gameengine_util, "UnsignedLongLongList");
-	load_module_GameEngine_arraylist<long double>(m_gameengine_util, "LongDoubleList");
-	load_module_GameEngine_arraylist<GameEngine::Actor*>(m_gameengine_util, "ActorList");
-	load_module_GameEngine_arraylist<GameEngine::Animation*>(m_gameengine_util, "AnimationList");
-	load_module_GameEngine_arraylist<GameEngine::TextActor*>(m_gameengine_util, "TextActorList");
-	load_module_GameEngine_arraylist<GameEngine::WireframeActor*>(m_gameengine_util, "WireframeActorList");
-	load_module_GameEngine_arraylist<GameEngine::String>(m_gameengine_util, "StringList");
-	load_module_GameEngine_arraylist<GameEngine::Vector2<chaiscript::Boxed_Value>>(m_gameengine_util, "Vector2List");
-	load_module_GameEngine_arraylist<GameEngine::Vector2i>(m_gameengine_util, "Vector2iList");
-	load_module_GameEngine_arraylist<GameEngine::Vector2f>(m_gameengine_util, "Vector2fList");
-	load_module_GameEngine_arraylist<GameEngine::Vector2d>(m_gameengine_util, "Vector2dList");
-	load_module_GameEngine_arraylist<GameEngine::BufferedImage*>(m_gameengine_util, "BufferedImageList");
-	load_module_GameEngine_arraylist<GameEngine::Font*>(m_gameengine_util, "FontList");
+	load_module_GameEngine_ArrayList<chaiscript::Boxed_Value>(m_gameengine_util, "List");
+	//load_module_GameEngine_ArrayList<void*>(m_gameengine_util, "VoidList");
+	load_module_GameEngine_ArrayList<bool>(m_gameengine_util, "BoolList");
+	load_module_GameEngine_ArrayList<boolean>(m_gameengine_util, "BooleanList");
+	load_module_GameEngine_ArrayList<byte>(m_gameengine_util, "ByteList");
+	load_module_GameEngine_ArrayList<char>(m_gameengine_util, "CharList");
+	load_module_GameEngine_ArrayList<short>(m_gameengine_util, "ShortList");
+	load_module_GameEngine_ArrayList<int>(m_gameengine_util, "IntList");
+	load_module_GameEngine_ArrayList<int*>(m_gameengine_util, "IntPtrList");
+	load_module_GameEngine_ArrayList<unsigned int>(m_gameengine_util, "UnsignedIntList");
+	load_module_GameEngine_ArrayList<float>(m_gameengine_util, "FloatList");
+	load_module_GameEngine_ArrayList<double>(m_gameengine_util, "DoubleList");
+	load_module_GameEngine_ArrayList<long>(m_gameengine_util, "LongList");
+	load_module_GameEngine_ArrayList<unsigned long>(m_gameengine_util, "UnsignedLongList");
+	load_module_GameEngine_ArrayList<long long>(m_gameengine_util, "LongLongList");
+	load_module_GameEngine_ArrayList<unsigned long long>(m_gameengine_util, "UnsignedLongLongList");
+	load_module_GameEngine_ArrayList<long double>(m_gameengine_util, "LongDoubleList");
+	load_module_GameEngine_ArrayList<GameEngine::Actor*>(m_gameengine_util, "ActorList");
+	load_module_GameEngine_ArrayList<GameEngine::Animation*>(m_gameengine_util, "AnimationList");
+	load_module_GameEngine_ArrayList<GameEngine::TextActor*>(m_gameengine_util, "TextActorList");
+	load_module_GameEngine_ArrayList<GameEngine::WireframeActor*>(m_gameengine_util, "WireframeActorList");
+	load_module_GameEngine_ArrayList<GameEngine::String>(m_gameengine_util, "StringList");
+	load_module_GameEngine_ArrayList<GameEngine::Vector2<chaiscript::Boxed_Value>>(m_gameengine_util, "Vector2List");
+	load_module_GameEngine_ArrayList<GameEngine::Vector2i>(m_gameengine_util, "Vector2iList");
+	load_module_GameEngine_ArrayList<GameEngine::Vector2f>(m_gameengine_util, "Vector2fList");
+	load_module_GameEngine_ArrayList<GameEngine::Vector2d>(m_gameengine_util, "Vector2dList");
+	load_module_GameEngine_ArrayList<GameEngine::BufferedImage*>(m_gameengine_util, "BufferedImageList");
+	load_module_GameEngine_ArrayList<GameEngine::Font*>(m_gameengine_util, "FontList");
 
 
 
@@ -396,11 +396,11 @@ chaiscript::ModulePtr load_module_GameEngine_util()
 
 
 	//Thread
-	m_gameengine_util->add(chaiscript::fun((GameEngine::ScriptThread*(*)(const chaiscript::Boxed_Value&,const std::function<void(const chaiscript::Boxed_Value&)>&,const std::function<void(const chaiscript::Boxed_Value&)>&)) &GameEngine::new_ScriptThread), "new_Thread");
-	m_gameengine_util->add(chaiscript::fun((GameEngine::ScriptThread*(*)(const chaiscript::Boxed_Value&,const std::function<void(const chaiscript::Boxed_Value&)>&)) &GameEngine::new_ScriptThread), "new_Thread");
+	m_gameengine_util->add(chaiscript::fun((GameEngine::ScriptThread*(*)(chaiscript::Boxed_Value&,std::function<void(chaiscript::Boxed_Value&)>&,std::function<void(chaiscript::Boxed_Value&)>&)) &GameEngine::new_ScriptThread), "new_Thread");
+	m_gameengine_util->add(chaiscript::fun((GameEngine::ScriptThread*(*)(chaiscript::Boxed_Value&,std::function<void(chaiscript::Boxed_Value&)>&)) &GameEngine::new_ScriptThread), "new_Thread");
 	m_gameengine_util->add(chaiscript::fun(&GameEngine::delete_ScriptThread), "delete_Thread");
-	m_gameengine_util->add(chaiscript::constructor<GameEngine::ScriptThread(const chaiscript::Boxed_Value&,const std::function<void(const chaiscript::Boxed_Value&)>&,const std::function<void(const chaiscript::Boxed_Value&)>&)>(), "Thread");
-	m_gameengine_util->add(chaiscript::constructor<GameEngine::ScriptThread(const chaiscript::Boxed_Value&,const std::function<void(const chaiscript::Boxed_Value&)>&)>(), "Thread");
+	m_gameengine_util->add(chaiscript::constructor<GameEngine::ScriptThread(chaiscript::Boxed_Value&, std::function<void(chaiscript::Boxed_Value&)>&, std::function<void(chaiscript::Boxed_Value&)>&)>(), "Thread");
+	m_gameengine_util->add(chaiscript::constructor<GameEngine::ScriptThread(chaiscript::Boxed_Value&, std::function<void(chaiscript::Boxed_Value&)>&)>(), "Thread");
 
 	m_gameengine_util->add(chaiscript::fun(&GameEngine::ScriptThread::start), "start");
 	m_gameengine_util->add(chaiscript::fun(&GameEngine::ScriptThread::stop), "stop");
@@ -411,26 +411,26 @@ chaiscript::ModulePtr load_module_GameEngine_util()
 
 
 	//Vector2
-	load_module_GameEngine_vector2<chaiscript::Boxed_Value>(m_gameengine_util, "Vector2");
-	load_module_GameEngine_vector2<byte>(m_gameengine_util, "Vector2b");
-	load_module_GameEngine_vector2<char>(m_gameengine_util, "Vector2c");
-	load_module_GameEngine_vector2<int>(m_gameengine_util, "Vector2i");
-	load_module_GameEngine_vector2<unsigned int>(m_gameengine_util, "Vector2u");
-	load_module_GameEngine_vector2<float>(m_gameengine_util, "Vector2f");
-	load_module_GameEngine_vector2<double>(m_gameengine_util, "Vector2d");
-	load_module_GameEngine_vector2<long>(m_gameengine_util, "Vector2l");
+	load_module_GameEngine_Vector2<chaiscript::Boxed_Value>(m_gameengine_util, "Vector2");
+	load_module_GameEngine_Vector2<byte>(m_gameengine_util, "Vector2b");
+	load_module_GameEngine_Vector2<char>(m_gameengine_util, "Vector2c");
+	load_module_GameEngine_Vector2<int>(m_gameengine_util, "Vector2i");
+	load_module_GameEngine_Vector2<unsigned int>(m_gameengine_util, "Vector2u");
+	load_module_GameEngine_Vector2<float>(m_gameengine_util, "Vector2f");
+	load_module_GameEngine_Vector2<double>(m_gameengine_util, "Vector2d");
+	load_module_GameEngine_Vector2<long>(m_gameengine_util, "Vector2l");
 
 
 
 	//sf::Vector2
-	load_module_GameEngine_sfvector2<chaiscript::Boxed_Value>(m_gameengine_util, "sfVector2");
-	load_module_GameEngine_sfvector2<byte>(m_gameengine_util, "sfVector2b");
-	load_module_GameEngine_sfvector2<char>(m_gameengine_util, "sfVector2c");
-	load_module_GameEngine_sfvector2<int>(m_gameengine_util, "sfVector2i");
-	load_module_GameEngine_sfvector2<unsigned int>(m_gameengine_util, "sfVector2u");
-	load_module_GameEngine_sfvector2<float>(m_gameengine_util, "sfVector2f");
-	load_module_GameEngine_sfvector2<double>(m_gameengine_util, "sfVector2d");
-	load_module_GameEngine_sfvector2<long>(m_gameengine_util, "sfVector2l");
+	load_module_GameEngine_sfVector2<chaiscript::Boxed_Value>(m_gameengine_util, "sfVector2");
+	load_module_GameEngine_sfVector2<byte>(m_gameengine_util, "sfVector2b");
+	load_module_GameEngine_sfVector2<char>(m_gameengine_util, "sfVector2c");
+	load_module_GameEngine_sfVector2<int>(m_gameengine_util, "sfVector2i");
+	load_module_GameEngine_sfVector2<unsigned int>(m_gameengine_util, "sfVector2u");
+	load_module_GameEngine_sfVector2<float>(m_gameengine_util, "sfVector2f");
+	load_module_GameEngine_sfVector2<double>(m_gameengine_util, "sfVector2d");
+	load_module_GameEngine_sfVector2<long>(m_gameengine_util, "sfVector2l");
 
 	return chaiscript::ModulePtr(m_gameengine_util);
 }

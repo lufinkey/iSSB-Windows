@@ -1,9 +1,9 @@
 
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
 #include <math.h>
 
-chaiscript::ModulePtr load_module_GameEngine_math()
+chaiscript::ModulePtr load_module_GameEngine_Math()
 {
 	chaiscript::Module* m_gameengine_math = new chaiscript::Module();
 

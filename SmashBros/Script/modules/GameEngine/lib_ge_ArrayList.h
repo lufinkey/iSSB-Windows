@@ -3,10 +3,10 @@
 #define SCRIPTMODULE_GAMEENGINE_ARRAYLIST
 
 #include <chaiscript/chaiscript.hpp>
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
 template<typename T>
-void load_module_GameEngine_arraylist(chaiscript::Module*& module, const char*typeName)
+void load_module_GameEngine_ArrayList(chaiscript::Module*& module, const char*typeName)
 {
 	module->add(chaiscript::constructor<GameEngine::ArrayList<T>()>(), typeName);
 	module->add(chaiscript::constructor<GameEngine::ArrayList<T>(const GameEngine::ArrayList<T>&)>(), typeName);

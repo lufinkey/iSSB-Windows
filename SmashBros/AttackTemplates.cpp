@@ -129,6 +129,7 @@ namespace SmashBros
 				d = Player::RIGHT;
 			}
 			collide->causeHurt(playr, d, time);
+			collide->deflectState = false;
 		}
 		else
 		{

@@ -1,5 +1,5 @@
 
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
 namespace GameEngine
 {
@@ -117,7 +117,7 @@ namespace GameEngine
 	}
 }
 
-chaiscript::ModulePtr load_module_GameEngine_actor()
+chaiscript::ModulePtr load_module_GameEngine_Actor()
 {
 	chaiscript::Module* m_gameengine_actor = new chaiscript::Module();
 

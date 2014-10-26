@@ -3,26 +3,27 @@
 #include "ScriptMacros.h"
 #include "ScriptOperatorOverloads.h"
 
-#include "modules/GameEngine/lib_gameengine.h"
+#include "modules/GameEngine/lib_GameEngine.h"
+#include "modules/SmashBros/lib_SmashBros.h"
 
 namespace SmashBros
 {
 	bool ScriptManager::loaded = false;
 
-	chaiscript::ModulePtr ScriptManager::module_gameengine;
+	chaiscript::ModulePtr ScriptManager::module_GameEngine;
 
-	chaiscript::ModulePtr ScriptManager::module_protected_actor;
-	chaiscript::ModulePtr ScriptManager::module_protected_textactor;
-	chaiscript::ModulePtr ScriptManager::module_protected_wireframeactor;
-	chaiscript::ModulePtr ScriptManager::module_protected_menuscreen;
+	chaiscript::ModulePtr ScriptManager::module_GameEngine_Actor_protected;
+	chaiscript::ModulePtr ScriptManager::module_GameEngine_TextActor_protected;
+	chaiscript::ModulePtr ScriptManager::module_GameEngine_WireframeActor_protected;
+	chaiscript::ModulePtr ScriptManager::module_GameEngine_MenuScreen_protected;
 
-	chaiscript::ModulePtr ScriptManager::module_smashbros;
+	chaiscript::ModulePtr ScriptManager::module_SmashBros;
 
-	chaiscript::ModulePtr ScriptManager::module_protected_gameelement;
-	chaiscript::ModulePtr ScriptManager::module_protected_player;
-	chaiscript::ModulePtr ScriptManager::module_protected_stage;
-	chaiscript::ModulePtr ScriptManager::module_protected_item;
-	chaiscript::ModulePtr ScriptManager::module_protected_projectile;
+	chaiscript::ModulePtr ScriptManager::module_SmashBros_GameElement_protected;
+	chaiscript::ModulePtr ScriptManager::module_SmashBros_Player_protected;
+	chaiscript::ModulePtr ScriptManager::module_SmashBros_Stage_protected;
+	chaiscript::ModulePtr ScriptManager::module_SmashBros_Item_protected;
+	chaiscript::ModulePtr ScriptManager::module_SmashBros_Projectile_protected;
 
 	ArrayList<ScriptEntityInfo*> ScriptManager::scriptEntities;
 	ArrayList<ScriptData*> ScriptManager::loadedScripts;
@@ -34,7 +35,7 @@ namespace SmashBros
 			return;
 		}
 
-		module_gameengine = load_module_GameEngine();
+		module_GameEngine = load_module_GameEngine();
 
 		loaded = true;
 	}

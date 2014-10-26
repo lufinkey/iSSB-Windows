@@ -1,7 +1,7 @@
 
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
-chaiscript::ModulePtr load_module_GameEngine_graphics()
+chaiscript::ModulePtr load_module_GameEngine_Graphics()
 {
 	chaiscript::Module* m_gameengine_graphics = new chaiscript::Module();
 

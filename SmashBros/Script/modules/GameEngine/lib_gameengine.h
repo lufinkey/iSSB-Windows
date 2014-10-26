@@ -8,12 +8,12 @@
 CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_GameEngine();
 
 chaiscript::ModulePtr load_module_GameEngine_types();
-chaiscript::ModulePtr load_module_GameEngine_actor();
-chaiscript::ModulePtr load_module_GameEngine_global();
-chaiscript::ModulePtr load_module_GameEngine_graphics();
-chaiscript::ModulePtr load_module_GameEngine_io();
-chaiscript::ModulePtr load_module_GameEngine_math();
-chaiscript::ModulePtr load_module_GameEngine_screenmanager();
-chaiscript::ModulePtr load_module_GameEngine_util();
+chaiscript::ModulePtr load_module_GameEngine_Actor();
+chaiscript::ModulePtr load_module_GameEngine_Global();
+chaiscript::ModulePtr load_module_GameEngine_Graphics();
+chaiscript::ModulePtr load_module_GameEngine_IO();
+chaiscript::ModulePtr load_module_GameEngine_Math();
+chaiscript::ModulePtr load_module_GameEngine_ScreenManager();
+chaiscript::ModulePtr load_module_GameEngine_Util();
 
 #endif //SCRIPTMODULE_GAMEENGINE

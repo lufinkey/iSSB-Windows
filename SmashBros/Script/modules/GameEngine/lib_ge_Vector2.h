@@ -4,10 +4,10 @@
 
 #include <chaiscript/chaiscript.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
 template<typename T>
-void load_module_GameEngine_sfvector2(chaiscript::Module*& module, const char* typeName)
+void load_module_GameEngine_sfVector2(chaiscript::Module*& module, const char* typeName)
 {
 	module->add(chaiscript::constructor<sf::Vector2<T>(void)>(), typeName);
 	module->add(chaiscript::constructor<sf::Vector2<T>(const T&, const T&)>(), typeName);
@@ -18,7 +18,7 @@ void load_module_GameEngine_sfvector2(chaiscript::Module*& module, const char* t
 }
 
 template<typename T>
-void load_module_GameEngine_vector2(chaiscript::Module*& module, const char* typeName)
+void load_module_GameEngine_Vector2(chaiscript::Module*& module, const char* typeName)
 {
 	module->add(chaiscript::constructor<GameEngine::Vector2<T>()>(), typeName);
 	module->add(chaiscript::constructor<GameEngine::Vector2<T>(const T&, const T&)>(), typeName);

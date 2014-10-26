@@ -236,7 +236,6 @@ namespace SmashBros
 		void setCantDo();
 		void setHanging(boolean toggle);
 		void setJumping(boolean toggle);
-		void finishDeflect();
 		void resetAttackCollisions();
 		void setHitbox(float x1, float y1, int w, int h);
 		void showHitboxWireframe(boolean toggle);

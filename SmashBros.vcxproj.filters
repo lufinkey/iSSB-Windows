@@ -139,6 +139,12 @@
     <Filter Include="Header Files\PlistCpp">
       <UniqueIdentifier>{2cbf74cc-abaa-4370-a3d2-f8ab589a182b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SmashBros\Script\modules\GameEngine\inherit">
+      <UniqueIdentifier>{7455beb3-35f5-4c7c-88de-aead7f290ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SmashBros\Script\modules\GameEngine\inherit">
+      <UniqueIdentifier>{1fdc9441-8ccf-4240-a7f5-2d05139c8d05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine\Actor\Actor.cpp">
@@ -390,47 +396,8 @@
     <ClCompile Include="SmashBros\Script\ScriptOperatorOverloads.cpp">
       <Filter>Source Files\SmashBros\Script</Filter>
     </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_actor.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_global.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_graphics.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_io.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_screenmanager.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_types.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_util.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_global.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\SmashBros</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_types.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\SmashBros</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_player.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\SmashBros</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_math.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_gameengine.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClCompile>
     <ClCompile Include="SmashBros\Script\ScriptEntity.cpp">
       <Filter>Source Files\SmashBros\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_player.cpp">
-      <Filter>Source Files\SmashBros\Script\modules\SmashBros\inherit</Filter>
     </ClCompile>
     <ClCompile Include="PlistCpp\src\Plist.cpp">
       <Filter>Source Files\PlistCpp</Filter>
@@ -440,6 +407,42 @@
     </ClCompile>
     <ClCompile Include="PlistCpp\src\pugixml.cpp">
       <Filter>Source Files\PlistCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_Player.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\SmashBros\inherit</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_Global.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\SmashBros</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_sb_Player.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\SmashBros</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_GameEngine.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Actor.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Global.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Graphics.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_IO.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Math.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_ScreenManager.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Util.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_SmashBros.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\SmashBros</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -704,29 +707,11 @@
     <ClInclude Include="SmashBros\Script\ScriptOperatorOverloads.h">
       <Filter>Header Files\SmashBros\Script</Filter>
     </ClInclude>
-    <ClInclude Include="SmashBros\Script\modules\GameEngine\arraylist.h">
-      <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="SmashBros\Script\modules\GameEngine\vector2.h">
-      <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_gameengine.h">
-      <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="SmashBros\Script\modules\SmashBros\lib_smashbros.h">
-      <Filter>Header Files\SmashBros\Script\modules\SmashBros</Filter>
-    </ClInclude>
-    <ClInclude Include="SmashBros\Script\modules\GameEngine\thread.h">
-      <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngine\Util\Vector2.h">
       <Filter>Header Files\GameEngine\Util</Filter>
     </ClInclude>
     <ClInclude Include="SmashBros\Script\ScriptEntity.h">
       <Filter>Header Files\SmashBros\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_player.h">
-      <Filter>Header Files\SmashBros\Script\modules\SmashBros\inherit</Filter>
     </ClInclude>
     <ClInclude Include="PlistCpp\src\base64.hpp">
       <Filter>Header Files\PlistCpp</Filter>
@@ -745,6 +730,24 @@
     </ClInclude>
     <ClInclude Include="SmashBros\Script\ScriptMacros.h">
       <Filter>Header Files\SmashBros\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\modules\SmashBros\inherit\lib_sb_inherit_Player.h">
+      <Filter>Header Files\SmashBros\Script\modules\SmashBros\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\modules\SmashBros\lib_SmashBros.h">
+      <Filter>Header Files\SmashBros\Script\modules\SmashBros</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_GameEngine.h">
+      <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_ArrayList.h">
+      <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_Thread.h">
+      <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_Vector2.h">
+      <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

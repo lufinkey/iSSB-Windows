@@ -841,7 +841,11 @@ namespace SmashBros
 
 	void Item::causeHurt(Player*collide, byte dir, long time)
 	{
-		if(!collide->deflectState)
+		if(collide->deflectState)
+		{
+			collide->deflectState = false;
+		}
+		else
 		{
 			if(abs(collide->xvelocity)<=3)
 			{

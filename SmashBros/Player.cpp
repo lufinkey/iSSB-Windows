@@ -780,11 +780,6 @@ namespace SmashBros
 		jumping = toggle;
 	}
 	
-	void Player::finishDeflect()
-	{
-		deflectState = false;
-	}
-	
 	void Player::resetAttackCollisions()
 	{
 		playerCollisions.clear();

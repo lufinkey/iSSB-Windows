@@ -1,7 +1,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "lib_gameengine.h"
+#include "lib_GameEngine.h"
 
 #include <stdio.h>
 #include <cstdio>
@@ -24,7 +24,7 @@ namespace GameEngine
 	}
 }
 
-chaiscript::ModulePtr load_module_GameEngine_io()
+chaiscript::ModulePtr load_module_GameEngine_IO()
 {
 	chaiscript::Module* m_gameengine_io = new chaiscript::Module();
 
