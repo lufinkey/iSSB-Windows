@@ -200,7 +200,7 @@ namespace GameEngine
 		this->color = color;
 	}
 
-	const Color& Graphics2D::getColor()
+	Color Graphics2D::getColor()
 	{
 		return color;
 	}
@@ -210,7 +210,7 @@ namespace GameEngine
 		this->imageColor = color;
 	}
 
-	const Color& Graphics2D::getImageMask()
+	Color Graphics2D::getImageMask()
 	{
 		return imageColor;
 	}

@@ -4,7 +4,10 @@
 #include "SmashBros/Controls.h"
 #include "SmashBros/Menus/Menus.h"
 #include "SmashBros/Game/GameScreen.h"
-#include "SmashBros/Script/ScriptManager.h"
+
+#ifndef SMASHBROS_SCRIPT_DISABLE
+ #include "ScriptModule/ScriptManager.h"
+#endif //SMASHBROS_SCRIPT_DISABLE
 
 namespace SmashBros
 {
@@ -51,7 +54,9 @@ namespace SmashBros
 		ScreenManager::Add(new GameScreen("Game"));
 		ScreenManager::GoToScreen("TitleScreen");
 
-		ScriptManager::loadModules();
+#ifndef SMASHBROS_SCRIPT_DISABLE
+		ScriptModule::ScriptManager::loadModules();
+#endif //SMASHBROS_SCRIPT_DISABLE
 	}
 
 	void Game::UnloadContent()
