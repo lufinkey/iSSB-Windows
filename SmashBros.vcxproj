@@ -240,6 +240,7 @@
     <ClCompile Include="SmashBros\Preferences.cpp" />
     <ClCompile Include="SmashBros\Projectile.cpp" />
     <ClCompile Include="SmashBros\ProjectileManager.cpp" />
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\inherit\lib_ge_inherit_Actor.cpp" />
     <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_GameEngine.cpp" />
     <ClCompile Include="SmashBros\Script\modules\GameEngine\lib_ge_Actor.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -354,6 +355,7 @@
     <ClInclude Include="SmashBros\Preferences.h" />
     <ClInclude Include="SmashBros\Projectile.h" />
     <ClInclude Include="SmashBros\ProjectileManager.h" />
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\inherit\lib_ge_inherit_Actor.h" />
     <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_ArrayList.h" />
     <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_GameEngine.h" />
     <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_Thread.h" />

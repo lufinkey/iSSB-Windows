@@ -1,6 +1,5 @@
 
-#include <chaiscript/chaiscript.hpp>
-#include "ScriptEntity.h"
+#include "ScriptMacros.h"
 
 #pragma once
 
@@ -8,8 +7,13 @@ namespace SmashBros
 {
 	class ScriptManager
 	{
-		friend class ScriptedPlayer;
 	private:
+		static bool loaded;
+
+		static ArrayList<ScriptEntityInfo*> scriptEntities;
+		static ArrayList<ScriptData*> loadedScripts;
+
+	public:
 		static chaiscript::ModulePtr module_GameEngine;
 
 		static chaiscript::ModulePtr module_GameEngine_Actor_protected;
@@ -24,13 +28,7 @@ namespace SmashBros
 		static chaiscript::ModulePtr module_SmashBros_Stage_protected;
 		static chaiscript::ModulePtr module_SmashBros_Item_protected;
 		static chaiscript::ModulePtr module_SmashBros_Projectile_protected;
-		
-		static bool loaded;
 
-		static ArrayList<ScriptEntityInfo*> scriptEntities;
-		static ArrayList<ScriptData*> loadedScripts;
-
-	public:
 		static void loadModules();
 
 		static boolean loadScript(const String& scriptPath);

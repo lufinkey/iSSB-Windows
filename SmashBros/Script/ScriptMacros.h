@@ -1,5 +1,6 @@
 
-#include "ScriptManager.h"
+#include <chaiscript/chaiscript.hpp>
+#include "ScriptEntity.h"
 
 #pragma once
 
@@ -13,9 +14,22 @@ namespace SmashBros
 	void ScriptManager_showErrorMessage(const chaiscript::exception::load_module_error& e, const String& fileName);
 	void ScriptManager_showErrorMessage(const std::exception& e, const String& fileName);
 
+	template<typename T>
+	void ScriptManager_loadScriptedClassMemberFunction(std::function<T>& func, chaiscript::ChaiScript*script, const char* funcName)
+	{
+		try
+		{
+			func = script->eval<std::function<T>>(funcName);
+		}
+		catch(const std::exception&)
+		{
+			//function is not defined in script
+		}
+	}
+}
 
 
-#define SCRIPTMGR_ERRORMSG(e, fileName) ScriptManager_showErrorMessage(e, fileName)
+#define SCRIPTMGR_ERRORMSG(e, fileName) SmashBros::ScriptManager_showErrorMessage(e, fileName)
 
 
 
@@ -61,18 +75,22 @@ namespace SmashBros
 	} \
 	catch(...) \
 	{ \
-		Application::showMessage("Error", (String)"Unknown exception in file " + fileName); \
+		GameEngine::Application::showMessage("Error", (String)"Unknown exception in file " + fileName); \
 		catchExpression \
 	}
 
 
 
 #define SCRIPTEDCLASS_LOADPROTECTEDMODULE_HEADER(namespaceName, className) \
-	chaiscript::ModulePtr load_module_##namespaceName##_##className()
+	chaiscript::ModulePtr load_module_##namespaceName##_##className##_protected()
 
 
 
 #define SCRIPTEDCLASS_CLASSNAME(className) Scripted##className
+
+
+
+#define SCRIPTEDCLASS_FULLCLASSNAME(namespaceName, className) namespaceName::Scripted##className
 
 
 
@@ -81,38 +99,34 @@ namespace SmashBros
 
 
 
-#define SCRIPTEDCLASS_MEMBERS(namespaceName, className, ...) \
+#define SCRIPTEDCLASS_DEFAULTCONSTRUCTOR_DECLARE(className) \
+	public: \
+		SCRIPTEDCLASS_CLASSNAME(className) (SmashBros::ScriptData*scriptData);
+
+
+
+#define SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(className, ...) \
+	public: \
+		SCRIPTEDCLASS_CLASSNAME(className) (SmashBros::ScriptData*scriptData, __VA_ARGS__);
+
+
+
+#define SCRIPTEDCLASS_MEMBERS(namespaceName, className) \
 		friend class ScriptManager; \
 		friend SCRIPTEDCLASS_LOADPROTECTEDMODULE_HEADER(namespaceName, className); \
 	public: \
-		SCRIPTEDCLASS_CLASSNAME(className) (ScriptData*scriptData, __VA_ARGS__); \
 		virtual ~SCRIPTEDCLASS_CLASSNAME(className)(); \
 	private: \
 		boolean usable; \
 		chaiscript::ChaiScript* script; \
-		ScriptData* scriptData; \
+		SmashBros::ScriptData* scriptData; \
 		std::function<SCRIPTEDCLASS_CLASSNAME(className)*()> func_constructor; \
 		std::function<void()> func_destructor;
-
-
-
-	template<typename T>
-	void ScriptManager_loadScriptedClassMemberFunction(std::function<T>& func, chaiscript::ChaiScript*script, const char* funcName)
-	{
-		try
-		{
-			func = script->eval<std::function<T>>(funcName);
-		}
-		catch(const std::exception&)
-		{
-			//function is not defined in script
-		}
-	}
 	
 
 
-#define SCRIPTEDCLASS_FUNCTION_LOAD(className, memberName, returnType,...) \
-	ScriptManager_loadScriptedClassMemberFunction(func_##memberName, script, #memberName); \
+#define SCRIPTEDCLASS_FUNCTION_LOAD(returnType, className, memberName,...) \
+	SmashBros::ScriptManager_loadScriptedClassMemberFunction(func_##memberName, script, #memberName); \
 	script->add(chaiscript::fun(( returnType(SCRIPTEDCLASS_CLASSNAME(className)::*)(__VA_ARGS__) )&SCRIPTEDCLASS_CLASSNAME(className)::base_##memberName, this), "base_" #memberName);
 
 
@@ -151,8 +165,13 @@ namespace SmashBros
 
 
 
+#define SCRIPTEDCLASS_DEFAULTCONSTRUCTOR_HEADER(className) \
+	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(SmashBros::ScriptData*scriptData)
+
+
+
 #define SCRIPTEDCLASS_CONSTRUCTOR_HEADER(className, args, ...) \
-	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className) (ScriptData*scriptData, __VA_ARGS__) : className (args)
+	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(SmashBros::ScriptData*scriptData, __VA_ARGS__) : className (args)
 
 
 
@@ -173,6 +192,8 @@ namespace SmashBros
 		{ \
 			return; \
 		} \
+		SmashBros::ScriptManager_loadScriptedClassMemberFunction(func_constructor, script, "constructor"); \
+		SmashBros::ScriptManager_loadScriptedClassMemberFunction(func_destructor, script, "destructor"); \
 	}
 
 
@@ -191,4 +212,3 @@ namespace SmashBros
 
 #define SCRIPTEDCLASS_PROTECTEDMODULE_ADD(module, className, memberName, typecast) \
 	module->add(chaiscript::fun(typecast &SCRIPTEDCLASS_CLASSNAME(className)::memberName), #memberName);
-}

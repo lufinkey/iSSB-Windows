@@ -5,7 +5,7 @@
 
 namespace SmashBros
 {
-	chaiscript::ModulePtr load_module_SmashBros_global()
+	chaiscript::ModulePtr load_module_SmashBros_Global()
 	{
 		chaiscript::Module* m_global = new chaiscript::Module();
 

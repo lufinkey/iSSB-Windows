@@ -444,6 +444,9 @@
     <ClCompile Include="SmashBros\Script\modules\SmashBros\lib_SmashBros.cpp">
       <Filter>Source Files\SmashBros\Script\modules\SmashBros</Filter>
     </ClCompile>
+    <ClCompile Include="SmashBros\Script\modules\GameEngine\inherit\lib_ge_inherit_Actor.cpp">
+      <Filter>Source Files\SmashBros\Script\modules\GameEngine\inherit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine\Actor\Actor.h">
@@ -748,6 +751,9 @@
     </ClInclude>
     <ClInclude Include="SmashBros\Script\modules\GameEngine\lib_ge_Vector2.h">
       <Filter>Header Files\SmashBros\Script\modules\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Script\modules\GameEngine\inherit\lib_ge_inherit_Actor.h">
+      <Filter>Header Files\SmashBros\Script\modules\GameEngine\inherit</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

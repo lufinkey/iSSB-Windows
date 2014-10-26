@@ -6,7 +6,7 @@
 
 namespace SmashBros
 {
-	chaiscript::ModulePtr load_module_SmashBros_player()
+	chaiscript::ModulePtr load_module_SmashBros_Player()
 	{
 		chaiscript::Module* m_public_player_public = new chaiscript::Module();
 
