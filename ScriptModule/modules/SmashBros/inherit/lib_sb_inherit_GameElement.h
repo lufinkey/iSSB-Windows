@@ -3,21 +3,21 @@
 
 #include "../../../ScriptManager.h"
 
-#include "../lib_GameEngine.h"
+#include "../../../../SmashBros/GameElement.h"
 
 #pragma once
 
-namespace GameEngine
+namespace SmashBros
 {
-	SCRIPTEDCLASS_CLASSHEADER(GameEngine, Actor)
+	SCRIPTEDCLASS_CLASSHEADER(SmashBros, GameElement)
 	{
-		friend SCRIPTEDCLASS_NEWFUNCTION_HEADER(Actor);
-		friend SCRIPTEDCLASS_NEWFUNCTION_HEADER(Actor, float, float);
+		friend SCRIPTEDCLASS_NEWFUNCTION_HEADER(GameElement);
+		friend SCRIPTEDCLASS_NEWFUNCTION_HEADER(GameElement, float, float);
+		
+		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(GameElement)
+		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(GameElement, float x1, float y1)
 
-		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(Actor)
-		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(Actor, float x1, float y1)
-
-		SCRIPTEDCLASS_MEMBERS(GameEngine, Actor)
+		SCRIPTEDCLASS_MEMBERS(SmashBros, GameElement)
 
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Update, long gameTime)
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Draw, Graphics2D&g, long gameTime)
@@ -30,9 +30,9 @@ namespace GameEngine
 		SCRIPTEDCLASS_FUNCTION_DECLARE(bool, isOnScreen)
 	};
 
-	SCRIPTEDCLASS_NEWFUNCTION_HEADER(Actor);
-	SCRIPTEDCLASS_NEWFUNCTION_HEADER(Actor, float, float);
-	SCRIPTEDCLASS_DELETEFUNCTION_HEADER(Actor);
+	SCRIPTEDCLASS_NEWFUNCTION_HEADER(GameElement);
+	SCRIPTEDCLASS_NEWFUNCTION_HEADER(GameElement, float, float);
+	SCRIPTEDCLASS_DELETEFUNCTION_HEADER(GameElement);
 }
 
 #endif //SMASHBROS_SCRIPT_DISABLE

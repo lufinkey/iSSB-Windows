@@ -13,6 +13,8 @@ namespace SmashBros
 {
 	SCRIPTEDCLASS_CLASSHEADER(SmashBros, Player)
 	{
+		friend SCRIPTEDCLASS_NEWFUNCTION_HEADER(Player, float, float, byte, byte);
+
 		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(Player, float x1, float y1, byte playerNo, byte team)
 
 		SCRIPTEDCLASS_MEMBERS(SmashBros, Player)
@@ -72,6 +74,9 @@ namespace SmashBros
 
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, jump, void)
 	};
+
+	SCRIPTEDCLASS_NEWFUNCTION_HEADER(Player, float, float, byte, byte);
+	SCRIPTEDCLASS_DELETEFUNCTION_HEADER(Player);
 }
 
 #endif //SMASHBROS_SCRIPT_DISABLE

@@ -68,7 +68,7 @@ namespace GameEngine
 		bool isClicked();
 		bool wasClicked();
 
-		bool isOnScreen();
+		virtual bool isOnScreen();
 
 		float getXSpeed();
 		float getYSpeed();

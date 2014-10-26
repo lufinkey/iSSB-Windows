@@ -5,12 +5,29 @@
 #include "ScriptMacros.h"
 #include "ScriptOperatorOverloads.h"
 
+#include <chaiscript/dispatchkit/bootstrap.hpp>
+#include <chaiscript/dispatchkit/bootstrap_stl.hpp>
+
 #include "modules/GameEngine/lib_GameEngine.h"
 #include "modules/SmashBros/lib_SmashBros.h"
 
 namespace ScriptModule
 {
+	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_ChaiScript_stdlib()
+	{
+		chaiscript::ModulePtr m_chaiscript_stdlib = chaiscript::bootstrap::Bootstrap::bootstrap();
+		
+		m_chaiscript_stdlib->add(chaiscript::bootstrap::standard_library::vector_type<std::vector<chaiscript::Boxed_Value>>("std_vector"));
+		m_chaiscript_stdlib->add(chaiscript::bootstrap::standard_library::string_type<std::string>("std_string"));
+		m_chaiscript_stdlib->add(chaiscript::bootstrap::standard_library::map_type<std::map<std::string, chaiscript::Boxed_Value>>("std_map"));
+		m_chaiscript_stdlib->add(chaiscript::bootstrap::standard_library::pair_type<std::pair<chaiscript::Boxed_Value, chaiscript::Boxed_Value>>("std_pair"));
+
+		return m_chaiscript_stdlib;
+	}
+
 	bool ScriptManager::loaded = false;
+
+	chaiscript::ModulePtr ScriptManager::module_stdlib;
 
 	chaiscript::ModulePtr ScriptManager::module_GameEngine;
 
@@ -36,6 +53,8 @@ namespace ScriptModule
 		{
 			return;
 		}
+
+		module_stdlib = load_module_ChaiScript_stdlib();
 
 		module_GameEngine = load_module_GameEngine();
 

@@ -447,6 +447,15 @@
     <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Player.cpp">
       <Filter>Source Files\ScriptModule\modules\SmashBros\inherit</Filter>
     </ClCompile>
+    <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_TextActor.cpp">
+      <Filter>Source Files\ScriptModule\modules\GameEngine\inherit</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_WireframeActor.cpp">
+      <Filter>Source Files\ScriptModule\modules\GameEngine\inherit</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_GameElement.cpp">
+      <Filter>Source Files\ScriptModule\modules\SmashBros\inherit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine\Actor\Actor.h">
@@ -746,14 +755,23 @@
     <ClInclude Include="ScriptModule\modules\GameEngine\lib_ge_Vector2.h">
       <Filter>Header Files\ScriptModule\modules\GameEngine</Filter>
     </ClInclude>
-    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Actor.h">
-      <Filter>Header Files\ScriptModule\modules\GameEngine\inherit</Filter>
-    </ClInclude>
     <ClInclude Include="ScriptModule\modules\SmashBros\lib_SmashBros.h">
       <Filter>Header Files\ScriptModule\modules\SmashBros</Filter>
     </ClInclude>
     <ClInclude Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Player.h">
       <Filter>Header Files\ScriptModule\modules\SmashBros\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_GameElement.h">
+      <Filter>Header Files\ScriptModule\modules\SmashBros\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_TextActor.h">
+      <Filter>Header Files\ScriptModule\modules\GameEngine\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_WireframeActor.h">
+      <Filter>Header Files\ScriptModule\modules\GameEngine\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Actor.h">
+      <Filter>Header Files\ScriptModule\modules\GameEngine\inherit</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

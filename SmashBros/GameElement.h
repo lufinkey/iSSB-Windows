@@ -17,7 +17,7 @@ namespace SmashBros
 
 	protected:
 		byte isColliding2(GameElement*collide);
-		static RectangleF getOverlapRect(RectangleF r1, RectangleF r2);
+		static GameEngine::RectangleF getOverlapRect(GameEngine::RectangleF r1, GameEngine::RectangleF r2);
 		static GameEngine::Rectangle getOverlapRect(GameEngine::Rectangle r1, GameEngine::Rectangle r2);
 
 	public:
@@ -27,7 +27,7 @@ namespace SmashBros
 		virtual void Update(long gameTime);
 		virtual void Draw(Graphics2D&g, long gameTime);
 
-		bool isOnScreen() override;
+		virtual bool isOnScreen() override;
 
 		static boolean rectsColliding(GameEngine::Rectangle r1, GameEngine::Rectangle r2);
 	};

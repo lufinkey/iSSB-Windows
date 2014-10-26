@@ -14,6 +14,7 @@ namespace SmashBros
 	chaiscript::ModulePtr load_module_SmashBros_Player();
 
 	chaiscript::ModulePtr load_module_SmashBros_Player_protected();
+	chaiscript::ModulePtr load_module_SmashBros_GameElement_protected();
 }
 
 #endif //SMASHBROS_SCRIPT_DISABLE

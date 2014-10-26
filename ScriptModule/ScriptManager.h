@@ -16,6 +16,8 @@ namespace ScriptModule
 		static ArrayList<ScriptData*> loadedScripts;
 
 	public:
+		static chaiscript::ModulePtr module_stdlib;
+
 		static chaiscript::ModulePtr module_GameEngine;
 
 		static chaiscript::ModulePtr module_GameEngine_Actor_protected;

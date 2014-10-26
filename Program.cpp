@@ -10,6 +10,8 @@
 #pragma comment(lib, "gdi32.lib")  
 #endif // SFML_STATIC
 
+#include "ScriptModule\ScriptMacros.h"
+
 int main()
 {
 	SmashBros::Game*game = new SmashBros::Game();

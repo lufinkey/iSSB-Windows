@@ -186,6 +186,8 @@
     <ClCompile Include="PlistCpp\src\pugixml.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Actor.cpp" />
+    <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_TextActor.cpp" />
+    <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_WireframeActor.cpp" />
     <ClCompile Include="ScriptModule\modules\GameEngine\lib_GameEngine.cpp" />
     <ClCompile Include="ScriptModule\modules\GameEngine\lib_ge_Actor.cpp" />
     <ClCompile Include="ScriptModule\modules\GameEngine\lib_ge_Global.cpp" />
@@ -200,12 +202,17 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release Static|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_GameElement.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Player.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_Global.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_Player.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_SmashBros.cpp" />
     <ClCompile Include="ScriptModule\ScriptEntity.cpp" />
-    <ClCompile Include="ScriptModule\ScriptManager.cpp" />
+    <ClCompile Include="ScriptModule\ScriptManager.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release Static|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="ScriptModule\ScriptOperatorOverloads.cpp" />
     <ClCompile Include="SmashBros\AttackManager.cpp" />
     <ClCompile Include="SmashBros\AttackRandomizer.cpp" />
@@ -301,10 +308,13 @@
     <ClInclude Include="PlistCpp\src\pugiconfig.hpp" />
     <ClInclude Include="PlistCpp\src\pugixml.hpp" />
     <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Actor.h" />
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_TextActor.h" />
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_WireframeActor.h" />
     <ClInclude Include="ScriptModule\modules\GameEngine\lib_GameEngine.h" />
     <ClInclude Include="ScriptModule\modules\GameEngine\lib_ge_ArrayList.h" />
     <ClInclude Include="ScriptModule\modules\GameEngine\lib_ge_Thread.h" />
     <ClInclude Include="ScriptModule\modules\GameEngine\lib_ge_Vector2.h" />
+    <ClInclude Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_GameElement.h" />
     <ClInclude Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Player.h" />
     <ClInclude Include="ScriptModule\modules\SmashBros\lib_SmashBros.h" />
     <ClInclude Include="ScriptModule\ScriptEntity.h" />

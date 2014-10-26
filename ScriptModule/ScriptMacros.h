@@ -17,7 +17,7 @@ namespace ScriptModule
 	void ScriptManager_showErrorMessage(const std::exception& e, const String& fileName);
 
 	template<typename T>
-	void ScriptManager_loadScriptedClassMemberFunction(std::function<T>& func, chaiscript::ChaiScript*script, const char* funcName)
+	bool ScriptManager_loadScriptedClassMemberFunction(std::function<T>& func, chaiscript::ChaiScript*script, const char* funcName)
 	{
 		try
 		{
@@ -26,9 +26,12 @@ namespace ScriptModule
 		catch(const std::exception&)
 		{
 			//function is not defined in script
+			return false;
 		}
+		return true;
 	}
 }
+
 
 
 #define SCRIPTMGR_ERRORMSG(e, fileName) ScriptModule::ScriptManager_showErrorMessage(e, fileName)
@@ -92,7 +95,11 @@ namespace ScriptModule
 
 
 
-#define SCRIPTEDCLASS_FULLCLASSNAME(namespaceName, className) namespaceName::Scripted##className
+#define SCRIPTEDCLASS_CLASSNAME_FULL(namespaceName, className) namespaceName::SCRIPTEDCLASS_CLASSNAME(className)
+
+
+
+#define SCRIPTEDCLASS_CLASSNAME_PREFIXED(prefix, className) _CONCAT_TOKENS(prefix, SCRIPTEDCLASS_CLASSNAME(className))
 
 
 
@@ -101,15 +108,48 @@ namespace ScriptModule
 
 
 
-#define SCRIPTEDCLASS_DEFAULTCONSTRUCTOR_DECLARE(className) \
+/*#define SCRIPTEDCLASS_DEFAULTCONSTRUCTOR_DECLARE(className) \
 	public: \
-		SCRIPTEDCLASS_CLASSNAME(className) (ScriptModule::ScriptData*scriptData);
+		SCRIPTEDCLASS_CLASSNAME(className) (ScriptModule::ScriptData*scriptData);*/
 
 
 
 #define SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(className, ...) \
 	public: \
 		SCRIPTEDCLASS_CLASSNAME(className) (ScriptModule::ScriptData*scriptData, __VA_ARGS__);
+
+
+
+#define SCRIPTEDCLASS_NEWFUNCTION_NAME(className) _CONCAT_TOKENS(new_, SCRIPTEDCLASS_CLASSNAME(className))
+
+
+
+#define SCRIPTEDCLASS_DELETEFUNCTION_NAME(className) _CONCAT_TOKENS(delete_, SCRIPTEDCLASS_CLASSNAME(className))
+
+
+
+#define SCRIPTEDCLASS_NEWFUNCTION_HEADER(className, ...) \
+	chaiscript::Const_Proxy_Function SCRIPTEDCLASS_NEWFUNCTION_NAME(className) (ScriptModule::ScriptData*scriptData, __VA_ARGS__)
+
+
+
+#define SCRIPTEDCLASS_DELETEFUNCTION_HEADER(className) \
+	void SCRIPTEDCLASS_NEWFUNCTION_NAME(className) (SCRIPTEDCLASS_CLASSNAME(className)*scriptObj)
+
+
+
+#define SCRIPTEDCLASS_NEWFUNCTION_BODY(className, ...) \
+	SCRIPTEDCLASS_CLASSNAME(className)* scriptObj = new SCRIPTEDCLASS_CLASSNAME(className)(scriptData, __VA_ARGS__); \
+	return scriptObj->script->eval<chaiscript::Const_Proxy_Function>("constructor");
+
+
+
+#define SCRIPTEDCLASS_DELETEFUNCTION_BODY(className) delete scriptObj;
+
+
+
+#define SCRIPTEDCLASS_NEWFUNCTION_ADD(className, ...) \
+	this->script->add(chaiscript::fun((chaiscript::Const_Proxy_Function (*)(ScriptModule::ScriptData*, __VA_ARGS__))&SCRIPTEDCLASS_NEWFUNCTION_NAME(className), this->scriptData), _STRINGIZE(SCRIPTEDCLASS_NEWFUNCTION_NAME(className)));
 
 
 
@@ -167,8 +207,8 @@ namespace ScriptModule
 
 
 
-#define SCRIPTEDCLASS_DEFAULTCONSTRUCTOR_HEADER(className) \
-	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(ScriptModule::ScriptData*scriptData)
+/*#define SCRIPTEDCLASS_DEFAULTCONSTRUCTOR_HEADER(className) \
+	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(ScriptModule::ScriptData*scriptData)*/
 
 
 
@@ -177,7 +217,12 @@ namespace ScriptModule
 
 
 
-#define SCRIPTEDCLASS_CONSTRUCTOR_BODY(mainModule, ...) \
+#define SCRIPTEDCLASS_CONSTRUCTOR_HEADER_NOBASE(className, ...) \
+	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(ScriptModule::ScriptData*scriptData, __VA_ARGS__)
+
+
+
+#define SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(mainModule, ...) \
 	{ \
 		this->usable = true; \
 		std::vector<chaiscript::ModulePtr> scriptedclass_modules = {__VA_ARGS__}; \
@@ -188,13 +233,21 @@ namespace ScriptModule
 			this->script->add(scriptedclass_modules[i]); \
 		} \
 		scriptedclass_modules.resize(0); \
-		this->script->add(chaiscript::var(this), "this"); \
+		this->script->add(chaiscript::var(this), "this");
+
+
+
+#define SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT() \
 		SCRIPTMGR_ERRORHANDLE(this->script->eval(this->scriptData->getContents());, scriptData->getFilePath(), this->usable = false;); \
 		if(!(this->usable)) \
 		{ \
 			return; \
 		} \
-		ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_constructor, script, "constructor"); \
+		if(!ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_constructor, script, "constructor")) \
+		{ \
+			this->script->eval("def constructor(){return this;}"); \
+			ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_constructor, script, "constructor"); \
+		} \
 		ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_destructor, script, "destructor"); \
 	}
 
@@ -214,5 +267,10 @@ namespace ScriptModule
 
 #define SCRIPTEDCLASS_PROTECTEDMODULE_ADD(module, className, memberName, typecast) \
 	module->add(chaiscript::fun(typecast &SCRIPTEDCLASS_CLASSNAME(className)::memberName), #memberName);
+
+
+
+#define SCRIPTEDCLASS_PROTECTEDMODULE_ADDSTATIC(module, className, memberName, typecast) \
+	module->add(chaiscript::fun(typecast &SCRIPTEDCLASS_CLASSNAME(className)::memberName), #className "_" #memberName);
 
 #endif //SMASHBROS_SCRIPT_DISABLE

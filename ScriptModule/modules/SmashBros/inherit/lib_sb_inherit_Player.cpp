@@ -7,12 +7,17 @@ namespace SmashBros
 {
 	SCRIPTEDCLASS_CONSTRUCTOR_HEADER(Player, x1 _COMMA y1 _COMMA playerNo _COMMA team, float x1, float y1, byte playerNo, byte team)
 	{
-		SCRIPTEDCLASS_CONSTRUCTOR_BODY(
+		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
+			ScriptModule::ScriptManager::module_stdlib,
 			ScriptModule::ScriptManager::module_GameEngine,
 			ScriptModule::ScriptManager::module_SmashBros,
 			ScriptModule::ScriptManager::module_GameEngine_Actor_protected,
 			ScriptModule::ScriptManager::module_SmashBros_GameElement_protected,
 			ScriptModule::ScriptManager::module_SmashBros_Player_protected)
+
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(Player, float, float, byte, byte)
+
+		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, onMouseEnter, void)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, onMouseLeave, void)
@@ -135,10 +140,6 @@ namespace SmashBros
 
 
 
-
-
-	//protected module
-
 	SCRIPTEDCLASS_LOADPROTECTEDMODULE_HEADER(SmashBros, Player)
 	{
 		chaiscript::Module* m_sb_player_protected = new chaiscript::Module();
@@ -237,6 +238,18 @@ namespace SmashBros
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, climbUpAttack, );
 
 		return chaiscript::ModulePtr(m_sb_player_protected);
+	}
+
+
+	
+	SCRIPTEDCLASS_NEWFUNCTION_HEADER(Player, float x1, float y1, byte playerNo, byte team)
+	{
+		SCRIPTEDCLASS_NEWFUNCTION_BODY(Player, x1, y1, playerNo, team)
+	}
+
+	SCRIPTEDCLASS_DELETEFUNCTION_HEADER(Player)
+	{
+		SCRIPTEDCLASS_DELETEFUNCTION_BODY(Player)
 	}
 }
 
