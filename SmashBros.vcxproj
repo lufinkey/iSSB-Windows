@@ -204,8 +204,10 @@
     </ClCompile>
     <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_GameElement.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Player.cpp" />
+    <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Stage.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_Global.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_Player.cpp" />
+    <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_Stage.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_SmashBros.cpp" />
     <ClCompile Include="ScriptModule\ScriptEntity.cpp" />
     <ClCompile Include="ScriptModule\ScriptManager.cpp">
@@ -316,6 +318,7 @@
     <ClInclude Include="ScriptModule\modules\GameEngine\lib_ge_Vector2.h" />
     <ClInclude Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_GameElement.h" />
     <ClInclude Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Player.h" />
+    <ClInclude Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Stage.h" />
     <ClInclude Include="ScriptModule\modules\SmashBros\lib_SmashBros.h" />
     <ClInclude Include="ScriptModule\ScriptEntity.h" />
     <ClInclude Include="ScriptModule\ScriptMacros.h" />

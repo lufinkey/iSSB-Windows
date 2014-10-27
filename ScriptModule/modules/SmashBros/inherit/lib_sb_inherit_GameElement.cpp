@@ -16,6 +16,7 @@ namespace SmashBros
 			ScriptModule::ScriptManager::module_stdlib,
 			ScriptModule::ScriptManager::module_GameEngine,
 			ScriptModule::ScriptManager::module_SmashBros,
+			ScriptModule::ScriptManager::module_GameEngine_Actor_protected,
 			ScriptModule::ScriptManager::module_SmashBros_GameElement_protected)
 
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(GameElement,)
@@ -46,7 +47,6 @@ namespace SmashBros
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onRelease, , , , void)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onMoveFinish, , , , void)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, GameElement, isOnScreen, return, true, , void)
-
 
 
 

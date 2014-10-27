@@ -3,7 +3,7 @@
 
 namespace SmashBros
 {
-	HyruleTemple::HyruleTemple(int x1, int y1) : Stage(x1,y1)
+	HyruleTemple::HyruleTemple(float x1, float y1) : Stage(x1,y1)
 	{
 		watchPlat = null;
 

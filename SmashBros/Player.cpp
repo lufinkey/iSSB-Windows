@@ -369,7 +369,7 @@ namespace SmashBros
 	void Player::respawn()
 	{
 		reset();
-		Vector2i pnt = Global::currentStage->getSpawnPoint(playerNo);
+		Vector2f pnt = Global::currentStage->getSpawnPoint(playerNo);
 		x = (float)pnt.x;
 		y = (float)pnt.y;
 		animFinish();
@@ -5118,7 +5118,7 @@ namespace SmashBros
 				canFinalsmash = false;
 				Global::smashBallOnField = false;
 			}
-			Rect borders = Global::currentStage->getViewBorders();
+			RectF borders = Global::currentStage->getViewBorders();
 			switch(barrierNo)
 			{
 				case DIR_LEFT:

@@ -34,7 +34,7 @@ namespace SmashBros
 
 	void Projectile::Update(long gameTime)
 	{
-		Rect borders = Global::currentStage->getBorders();
+		RectF borders = Global::currentStage->getBorders();
 		float left = (float)Global::currentStage->x + (float)borders.left;
 		float top = (float)Global::currentStage->y + (float)borders.top;
 		float right = (float)Global::currentStage->x + (float)borders.right;

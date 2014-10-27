@@ -30,6 +30,6 @@ namespace SmashBros
 	public:
 		static String getIconPath(int stageNo);
 		
-		static Stage* createStage(int x1, int y1, int stageNum);
+		static Stage* createStage(float x1, float y1, int stageNum);
 	};
 }

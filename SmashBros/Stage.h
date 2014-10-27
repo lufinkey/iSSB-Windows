@@ -18,7 +18,7 @@ namespace SmashBros
 		Animation*background;
 		double bgScale;
 
-		GameEngine::Rectangle itemBounds;
+		GameEngine::RectangleF itemBounds;
 		boolean showItemBounds;
 		boolean showWires;
 
@@ -41,7 +41,7 @@ namespace SmashBros
 		ArrayList<GameElement*> ground;
 		ArrayList<Vector2<Vector2f>> groundCoords;
 
-		Vector2i spawns[7];
+		Vector2f spawns[7];
 
 		double gravity;
 		double terminalVelocity;
@@ -63,17 +63,17 @@ namespace SmashBros
 		byte borderColliding(Player*p);
 
 	protected:
-		int topBorder;
-		int bottomBorder;
-		int leftBorder;
-		int rightBorder;
+		float topBorder;
+		float bottomBorder;
+		float leftBorder;
+		float rightBorder;
 
-		int topViewBorder;
-		int bottomViewBorder;
-		int leftViewBorder;
-		int rightViewBorder;
+		float topViewBorder;
+		float bottomViewBorder;
+		float leftViewBorder;
+		float rightViewBorder;
 
-		void setItemBoundaries(int x1, int y1, int x2, int y2);
+		void setItemBoundaries(float x1, float y1, float x2, float y2);
 		void showItemBoundaries(boolean toggle);
 		void setBackgroundScale(double scale);
 		void loadFile(const String&fileName);
@@ -87,18 +87,18 @@ namespace SmashBros
 		static const byte BG_NORMAL = 0;
 		static const byte BG_FIXED = 1;
 
-		int x,y;
+		float x,y;
 
-		Stage(int x1, int y1);
+		Stage(float x1, float y1);
 		virtual ~Stage();
 
 		virtual void Update(long gameTime);
 		virtual void Draw(Graphics2D&g, long gameTime);
 
 		void Unload();
-		void setBackground(String imgName);
+		void setBackground(const String& imgName);
 		void setBackgroundType(byte type);
-		GameEngine::Rectangle getItemBoundaries();
+		GameEngine::RectangleF getItemBoundaries();
 		
 		void showWireframes(boolean toggle);
 		void setWireframeColor(const Color&color);
@@ -116,10 +116,10 @@ namespace SmashBros
 		void addHangPoint(HangPoint*hp);
 		void addGround(GameElement*gr);
 
-		void setSpawnPoint(int spawnNo, int x1, int y1);
-		Vector2i getSpawnPoint(int spawnNo);
-		Rect getBorders();
-		Rect getViewBorders();
+		void setSpawnPoint(int spawnNo, float x1, float y1);
+		Vector2f getSpawnPoint(int spawnNo);
+		RectF getBorders();
+		RectF getViewBorders();
 		boolean checkSafeArea(Player*playr);
 	};
 }

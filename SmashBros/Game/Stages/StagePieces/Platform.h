@@ -7,6 +7,7 @@ namespace SmashBros
 {
 	class Platform : public GameElement
 	{
+		friend class Player;
 	private:
 		class WireframeElement : public WireframeActor
 		{
@@ -22,9 +23,7 @@ namespace SmashBros
 
 	protected:
 		byte type;
-		friend class Player;
 		byte collideType;
-		friend class Player;
 
 	public:
 		static const byte TYPE_NORMAL = 1;

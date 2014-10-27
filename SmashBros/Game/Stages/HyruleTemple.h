@@ -16,7 +16,7 @@ namespace SmashBros
 		void loadGround();
 
 	public:
-		HyruleTemple(int x1, int y1);
+		HyruleTemple(float x1, float y1);
 		~HyruleTemple();
 
 		virtual void Update(long gameTime);

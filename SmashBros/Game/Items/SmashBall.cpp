@@ -170,7 +170,7 @@ namespace SmashBros
 				moveTime = Global::getWorldTime() + 1000;
 			}
 			
-			Rectangle borders = Global::currentStage->getItemBoundaries();
+			RectangleF borders = Global::currentStage->getItemBoundaries();
 			
 			if(x < borders.x)
 			{

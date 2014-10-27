@@ -224,7 +224,7 @@ namespace SmashBros
 		return (String)"Images/Menus/StageSelect/" + getMenuFilename(stageNo);
 	}
 	
-	Stage* StageLoader::createStage(int x1, int y1, int stageNum)
+	Stage* StageLoader::createStage(float x1, float y1, int stageNum)
 	{
 		switch(stageNum)
 		{

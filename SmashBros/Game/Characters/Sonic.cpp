@@ -435,7 +435,7 @@ namespace SmashBros
 				}
 			}
 			
-			Rect borders = Global::currentStage->getViewBorders();
+			RectF borders = Global::currentStage->getViewBorders();
 			if(x < (borders.left + Global::currentStage->x))
 			{
 				x = (float)borders.left + (float)Global::currentStage->x + (float)width/2;

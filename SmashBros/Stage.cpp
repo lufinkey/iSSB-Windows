@@ -8,7 +8,7 @@
 
 namespace SmashBros
 {
-	Stage::Stage(int x1, int y1)
+	Stage::Stage(float x1, float y1)
 	{
 		x = x1;
 		y = y1;
@@ -88,7 +88,7 @@ namespace SmashBros
 		AssetManager::loadImage(fileName);
 	}
 
-	void Stage::setBackground(String imgName)
+	void Stage::setBackground(const String& imgName)
 	{
 		files.add(imgName);
 		AssetManager::loadImage(imgName);
@@ -100,7 +100,7 @@ namespace SmashBros
 		bgType = type;
 	}
 
-	void Stage::setItemBoundaries(int x1, int y1, int x2, int y2)
+	void Stage::setItemBoundaries(float x1, float y1, float x2, float y2)
 	{
 		itemBounds.x = x + x1;
 		itemBounds.y = y + y1;
@@ -108,7 +108,7 @@ namespace SmashBros
 		itemBounds.height = y2 - y1;
 	}
 
-	Rectangle Stage::getItemBoundaries()
+	RectangleF Stage::getItemBoundaries()
 	{
 		return itemBounds;
 	}
@@ -659,29 +659,29 @@ namespace SmashBros
 		gr->y = pnt.y.y;
 	}
 	
-	void Stage::setSpawnPoint(int spawnNo, int x1, int y1)
+	void Stage::setSpawnPoint(int spawnNo, float x1, float y1)
 	{
 		spawns[spawnNo].x = x1;
 		spawns[spawnNo].y = y1;
 	}
 	
-	Vector2i Stage::getSpawnPoint(int spawnNo)
+	Vector2f Stage::getSpawnPoint(int spawnNo)
 	{
-		Vector2i pnt;
+		Vector2f pnt;
 		pnt.x = x + spawns[spawnNo].x;
 		pnt.y = y + spawns[spawnNo].y;
 		return pnt;
 	}
 	
-	Rect Stage::getBorders()
+	RectF Stage::getBorders()
 	{
-		Rect borders = {leftBorder,topBorder,rightBorder,bottomBorder};
+		RectF borders = {leftBorder,topBorder,rightBorder,bottomBorder};
 		return borders;
 	}
 	
-	Rect Stage::getViewBorders()
+	RectF Stage::getViewBorders()
 	{
-		Rect borders = {leftViewBorder,topViewBorder,rightViewBorder,bottomViewBorder};
+		RectF borders = {leftViewBorder,topViewBorder,rightViewBorder,bottomViewBorder};
 		return borders;
 	}
 	

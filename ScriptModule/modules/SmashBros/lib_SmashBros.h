@@ -12,9 +12,11 @@ namespace SmashBros
 	chaiscript::ModulePtr load_module_SmashBros_types();
 	chaiscript::ModulePtr load_module_SmashBros_Global();
 	chaiscript::ModulePtr load_module_SmashBros_Player();
+	chaiscript::ModulePtr load_module_SmashBros_Stage();
 
-	chaiscript::ModulePtr load_module_SmashBros_Player_protected();
-	chaiscript::ModulePtr load_module_SmashBros_GameElement_protected();
+	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_SmashBros_Player_protected();
+	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_SmashBros_GameElement_protected();
+	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_SmashBros_Stage_protected();
 }
 
 #endif //SMASHBROS_SCRIPT_DISABLE

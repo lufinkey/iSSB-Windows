@@ -2072,7 +2072,7 @@ namespace SmashBros
 
 		detectAllPlatformsSolid(true);
 
-		Rect borders = Global::currentStage->getBorders();
+		RectF borders = Global::currentStage->getBorders();
 		float top = (float)Global::currentStage->y + (float)borders.top;
 
 		y = top + (height/2);
@@ -2112,7 +2112,7 @@ namespace SmashBros
 				}
 			}
 
-			Rect borders = Global::currentStage->getBorders();
+			RectF borders = Global::currentStage->getBorders();
 			float bottom = (float)Global::currentStage->y + (float)borders.bottom;
 			if(y>=bottom)
 			{

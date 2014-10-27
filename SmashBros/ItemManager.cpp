@@ -147,7 +147,7 @@ namespace SmashBros
 
 	void ItemManager::SpawnItem(int itemNo)
 	{
-		GameEngine::Rectangle bounds = Global::currentStage->itemBounds;
+		GameEngine::RectangleF bounds = Global::currentStage->itemBounds;
 		float x1 = (float)((random()*bounds.width)+bounds.x);
 		float y1 = (float)((random()*bounds.height)+bounds.y);
 		
