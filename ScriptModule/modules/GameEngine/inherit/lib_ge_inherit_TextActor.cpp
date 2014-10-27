@@ -20,6 +20,7 @@ namespace GameEngine
 
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(TextActor, const String&, Font*, const Color&)
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(TextActor, float, float, const String&, Font*, const Color&)
+		SCRIPTEDCLASS_DELETEFUNCTION_ADD(TextActor)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 

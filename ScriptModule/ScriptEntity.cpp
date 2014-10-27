@@ -153,6 +153,7 @@ namespace ScriptModule
 
 	ScriptData::ScriptData(const ScriptData&data)
 	{
+		className = data.className;
 		filePath = data.filePath;
 		contents = data.contents;
 	}
@@ -174,11 +175,43 @@ namespace ScriptModule
 		bool success = AssetManager::loadStringFromFile(path, contents);
 		if(!success)
 		{
+			className = "";
 			filePath = "";
 			contents = "";
 			return false;
 		}
+		int startIndex = 0;
+		int lastIndex = path.lastIndexOf('/');
+		if(lastIndex == -1)
+		{
+			startIndex = 0;
+		}
+		className = path.substring(startIndex);
+		int firstIndex = className.indexOf('.');
+		if(firstIndex == -1)
+		{
+			return true;
+		}
+		else if(firstIndex==0)
+		{
+			className = "";
+			filePath = "";
+			contents = "";
+			return false;
+		}
+		else
+		{
+			className = className.substring(0, firstIndex);
+		}
+		className.replace(' ', '_');
+		className.replace('-', '_');
+		className.replace('!', '_');
 		return true;
+	}
+
+	const String& ScriptData::getClassName() const
+	{
+		return className;
 	}
 
 	const String& ScriptData::getFilePath() const

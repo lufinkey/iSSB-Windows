@@ -16,6 +16,7 @@ namespace SmashBros
 			ScriptModule::ScriptManager::module_SmashBros_Player_protected)
 
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(Player, float, float, byte, byte)
+		SCRIPTEDCLASS_DELETEFUNCTION_ADD(Player)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 

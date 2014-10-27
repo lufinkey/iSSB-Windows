@@ -48,6 +48,7 @@ namespace ScriptModule
 	class ScriptData
 	{
 	private:
+		String className;
 		String filePath;
 		String contents;
 
@@ -60,6 +61,7 @@ namespace ScriptModule
 
 		bool loadFromFile(const String& filePath);
 
+		const String& getClassName() const;
 		const String& getFilePath() const;
 		const String& getContents() const;
 	};

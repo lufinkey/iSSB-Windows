@@ -134,7 +134,7 @@ namespace ScriptModule
 
 
 #define SCRIPTEDCLASS_DELETEFUNCTION_HEADER(className) \
-	void SCRIPTEDCLASS_NEWFUNCTION_NAME(className) (SCRIPTEDCLASS_CLASSNAME(className)*scriptObj)
+	void SCRIPTEDCLASS_DELETEFUNCTION_NAME(className) (SCRIPTEDCLASS_CLASSNAME(className)*scriptObj)
 
 
 
@@ -149,7 +149,12 @@ namespace ScriptModule
 
 
 #define SCRIPTEDCLASS_NEWFUNCTION_ADD(className, ...) \
-	this->script->add(chaiscript::fun((chaiscript::Const_Proxy_Function (*)(ScriptModule::ScriptData*, __VA_ARGS__))&SCRIPTEDCLASS_NEWFUNCTION_NAME(className), this->scriptData), _STRINGIZE(SCRIPTEDCLASS_NEWFUNCTION_NAME(className)));
+	this->script->add(chaiscript::fun((chaiscript::Const_Proxy_Function (*)(ScriptModule::ScriptData*, __VA_ARGS__))&SCRIPTEDCLASS_NEWFUNCTION_NAME(className), this->scriptData), (String)"new_" + scriptData->getClassName());
+
+
+
+#define SCRIPTEDCLASS_DELETEFUNCTION_ADD(className) \
+	this->script->add(chaiscript::fun(&SCRIPTEDCLASS_DELETEFUNCTION_NAME(className)), (String)"delete_" + scriptData->getClassName());
 
 
 
@@ -233,7 +238,7 @@ namespace ScriptModule
 			this->script->add(scriptedclass_modules[i]); \
 		} \
 		scriptedclass_modules.resize(0); \
-		this->script->add(chaiscript::var(this), "this");
+		this->script->add(chaiscript::var(this), "this"); \
 
 
 
