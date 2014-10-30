@@ -17,15 +17,15 @@ namespace GameEngine
 		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(WireframeActor)
 		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(WireframeActor, float x1, float y1, int width, int height)
 
-		SCRIPTEDCLASS_MEMBERS(GameEngine, WireframeActor)
+		SCRIPTEDCLASS_MEMBERS_DECLARE(GameEngine, WireframeActor)
 
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Update, long gameTime)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Draw, Graphics2D&g, long gameTime)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onMouseEnter)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onMouseLeave)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onClick)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onRelease)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(bool, isOnScreen)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, WireframeActor, Update, long gameTime)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, WireframeActor, Draw, Graphics2D&g, long gameTime)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, WireframeActor, onMouseEnter)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, WireframeActor, onMouseLeave)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, WireframeActor, onClick)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, WireframeActor, onRelease)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(bool, WireframeActor, isOnScreen)
 	};
 
 	SCRIPTEDCLASS_NEWFUNCTION_HEADER(WireframeActor);

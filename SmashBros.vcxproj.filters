@@ -462,6 +462,12 @@
     <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Stage.cpp">
       <Filter>Source Files\ScriptModule\modules\SmashBros\inherit</Filter>
     </ClCompile>
+    <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_GameElement.cpp">
+      <Filter>Source Files\ScriptModule\modules\SmashBros</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Util\FileTools.cpp">
+      <Filter>Source Files\GameEngine\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine\Actor\Actor.h">
@@ -781,6 +787,9 @@
     </ClInclude>
     <ClInclude Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Stage.h">
       <Filter>Header Files\ScriptModule\modules\SmashBros\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Util\FileTools.h">
+      <Filter>Header Files\GameEngine\Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

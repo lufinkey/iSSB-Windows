@@ -58,12 +58,21 @@ namespace ScriptModule
 
 		module_GameEngine = load_module_GameEngine();
 
+
 		loaded = true;
 	}
 
-	boolean ScriptManager::loadScript(const String& scriptPath)
+	boolean ScriptManager::loadScript(const String& scriptPath, const String&className, const String&classType, const String& creator, const String& version)
 	{
-		ScriptData* data = new ScriptData();
+		for(int i=0; i<loadedScripts.size(); i++)
+		{
+			if(loadedScripts.get(i)->getFilePath().equals(scriptPath))
+			{
+				return true;
+			}
+		}
+
+		ScriptData* data = new ScriptData(className, classType, creator, version);
 		boolean success = data->loadFromFile(scriptPath);
 		if(success)
 		{
@@ -74,15 +83,18 @@ namespace ScriptModule
 		return false;
 	}
 
-	boolean ScriptManager::loadScriptEntity(const ScriptEntityInfo& entityInfo)
+	boolean ScriptManager::loadScriptEntity(const ScriptEntityInfo& entityInfo, String& error)
 	{
-		String entityPath = entityInfo.getFilePath();
+		String entityPath = entityInfo.getPath();
 
-		ScriptData* mainScriptData = new ScriptData();
-		boolean success = mainScriptData->loadFromFile(entityPath + '/' + entityInfo.getMainScript());
+		String errorMessage;
+		
+		ScriptData* mainScriptData = new ScriptData(entityInfo.getMainScript().name, entityInfo.getMainScript().type, entityInfo.getCreator(), entityInfo.getVersion());
+		boolean success = mainScriptData->loadFromFile(entityPath + '/' + entityInfo.getMainScript().script, errorMessage);
 		if(!success)
 		{
 			delete mainScriptData;
+			error = (String)"Unable to load file \"" + entityPath + '/' + entityInfo.getMainScript().script + "\": " + errorMessage;
 			return false;
 		}
 
@@ -92,8 +104,9 @@ namespace ScriptModule
 
 		for(int i=0; i<otherScripts.size(); i++)
 		{
-			ScriptData* scriptData = new ScriptData();
-			if(scriptData->loadFromFile(entityPath + '/' + otherScripts.get(i).script))
+			ScriptEntityInfo::ScriptInfo scriptInfo = otherScripts.get(i);
+			ScriptData* scriptData = new ScriptData(scriptInfo.name, scriptInfo.type, entityInfo.getCreator(), entityInfo.getVersion());
+			if(scriptData->loadFromFile(entityPath + '/' + scriptInfo.script, errorMessage))
 			{
 				otherScriptData.add(scriptData);
 			}
@@ -105,6 +118,7 @@ namespace ScriptModule
 				{
 					delete otherScriptData.get(j);
 				}
+				error = (String)"Unable to load file \"" + entityPath + '/' + scriptInfo.script + "\": " + errorMessage;
 				return false;
 			}
 		}
@@ -134,8 +148,8 @@ namespace ScriptModule
 
 	void ScriptManager::unloadScriptEntity(const ScriptEntityInfo& entityInfo)
 	{
-		String entityPath = entityInfo.getFilePath();
-		unloadScript(entityPath + '/' + entityInfo.getMainScript());
+		String entityPath = entityInfo.getPath();
+		unloadScript(entityPath + '/' + entityInfo.getMainScript().script);
 
 		const ArrayList<ScriptEntityInfo::ScriptInfo>& otherScripts = entityInfo.getScripts();
 
@@ -145,6 +159,117 @@ namespace ScriptModule
 		}
 	}
 
+	chaiscript::Boxed_Value ScriptManager::callFunction(chaiscript::ChaiScript& script, const String& name, std::vector<chaiscript::Boxed_Value>& args)
+	{
+		String argsName = "args";
+		if(name.equals(argsName))
+		{
+			argsName = "params";
+		}
+		String callHead = (String)"__callFunc(" + argsName + "){ return ";
+		String callString =  name + "(";
+		for(unsigned int i = 0; i < args.size(); i++)
+		{
+			callString += argsName + "[" + i + "]";
+			if(i != (args.size() - 1))
+			{
+				callString += ",";
+			}
+		}
+		callString += ");}";
+
+		//first try calling it with "this" keyword.
+		try
+		{
+			return script.eval<std::function<chaiscript::Boxed_Value(std::vector<chaiscript::Boxed_Value>&)>>(callHead + "this." + callString)(args);
+		}
+		catch(const chaiscript::exception::eval_error&)
+		{
+			//No function with that name exists in that class.
+		}
+
+		//try again without "this" keyword"
+		try
+		{
+			return script.eval<std::function<chaiscript::Boxed_Value(std::vector<chaiscript::Boxed_Value>&)>>(callHead + callString)(args);
+		}
+		catch(const chaiscript::exception::eval_error&)
+		{
+			throw chaiscript::exception::eval_error((String)"no function exists with the name " + name);
+		}
+	}
+
+	chaiscript::Boxed_Value ScriptManager::callFunction(chaiscript::ChaiScript& script, const std::string& name, std::vector<chaiscript::Boxed_Value>& args)
+	{
+		return callFunction(script, String(name), args);
+	}
+
+	chaiscript::Boxed_Value ScriptManager::getVariable(chaiscript::ChaiScript& script, const String& name)
+	{
+		String callHead = (String)"__getVar(){ return ";
+		String callString =  name + ";}";
+
+		//try getting it with "this" keyword.
+		try
+		{
+			return script.eval<std::function<chaiscript::Boxed_Value()>>(callHead + "this." + callString)();
+		}
+		catch(const chaiscript::exception::eval_error&)
+		{
+			//No variable with that name exists.
+		}
+
+		//try again without "this" keyword
+		try
+		{
+			return script.eval<std::function<chaiscript::Boxed_Value()>>(callHead + callString)();
+		}
+		catch(const chaiscript::exception::eval_error&)
+		{
+			throw chaiscript::exception::eval_error((String)"no variable exists with the name " + name);
+		}
+	}
+
+	chaiscript::Boxed_Value ScriptManager::getVariable(chaiscript::ChaiScript& script, const std::string&name)
+	{
+		return getVariable(script, String(name));
+	}
+
+	void ScriptManager::setVariable(chaiscript::ChaiScript& script, const String& name, const chaiscript::Boxed_Value& value)
+	{
+		String argName = "arg";
+		if(name.equals(argName))
+		{
+			argName = "param";
+		}
+		String callHead = (String)"__setVar(" + argName + "){ ";
+		String callString =  name + "=" + argName + ";}";
+
+		//first try calling it with "this" keyword.
+		try
+		{
+			script.eval<std::function<void(const chaiscript::Boxed_Value&)>>(callHead + "this." + callString)(value);
+		}
+		catch(const chaiscript::exception::eval_error&)
+		{
+			//No function with that name exists in that class.
+		}
+
+		//try again without "this" keyword"
+		try
+		{
+			script.eval<std::function<void(const chaiscript::Boxed_Value&)>>(callHead + callString)(value);
+		}
+		catch(const chaiscript::exception::eval_error&)
+		{
+			throw chaiscript::exception::eval_error((String)"no variable exists with the name " + name);
+		}
+	}
+	
+	void ScriptManager::setVariable(chaiscript::ChaiScript& script, const std::string& name, const chaiscript::Boxed_Value& value)
+	{
+		setVariable(script, String(name), value);
+	}
 
 
 

@@ -19,6 +19,7 @@
 #include "Util\ArrayList.h"
 #include "Util\BufferedImage.h"
 #include "Util\Color.h"
+#include "Util\FileTools.h"
 #include "Util\Font.h"
 #include "Util\PixelIterator.h"
 #include "Util\PrefManager.h"

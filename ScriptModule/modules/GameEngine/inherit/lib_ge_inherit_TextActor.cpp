@@ -20,28 +20,28 @@ namespace GameEngine
 
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(TextActor, const String&, Font*, const Color&)
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(TextActor, float, float, const String&, Font*, const Color&)
-		SCRIPTEDCLASS_DELETEFUNCTION_ADD(TextActor)
+		SCRIPTEDCLASS_MEMBERS_LOAD(TextActor)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, Draw, Graphics2D&, long)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onMouseEnter, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onMouseLeave, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onClick, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onRelease, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(bool, TextActor, isOnScreen, void)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onMouseEnter)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onMouseLeave)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onClick)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onRelease)
+		SCRIPTEDCLASS_FUNCTION_LOAD(bool, TextActor, isOnScreen)
 	}
 
-	SCRIPTEDCLASS_DESTRUCTOR_DEFINE(TextActor)
+	SCRIPTEDCLASS_MEMBERS_DEFINE(TextActor)
 
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, Update, , , gameTime, long gameTime)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, Draw, , , g _COMMA gameTime, Graphics2D&g, long gameTime)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, onMouseEnter , , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, onMouseLeave, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, onClick, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, onRelease, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, TextActor, isOnScreen, return, true, , void)
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, onMouseEnter , , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, onMouseLeave, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, onClick, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, TextActor, onRelease, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, TextActor, isOnScreen, return, true, )
 
 
 

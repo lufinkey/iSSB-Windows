@@ -20,32 +20,32 @@ namespace GameEngine
 
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(Actor,)
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(Actor, float, float)
-		SCRIPTEDCLASS_DELETEFUNCTION_ADD(Actor)
+		SCRIPTEDCLASS_MEMBERS_LOAD(Actor)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, Draw, Graphics2D&, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onAnimationFinish, const String&)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onMouseEnter, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onMouseLeave, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onClick, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onRelease, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onMoveFinish, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(bool, Actor, isOnScreen, void)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onMouseEnter)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onMouseLeave)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onClick)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onRelease)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onMoveFinish)
+		SCRIPTEDCLASS_FUNCTION_LOAD(bool, Actor, isOnScreen)
 	}
 
-	SCRIPTEDCLASS_DESTRUCTOR_DEFINE(Actor)
+	SCRIPTEDCLASS_MEMBERS_DEFINE(Actor)
 
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, Update, , , gameTime, long gameTime)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, Draw, , , g _COMMA gameTime, Graphics2D&g, long gameTime)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onAnimationFinish, , , name, const String& name)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onMouseEnter , , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onMouseLeave, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onClick, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onRelease, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onMoveFinish, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, Actor, isOnScreen, return, true, , void)
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onMouseEnter , , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onMouseLeave, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onClick, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onRelease, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Actor, onMoveFinish, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, Actor, isOnScreen, return, true, )
 
 
 

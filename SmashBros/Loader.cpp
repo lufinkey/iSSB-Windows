@@ -14,15 +14,16 @@
 #include "Game/Stages/FinalDestinationBrawl.h"
 #include "Game/Stages/HyruleTemple.h"
 
+#ifndef SMASHBROS_SCRIPT_DISABLE
+#include "../ScriptModule/ScriptManager.h"
+#endif //SMASHBROS_SCRIPT_DISABLE
+
 namespace SmashBros
 {
 	String CharacterLoader::getMenuFilename(int charNo)
 	{
 		switch(charNo)
 		{
-			default:
-			return "random.png";
-			
 			case Global::CHAR_MARIO:
 			return "mario.png";
 			
@@ -40,6 +41,17 @@ namespace SmashBros
 
 			case Global::CHAR_LINK:
 			return "link.png";
+
+			default:
+			if(charNo <= Global::totalCharacters)
+			{
+				return "random.png";
+			}
+			else
+			{
+				//TODO implement getting of Scripted Players here.
+			}
+			break;
 		}
 	}
 	
@@ -197,6 +209,43 @@ namespace SmashBros
 	
 	
 	
+#ifndef SMASHBROS_SCRIPT_DISABLE
+	ArrayList<ScriptModule::ScriptEntityInfo*> StageLoader::scriptEntities;
+
+	void StageLoader::loadScriptEntities(const String& path)
+	{
+		ArrayList<String> folders = FileTools::getFoldersInDirectory(path);
+		for(int i=0; i<folders.size(); i++)
+		{
+			String folderName = folders.get(i);
+			if(FileTools::fileExists(folderName + "/Info.plist"))
+			{
+				ScriptModule::ScriptEntityInfo* info = new ScriptModule::ScriptEntityInfo();
+				String errorMessage;
+				bool success = info->loadFromFile(path + '/' + folderName, errorMessage);
+				if(success)
+				{
+					bool success = ScriptModule::ScriptManager::loadScriptEntity(*info, errorMessage);
+					if(success)
+					{
+						scriptEntities.add(info);
+					}
+					else
+					{
+						Game::showMessage("Error", (String)"Unable to load ScriptModule \"" + folderName + "\": " + errorMessage);
+						delete info;
+					}
+				}
+				else
+				{
+					Game::showMessage("Error", (String)"Unable to load ScriptModule \"" + folderName + "\": " + errorMessage);
+					delete info;
+				}
+			}
+		}
+	}
+#endif //SMASHBROS_SCRIPT_DISABLE
+
 	String StageLoader::getMenuFilename(int stageNo)
 	{
 		switch(stageNo)

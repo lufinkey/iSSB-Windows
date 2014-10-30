@@ -14,7 +14,7 @@ namespace SmashBros
 			ScriptModule::ScriptManager::module_SmashBros_Stage_protected)
 
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(Stage, float, float)
-		SCRIPTEDCLASS_DELETEFUNCTION_ADD(Stage)
+		SCRIPTEDCLASS_MEMBERS_LOAD(Stage)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 
@@ -22,7 +22,7 @@ namespace SmashBros
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Stage, Draw, Graphics2D&, long)
 	}
 
-	SCRIPTEDCLASS_DESTRUCTOR_DEFINE(Stage)
+	SCRIPTEDCLASS_MEMBERS_DEFINE(Stage)
 
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Stage, Update, , , gameTime, long gameTime)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Stage, Draw, , , g _COMMA gameTime, Graphics2D&g, long gameTime)

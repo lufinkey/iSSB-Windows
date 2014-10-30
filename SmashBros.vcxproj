@@ -86,7 +86,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;__STDC_LIMIT_MACROS;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>SFML\include;ChaiScript\include;PlistCpp\include;PlistCpp\Windows\include;PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SFML\include;ChaiScript\include;PlistCpp\include;PlistCpp\Windows\include;PlistCpp\src;dirent\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,7 +103,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;__STDC_LIMIT_MACROS;_DEBUG;_CONSOLE;_LIB;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>SFML\include;ChaiScript\include;PlistCpp\include;PlistCpp\Windows\include;PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SFML\include;ChaiScript\include;PlistCpp\include;PlistCpp\Windows\include;PlistCpp\src;dirent\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -123,7 +123,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;__STDC_LIMIT_MACROS;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>SFML\include;ChaiScript\include;PlistCpp\include;PlistCpp\Windows\include;PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SFML\include;ChaiScript\include;PlistCpp\include;PlistCpp\Windows\include;PlistCpp\src;dirent\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +144,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;__STDC_LIMIT_MACROS;NDEBUG;_CONSOLE;_LIB;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>SFML\include;ChaiScript\include;PlistCpp\include;PlistCpp\Windows\include;PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SFML\include;ChaiScript\include;PlistCpp\include;PlistCpp\Windows\include;PlistCpp\src;dirent\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -175,6 +175,7 @@
     <ClCompile Include="GameEngine\ScreenManager\ScreenManager.cpp" />
     <ClCompile Include="GameEngine\Util\BufferedImage.cpp" />
     <ClCompile Include="GameEngine\Util\Color.cpp" />
+    <ClCompile Include="GameEngine\Util\FileTools.cpp" />
     <ClCompile Include="GameEngine\Util\Font.cpp" />
     <ClCompile Include="GameEngine\Util\PixelIterator.cpp" />
     <ClCompile Include="GameEngine\Util\PrefManager.cpp" />
@@ -205,6 +206,7 @@
     <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_GameElement.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Player.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\inherit\lib_sb_inherit_Stage.cpp" />
+    <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_GameElement.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_Global.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_Player.cpp" />
     <ClCompile Include="ScriptModule\modules\SmashBros\lib_sb_Stage.cpp" />
@@ -297,6 +299,7 @@
     <ClInclude Include="GameEngine\Util\ArrayList.h" />
     <ClInclude Include="GameEngine\Util\BufferedImage.h" />
     <ClInclude Include="GameEngine\Util\Color.h" />
+    <ClInclude Include="GameEngine\Util\FileTools.h" />
     <ClInclude Include="GameEngine\Util\Font.h" />
     <ClInclude Include="GameEngine\Util\PixelIterator.h" />
     <ClInclude Include="GameEngine\Util\PrefManager.h" />

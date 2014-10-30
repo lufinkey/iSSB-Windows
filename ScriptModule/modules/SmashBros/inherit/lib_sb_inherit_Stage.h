@@ -15,10 +15,10 @@ namespace SmashBros
 		
 		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(Stage, float x1, float y1)
 
-		SCRIPTEDCLASS_MEMBERS(SmashBros, Stage)
+		SCRIPTEDCLASS_MEMBERS_DECLARE(SmashBros, Stage)
 
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Update, long gameTime)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Draw, Graphics2D&g, long gameTime)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Stage, Update, long gameTime)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Stage, Draw, Graphics2D&g, long gameTime)
 	};
 
 	SCRIPTEDCLASS_NEWFUNCTION_HEADER(Stage, float, float);

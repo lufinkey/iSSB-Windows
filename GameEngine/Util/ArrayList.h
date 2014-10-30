@@ -27,6 +27,15 @@ namespace GameEngine
 				objects[i] = arr[i];
 			}
 		}
+
+		ArrayList(const std::initializer_list<T>&list)
+		{
+			objects.resize(list.size())
+			for(int i=0; i<list.size(); i++)
+			{
+				objects[i] = list[i];
+			}
+		}
 		
 		ArrayList(int size)
 		{

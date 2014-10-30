@@ -17,15 +17,15 @@ namespace GameEngine
 		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(TextActor, const String&str, Font*font, const Color&color)
 		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(TextActor, float x1, float y1, const String&str, Font*font, const Color&color)
 
-		SCRIPTEDCLASS_MEMBERS(GameEngine, TextActor)
+		SCRIPTEDCLASS_MEMBERS_DECLARE(GameEngine, TextActor)
 
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Update, long gameTime)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Draw, Graphics2D&g, long gameTime)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onMouseEnter)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onMouseLeave)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onClick)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onRelease)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(bool, isOnScreen)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, TextActor, Update, long gameTime)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, TextActor, Draw, Graphics2D&g, long gameTime)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, TextActor, onMouseEnter)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, TextActor, onMouseLeave)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, TextActor, onClick)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, TextActor, onRelease)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(bool, TextActor, isOnScreen)
 	};
 
 	SCRIPTEDCLASS_NEWFUNCTION_HEADER(TextActor, const String&, Font*, const Color&);

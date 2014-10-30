@@ -19,34 +19,34 @@ namespace SmashBros
 			ScriptModule::ScriptManager::module_GameEngine_Actor_protected,
 			ScriptModule::ScriptManager::module_SmashBros_GameElement_protected)
 
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(GameElement,)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(GameElement)
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(GameElement, float, float)
-		SCRIPTEDCLASS_DELETEFUNCTION_ADD(GameElement)
+		SCRIPTEDCLASS_MEMBERS_LOAD(GameElement)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, Draw, Graphics2D&, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onAnimationFinish, const String&)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onMouseEnter, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onMouseLeave, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onClick, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onRelease, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onMoveFinish, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(bool, GameElement, isOnScreen, void)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onMouseEnter)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onMouseLeave)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onClick)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onRelease)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onMoveFinish)
+		SCRIPTEDCLASS_FUNCTION_LOAD(bool, GameElement, isOnScreen)
 	}
 
-	SCRIPTEDCLASS_DESTRUCTOR_DEFINE(GameElement)
+	SCRIPTEDCLASS_MEMBERS_DEFINE(GameElement)
 
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, Update, , , gameTime, long gameTime)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, Draw, , , g _COMMA gameTime, Graphics2D&g, long gameTime)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onAnimationFinish, , , name, const String& name)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onMouseEnter , , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onMouseLeave, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onClick, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onRelease, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onMoveFinish, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, GameElement, isOnScreen, return, true, , void)
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onMouseEnter , , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onMouseLeave, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onClick, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onRelease, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, GameElement, onMoveFinish, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, GameElement, isOnScreen, return, true, )
 
 
 

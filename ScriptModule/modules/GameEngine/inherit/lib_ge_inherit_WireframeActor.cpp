@@ -20,28 +20,28 @@ namespace GameEngine
 
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(WireframeActor,)
 		SCRIPTEDCLASS_NEWFUNCTION_ADD(WireframeActor, float, float, int, int)
-		SCRIPTEDCLASS_DELETEFUNCTION_ADD(WireframeActor)
+		SCRIPTEDCLASS_MEMBERS_LOAD(WireframeActor)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, Draw, Graphics2D&, long)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onMouseEnter, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onMouseLeave, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onClick, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onRelease, void)
-		SCRIPTEDCLASS_FUNCTION_LOAD(bool, WireframeActor, isOnScreen, void)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onMouseEnter)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onMouseLeave)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onClick)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onRelease)
+		SCRIPTEDCLASS_FUNCTION_LOAD(bool, WireframeActor, isOnScreen)
 	}
 
-	SCRIPTEDCLASS_DESTRUCTOR_DEFINE(WireframeActor)
+	SCRIPTEDCLASS_MEMBERS_DEFINE(WireframeActor)
 
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, Update, , , gameTime, long gameTime)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, Draw, , , g _COMMA gameTime, Graphics2D&g, long gameTime)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, onMouseEnter , , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, onMouseLeave, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, onClick, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, onRelease, , , , void)
-	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, WireframeActor, isOnScreen, return, true, , void)
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, onMouseEnter , , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, onMouseLeave, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, onClick, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, WireframeActor, onRelease, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(bool, WireframeActor, isOnScreen, return, true, )
 
 
 

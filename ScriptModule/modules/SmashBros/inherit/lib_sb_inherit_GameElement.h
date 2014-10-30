@@ -17,17 +17,17 @@ namespace SmashBros
 		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(GameElement)
 		SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(GameElement, float x1, float y1)
 
-		SCRIPTEDCLASS_MEMBERS(SmashBros, GameElement)
+		SCRIPTEDCLASS_MEMBERS_DECLARE(SmashBros, GameElement)
 
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Update, long gameTime)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Draw, Graphics2D&g, long gameTime)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onAnimationFinish, const String& name)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onMouseEnter)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onMouseLeave)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onClick)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onRelease)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, onMoveFinish)
-		SCRIPTEDCLASS_FUNCTION_DECLARE(bool, isOnScreen)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, GameElement, Update, long gameTime)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, GameElement, Draw, Graphics2D&g, long gameTime)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, GameElement, onAnimationFinish, const String& name)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, GameElement, onMouseEnter)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, GameElement, onMouseLeave)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, GameElement, onClick)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, GameElement, onRelease)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, GameElement, onMoveFinish)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(bool, GameElement, isOnScreen)
 	};
 
 	SCRIPTEDCLASS_NEWFUNCTION_HEADER(GameElement);

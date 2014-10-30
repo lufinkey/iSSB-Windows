@@ -16,6 +16,10 @@ namespace SmashBros
 		chaiscript::Module* m_smashbros = new chaiscript::Module();
 
 		m_smashbros->add(load_module_SmashBros_types());
+		m_smashbros->add(load_module_SmashBros_GameElement());
+		m_smashbros->add(load_module_SmashBros_Global());
+		m_smashbros->add(load_module_SmashBros_Player());
+		m_smashbros->add(load_module_SmashBros_Stage());
 
 		return chaiscript::ModulePtr(m_smashbros);
 	}

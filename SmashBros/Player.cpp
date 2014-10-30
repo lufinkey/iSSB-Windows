@@ -1294,7 +1294,7 @@ namespace SmashBros
 		return false;
 	}
 	
-	boolean Player::checkTrappedUnder(Rectangle plat)
+	boolean Player::checkTrappedUnder(GameEngine::Rectangle plat)
 	{
 		updateHitbox();
 		if(y > (plat.y + plat.height/2))
@@ -1307,7 +1307,7 @@ namespace SmashBros
 		return false;
 	}
 	
-	boolean Player::checkTrappedOver(Rectangle plat)
+	boolean Player::checkTrappedOver(GameEngine::Rectangle plat)
 	{
 		updateHitbox();
 		if(y < (plat.y + plat.height/2))
@@ -2660,7 +2660,7 @@ namespace SmashBros
 		return false;
 	}
 	
-	double Player::getClosestDistanceUnSqr(Vector2f self, Rectangle rect)
+	double Player::getClosestDistanceUnSqr(Vector2f self, GameEngine::Rectangle rect)
 	{
 		float left = (float)rect.x - (float)rect.width/2;
 		float right = (float)rect.x + (float)rect.width/2;
@@ -2735,7 +2735,7 @@ namespace SmashBros
 		}
 	}
 	
-	Vector2f Player::getClosestPoint(Rectangle rect, byte dir)
+	Vector2f Player::getClosestPoint(GameEngine::Rectangle rect, byte dir)
 	{
 		float left = (float)rect.x - (float)rect.width/2;
 		float right = (float)rect.x + (float)rect.width/2;
@@ -2910,7 +2910,7 @@ namespace SmashBros
 	}
 	
 	//true means plat goes x way, false means y
-	boolean Player::getDirSeparating(Vector2f target, Rectangle rect)
+	boolean Player::getDirSeparating(Vector2f target, GameEngine::Rectangle rect)
 	{
 		int left = (int)hitbox->x;
 		int right = (int)(hitbox->x + hitbox->width);
@@ -2950,12 +2950,12 @@ namespace SmashBros
 		return true;
 	}
 	
-	Rectangle Player::getRectSeparating(Vector2f target)
+	GameEngine::Rectangle Player::getRectSeparating(Vector2f target)
 	{
 		int left = (int)hitbox->x;
 		int right = (int)(hitbox->x + hitbox->width);
 		
-		Rectangle separatingRect = Rectangle(-1,-1,-1,-1);
+		GameEngine::Rectangle separatingRect = GameEngine::Rectangle(-1,-1,-1,-1);
 		boolean hasRect = false;
 		float currentDist = 0;
 		
@@ -2964,14 +2964,14 @@ namespace SmashBros
 			Platform*plat = Global::currentStage->platforms.get(i);
 			if(isObstacle(plat))
 			{
-				Rectangle platRect;
+				GameEngine::Rectangle platRect;
 				if(plat->getCollideType()==Platform::COLLIDE_SOLID)
 				{
-					platRect = Rectangle((int)(plat->x-plat->width/2),(int)(plat->y-plat->height),plat->width,plat->height);
+					platRect = GameEngine::Rectangle((int)(plat->x-plat->width/2),(int)(plat->y-plat->height),plat->width,plat->height);
 				}
 				else
 				{
-					platRect = Rectangle((int)plat->x,(int)plat->y,plat->width,plat->height);
+					platRect = GameEngine::Rectangle((int)plat->x,(int)plat->y,plat->width,plat->height);
 				}
 				
 				if(!hasRect)
@@ -3082,7 +3082,7 @@ namespace SmashBros
 		for(int i=0; i<ProjectileManager::projectiles.size(); i++)
 		{
 			Projectile*proj = ProjectileManager::projectiles.get(i);
-			Rectangle rect = Rectangle((int)(proj->x-(proj->width/2)),(int)(proj->y-(proj->height/2)),proj->width,proj->height);
+			GameEngine::Rectangle rect = GameEngine::Rectangle((int)(proj->x-(proj->width/2)),(int)(proj->y-(proj->height/2)),proj->width,proj->height);
 			
 			if(proj->getPlayerNo()!=playerNo || (Global::teamBattle && proj->getTeam()!=team))
 			{
@@ -3215,7 +3215,7 @@ namespace SmashBros
 		
 		byte enemyDir = getDir(x,y,currentEnemy->x,currentEnemy->y);
 		
-		Rectangle separatingRect = getRectSeparating(enemyVect);
+		GameEngine::Rectangle separatingRect = getRectSeparating(enemyVect);
 		if(separatingRect.x==-1)
 		{
 			goInDirection(enemyDir);
@@ -3422,14 +3422,14 @@ namespace SmashBros
 				}
 				if(plat!=null)
 				{
-					Rectangle platRect;
+					GameEngine::Rectangle platRect;
 					if(plat->getCollideType() == Platform::COLLIDE_BOX)
 					{
-						platRect = Rectangle((int)plat->x,(int)plat->y,plat->width,plat->height);
+						platRect = GameEngine::Rectangle((int)plat->x,(int)plat->y,plat->width,plat->height);
 					}
 					else
 					{
-						platRect = Rectangle((int)(plat->x-plat->width/2),(int)(plat->y-plat->height/2),plat->width,plat->height);
+						platRect = GameEngine::Rectangle((int)(plat->x-plat->width/2),(int)(plat->y-plat->height/2),plat->width,plat->height);
 					}
 					
 					float leftX = (x - hitbox->width/2);
@@ -3485,14 +3485,14 @@ namespace SmashBros
 				}
 				if(plat!=null)
 				{
-					Rectangle platRect;
+					GameEngine::Rectangle platRect;
 					if(plat->getCollideType() == Platform::COLLIDE_BOX)
 					{
-						platRect = Rectangle((int)plat->x,(int)plat->y,plat->width,plat->height);
+						platRect = GameEngine::Rectangle((int)plat->x,(int)plat->y,plat->width,plat->height);
 					}
 					else
 					{
-						platRect = Rectangle((int)(plat->x-plat->width/2),(int)(plat->y-plat->height/2),plat->width,plat->height);
+						platRect = GameEngine::Rectangle((int)(plat->x-plat->width/2),(int)(plat->y-plat->height/2),plat->width,plat->height);
 					}
 					
 					float leftX = (x - hitbox->width/2);
@@ -4646,9 +4646,9 @@ namespace SmashBros
 
 			if(colliding)
 			{
-				Rectangle r1 = Rectangle((int)(overlap.left + left1 + (x-(width/2))),(int)(overlap.top + top1 + (y-(height/2))), right1-left1, bottom1-top1);
+				GameEngine::Rectangle r1 = GameEngine::Rectangle((int)(overlap.left + left1 + (x-(width/2))),(int)(overlap.top + top1 + (y-(height/2))), right1-left1, bottom1-top1);
 				collide->updateHitbox();
-				Rectangle r2 = Rectangle((int)collide->hitbox->x, (int)collide->hitbox->y, collide->hitbox->width, collide->hitbox->height);
+				GameEngine::Rectangle r2 = GameEngine::Rectangle((int)collide->hitbox->x, (int)collide->hitbox->y, collide->hitbox->width, collide->hitbox->height);
 				
 				byte dir = getDir(r2,r1);
 				
@@ -4767,7 +4767,7 @@ namespace SmashBros
 			{
 				int w = right - left;
 				int h = bottom - top;
-				Rectangle collideOverlap2 = Rectangle(left, top, w, h);
+				GameEngine::Rectangle collideOverlap2 = GameEngine::Rectangle(left, top, w, h);
 				int overlapX = (int)((left - startX) + overlap.x + (w/2));
 				int overlapY = (int)((top - startY) + overlap.y + (h/2));
 				byte dir = getDir2((float)hitbox->width/2,(float)hitbox->height/2,(float)overlapX, (float)overlapY);

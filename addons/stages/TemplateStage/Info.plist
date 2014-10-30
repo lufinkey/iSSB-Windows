@@ -2,18 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>creator</key>
+	<string>Luis Finke</string>
+	<key>version</key>
+	<string>1.0</string>
 	<key>name</key>
-	<string>Template Character</string>
+	<string>TemplateStage</string>
 	<key>mainScript</key>
-	<string>TemplateCharacter.chai</string>
+	<string>TemplateStage.chai</string>
+	<key>type</key>
+	<string>Stage</string>
 	<key>otherScripts</key>
 	<array>
-		<dict>
-			<key>mainScript</key>
-			<string>TemplateProjectile.chai</string>
-			<key>type</key>
-			<string>Projectile</string>
-		</dict>
 	</array>
 </dict>
 </plist>

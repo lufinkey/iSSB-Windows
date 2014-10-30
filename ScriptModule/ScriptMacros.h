@@ -86,11 +86,6 @@ namespace ScriptModule
 
 
 
-#define SCRIPTEDCLASS_LOADPROTECTEDMODULE_HEADER(namespaceName, className) \
-	chaiscript::ModulePtr load_module_##namespaceName##_##className##_protected()
-
-
-
 #define SCRIPTEDCLASS_CLASSNAME(className) Scripted##className
 
 
@@ -108,23 +103,21 @@ namespace ScriptModule
 
 
 
-/*#define SCRIPTEDCLASS_DEFAULTCONSTRUCTOR_DECLARE(className) \
-	public: \
-		SCRIPTEDCLASS_CLASSNAME(className) (ScriptModule::ScriptData*scriptData);*/
-
-
-
-#define SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(className, ...) \
-	public: \
-		SCRIPTEDCLASS_CLASSNAME(className) (ScriptModule::ScriptData*scriptData, __VA_ARGS__);
-
-
-
 #define SCRIPTEDCLASS_NEWFUNCTION_NAME(className) _CONCAT_TOKENS(new_, SCRIPTEDCLASS_CLASSNAME(className))
 
 
 
 #define SCRIPTEDCLASS_DELETEFUNCTION_NAME(className) _CONCAT_TOKENS(delete_, SCRIPTEDCLASS_CLASSNAME(className))
+
+
+
+#define SCRIPTEDCLASS_CONSTRUCTOR_HEADER(className, args, ...) \
+	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(ScriptModule::ScriptData*scriptData, __VA_ARGS__) : className (args)
+
+
+
+#define SCRIPTEDCLASS_CONSTRUCTOR_HEADER_NOBASE(className, ...) \
+	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(ScriptModule::ScriptData*scriptData, __VA_ARGS__)
 
 
 
@@ -138,27 +131,18 @@ namespace ScriptModule
 
 
 
-#define SCRIPTEDCLASS_NEWFUNCTION_BODY(className, ...) \
-	SCRIPTEDCLASS_CLASSNAME(className)* scriptObj = new SCRIPTEDCLASS_CLASSNAME(className)(scriptData, __VA_ARGS__); \
-	return scriptObj->script->eval<chaiscript::Const_Proxy_Function>("constructor");
+#define SCRIPTEDCLASS_LOADPROTECTEDMODULE_HEADER(namespaceName, className) \
+	chaiscript::ModulePtr load_module_##namespaceName##_##className##_protected()
 
 
 
-#define SCRIPTEDCLASS_DELETEFUNCTION_BODY(className) delete scriptObj;
+#define SCRIPTEDCLASS_CONSTRUCTOR_DECLARE(className, ...) \
+	public: \
+		SCRIPTEDCLASS_CLASSNAME(className) (ScriptModule::ScriptData*scriptData, __VA_ARGS__);
 
 
 
-#define SCRIPTEDCLASS_NEWFUNCTION_ADD(className, ...) \
-	this->script->add(chaiscript::fun((chaiscript::Const_Proxy_Function (*)(ScriptModule::ScriptData*, __VA_ARGS__))&SCRIPTEDCLASS_NEWFUNCTION_NAME(className), this->scriptData), (String)"new_" + scriptData->getClassName());
-
-
-
-#define SCRIPTEDCLASS_DELETEFUNCTION_ADD(className) \
-	this->script->add(chaiscript::fun(&SCRIPTEDCLASS_DELETEFUNCTION_NAME(className)), (String)"delete_" + scriptData->getClassName());
-
-
-
-#define SCRIPTEDCLASS_MEMBERS(namespaceName, className) \
+#define SCRIPTEDCLASS_MEMBERS_DECLARE(namespaceName, className) \
 		friend class ScriptModule::ScriptManager; \
 		friend SCRIPTEDCLASS_LOADPROTECTEDMODULE_HEADER(namespaceName, className); \
 	public: \
@@ -168,62 +152,22 @@ namespace ScriptModule
 		chaiscript::ChaiScript* script; \
 		ScriptModule::ScriptData* scriptData; \
 		std::function<SCRIPTEDCLASS_CLASSNAME(className)*()> func_constructor; \
-		std::function<void()> func_destructor;
-	
+		std::function<void()> func_destructor; \
+		chaiscript::Boxed_Value callFunction(const String& name, std::vector<chaiscript::Boxed_Value>& args); \
+		chaiscript::Boxed_Value callFunction(const std::string& name, std::vector<chaiscript::Boxed_Value>& args); \
+		chaiscript::Boxed_Value getVariable(const String& name); \
+		chaiscript::Boxed_Value getVariable(const std::string& name); \
+		void setVariable(const String& name, const chaiscript::Boxed_Value& value); \
+		void setVariable(const std::string& name, const chaiscript::Boxed_Value& value);
 
 
-#define SCRIPTEDCLASS_FUNCTION_LOAD(returnType, className, memberName,...) \
-	ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_##memberName, script, #memberName); \
-	script->add(chaiscript::fun(( returnType(SCRIPTEDCLASS_CLASSNAME(className)::*)(__VA_ARGS__) )&SCRIPTEDCLASS_CLASSNAME(className)::base_##memberName, this), "base_" #memberName);
 
-
-
-#define SCRIPTEDCLASS_FUNCTION_DECLARE(returnType, functionName, ...) \
+#define SCRIPTEDCLASS_FUNCTION_DECLARE(returnType, className, functionName, ...) \
 	private: \
 		std::function<returnType(__VA_ARGS__)> func_##functionName; \
-		returnType base_##functionName(__VA_ARGS__); \
+		static returnType base_##functionName( SCRIPTEDCLASS_CLASSNAME(className)* scriptObj, __VA_ARGS__); \
 	public: \
 		virtual returnType functionName(__VA_ARGS__);
-
-
-
-#define SCRIPTEDCLASS_FUNCTION_CALL(expression, memberName, ...) \
-	if(func_##memberName) \
-	{ \
-		SCRIPTMGR_ERRORHANDLE(expression func_##memberName ( __VA_ARGS__ );, scriptData->getFilePath(), ); \
-	} \
-	else \
-	{ \
-		expression base_##memberName ( __VA_ARGS__ ); \
-	}
-
-
-
-#define SCRIPTEDCLASS_FUNCTION_DEFINE(returnType, className, functionName, expressionLeft, expressionRight, args, ...) \
-	returnType SCRIPTEDCLASS_CLASSNAME(className)::base_##functionName(__VA_ARGS__) \
-	{ \
-		expressionLeft className::functionName(args); \
-	} \
-	returnType SCRIPTEDCLASS_CLASSNAME(className)::functionName(__VA_ARGS__) \
-	{ \
-		SCRIPTEDCLASS_FUNCTION_CALL(expressionLeft, functionName, args); \
-		expressionLeft expressionRight; \
-	}
-
-
-
-/*#define SCRIPTEDCLASS_DEFAULTCONSTRUCTOR_HEADER(className) \
-	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(ScriptModule::ScriptData*scriptData)*/
-
-
-
-#define SCRIPTEDCLASS_CONSTRUCTOR_HEADER(className, args, ...) \
-	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(ScriptModule::ScriptData*scriptData, __VA_ARGS__) : className (args)
-
-
-
-#define SCRIPTEDCLASS_CONSTRUCTOR_HEADER_NOBASE(className, ...) \
-	SCRIPTEDCLASS_CLASSNAME(className)::SCRIPTEDCLASS_CLASSNAME(className)(ScriptModule::ScriptData*scriptData, __VA_ARGS__)
 
 
 
@@ -239,6 +183,23 @@ namespace ScriptModule
 		} \
 		scriptedclass_modules.resize(0); \
 		this->script->add(chaiscript::var(this), "this"); \
+	}
+
+
+
+#define SCRIPTEDCLASS_NEWFUNCTION_ADD(className, ...) \
+	this->script->add(chaiscript::fun((chaiscript::Const_Proxy_Function (*)(ScriptModule::ScriptData*, __VA_ARGS__))&SCRIPTEDCLASS_NEWFUNCTION_NAME(className), this->scriptData), (String)"new_" + scriptData->getClassName());
+
+
+
+#define SCRIPTEDCLASS_MEMBERS_LOAD(className) \
+	this->script->add(chaiscript::fun(&SCRIPTEDCLASS_DELETEFUNCTION_NAME(className)), (String)"delete_" + scriptData->getClassName()); \
+	this->script->add(chaiscript::fun((chaiscript::Boxed_Value(SCRIPTEDCLASS_CLASSNAME(className)::*)(const String&,std::vector<chaiscript::Boxed_Value>&))&SCRIPTEDCLASS_CLASSNAME(className)::callFunction), "callFunction"); \
+	this->script->add(chaiscript::fun((chaiscript::Boxed_Value(SCRIPTEDCLASS_CLASSNAME(className)::*)(const std::string&,std::vector<chaiscript::Boxed_Value>&))&SCRIPTEDCLASS_CLASSNAME(className)::callFunction), "callFunction"); \
+	this->script->add(chaiscript::fun((chaiscript::Boxed_Value(SCRIPTEDCLASS_CLASSNAME(className)::*)(const String&))&SCRIPTEDCLASS_CLASSNAME(className)::getVariable), "getVariable"); \
+	this->script->add(chaiscript::fun((chaiscript::Boxed_Value(SCRIPTEDCLASS_CLASSNAME(className)::*)(const std::string&))&SCRIPTEDCLASS_CLASSNAME(className)::getVariable), "getVariable"); \
+	this->script->add(chaiscript::fun((void(SCRIPTEDCLASS_CLASSNAME(className)::*)(const String&,const chaiscript::Boxed_Value&))&SCRIPTEDCLASS_CLASSNAME(className)::setVariable), "setVariable"); \
+	this->script->add(chaiscript::fun((void(SCRIPTEDCLASS_CLASSNAME(className)::*)(const std::string&,const chaiscript::Boxed_Value&))&SCRIPTEDCLASS_CLASSNAME(className)::setVariable), "setVariable");
 
 
 
@@ -253,12 +214,29 @@ namespace ScriptModule
 			this->script->eval("def constructor(){return this;}"); \
 			ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_constructor, script, "constructor"); \
 		} \
-		ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_destructor, script, "destructor"); \
+		ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_destructor, script, "destructor");
+
+
+
+#define SCRIPTEDCLASS_FUNCTION_LOAD(returnType, className, memberName,...) \
+	ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_##memberName, script, #memberName); \
+	script->add(chaiscript::fun(( returnType(*)(SCRIPTEDCLASS_CLASSNAME(className)*,__VA_ARGS__) )&SCRIPTEDCLASS_CLASSNAME(className)::base_##memberName, this), "base_" #memberName);
+
+
+
+#define SCRIPTEDCLASS_FUNCTION_CALL(expression, functionName, ...) \
+	if(func_##functionName) \
+	{ \
+		SCRIPTMGR_ERRORHANDLE(expression func_##functionName ( __VA_ARGS__ );, scriptData->getFilePath(), ); \
+	} \
+	else \
+	{ \
+		expression base_##functionName (this, __VA_ARGS__ ); \
 	}
 
 
 
-#define SCRIPTEDCLASS_DESTRUCTOR_DEFINE(className) \
+#define SCRIPTEDCLASS_MEMBERS_DEFINE(className) \
 	SCRIPTEDCLASS_CLASSNAME(className)::~SCRIPTEDCLASS_CLASSNAME(className)() \
 	{ \
 		if(func_destructor) \
@@ -266,7 +244,54 @@ namespace ScriptModule
 			SCRIPTMGR_ERRORHANDLE(func_destructor();, scriptData->getFilePath(), ) \
 		} \
 		delete script; \
+	} \
+	chaiscript::Boxed_Value SCRIPTEDCLASS_CLASSNAME(className)::callFunction(const String& name, std::vector<chaiscript::Boxed_Value>& args) \
+	{ \
+		return ScriptModule::ScriptManager::callFunction(*script, name, args); \
+	} \
+	chaiscript::Boxed_Value SCRIPTEDCLASS_CLASSNAME(className)::callFunction(const std::string& name, std::vector<chaiscript::Boxed_Value>& args) \
+	{ \
+		return callFunction(String(name), args); \
+	} \
+	chaiscript::Boxed_Value SCRIPTEDCLASS_CLASSNAME(className)::getVariable(const String& name) \
+	{ \
+		return ScriptModule::ScriptManager::getVariable(*script, name); \
+	} \
+	chaiscript::Boxed_Value SCRIPTEDCLASS_CLASSNAME(className)::getVariable(const std::string& name) \
+	{ \
+		return getVariable(String(name)); \
+	} \
+	void SCRIPTEDCLASS_CLASSNAME(className)::setVariable(const String& name, const chaiscript::Boxed_Value& value) \
+	{ \
+		ScriptModule::ScriptManager::setVariable(*script, name, value); \
+	} \
+	void SCRIPTEDCLASS_CLASSNAME(className)::setVariable(const std::string& name, const chaiscript::Boxed_Value& value) \
+	{ \
+		setVariable(String(name), value); \
 	}
+
+
+
+#define SCRIPTEDCLASS_FUNCTION_DEFINE(returnType, className, functionName, expressionLeft, expressionRight, args, ...) \
+	returnType SCRIPTEDCLASS_CLASSNAME(className)::base_##functionName ( SCRIPTEDCLASS_CLASSNAME(className) *scriptObj, __VA_ARGS__) \
+	{ \
+		expressionLeft scriptObj->className::functionName(args); \
+	} \
+	returnType SCRIPTEDCLASS_CLASSNAME(className)::functionName(__VA_ARGS__) \
+	{ \
+		SCRIPTEDCLASS_FUNCTION_CALL(expressionLeft, functionName, args); \
+		expressionLeft expressionRight; \
+	}
+
+
+
+#define SCRIPTEDCLASS_NEWFUNCTION_BODY(className, ...) \
+	SCRIPTEDCLASS_CLASSNAME(className)* scriptObj = new SCRIPTEDCLASS_CLASSNAME(className)(scriptData, __VA_ARGS__); \
+	return scriptObj->script->eval<chaiscript::Const_Proxy_Function>("constructor");
+
+
+
+#define SCRIPTEDCLASS_DELETEFUNCTION_BODY(className) delete scriptObj;
 
 
 
