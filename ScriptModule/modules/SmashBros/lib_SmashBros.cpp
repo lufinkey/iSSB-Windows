@@ -49,6 +49,9 @@ namespace SmashBros
 		m_smashbros_types->add(chaiscript::user_type<SmashBros::Stage>(), "Stage");
 
 		//scripted classes
+		SCRIPTMGR_ADDSCRIPTEDCLASSINHERITENCE(m_smashbros_types, SmashBros, GameElement)
+		SCRIPTMGR_ADDSCRIPTEDCLASSINHERITENCE(m_smashbros_types, SmashBros, Player)
+		SCRIPTMGR_ADDSCRIPTEDCLASSINHERITENCE(m_smashbros_types, SmashBros, Stage)
 		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_smashbros_types, GameElement)
 		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_smashbros_types, Player)
 		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_smashbros_types, Stage)

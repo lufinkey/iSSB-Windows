@@ -112,6 +112,12 @@ namespace ScriptModule
 
 
 
+#define SCRIPTMGR_ADDSCRIPTEDCLASSINHERITENCE(module, namespaceName, className) \
+	module->add(chaiscript::user_type<namespaceName::SCRIPTEDCLASS_CLASSNAME(className)>(), #className); \
+	module->add(chaiscript::base_class<namespaceName::className, namespaceName::SCRIPTEDCLASS_CLASSNAME(className)>());
+
+
+
 #define SCRIPTEDCLASS_CLASSHEADER(namespaceName, className) \
 	class SCRIPTEDCLASS_CLASSNAME(className) : public namespaceName::className
 

@@ -64,6 +64,9 @@ namespace GameEngine
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::RectangleF>(), "RectangleF");
 
 		//scripted classes
+		SCRIPTMGR_ADDSCRIPTEDCLASSINHERITENCE(m_gameengine_types, GameEngine, Actor)
+		SCRIPTMGR_ADDSCRIPTEDCLASSINHERITENCE(m_gameengine_types, GameEngine, TextActor)
+		SCRIPTMGR_ADDSCRIPTEDCLASSINHERITENCE(m_gameengine_types, GameEngine, WireframeActor)
 		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_gameengine_types, Actor)
 		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_gameengine_types, TextActor)
 		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_gameengine_types, WireframeActor)
