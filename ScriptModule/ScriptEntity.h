@@ -29,6 +29,7 @@ namespace ScriptModule
 		void setPath(const String& filePath);
 		void setCreator(const String& creator);
 		void setVersion(const String& version);
+		void setIcon(const String& icon);
 		void setMainScript(const ScriptInfo& script);
 		void setMainScript(const String&name, const String&script, const String&type);
 		void addScript(const String&name, const String&script, const String&type);
@@ -36,6 +37,7 @@ namespace ScriptModule
 		const String& getPath() const;
 		const String& getCreator() const;
 		const String& getVersion() const;
+		const String& getIcon() const;
 		const ScriptInfo& getMainScript() const;
 		const ArrayList<ScriptInfo>& getScripts() const;
 
@@ -45,6 +47,7 @@ namespace ScriptModule
 		String path;
 		String creator;
 		String version;
+		String icon;
 		ScriptInfo mainScript;
 		ArrayList<ScriptInfo> otherScripts;
 
@@ -55,17 +58,14 @@ namespace ScriptModule
 	class ScriptData
 	{
 	private:
-		String className;
-		String classType;
-		String creator;
-		String version;
 		String filePath;
 		String contents;
+		ScriptEntityInfo* entityInfo;
 
 		static String fixClassName(const String& className);
 
 	public:
-		ScriptData(const String&className, const String&classType, const String&creator, const String&version);
+		ScriptData(const ScriptEntityInfo& scriptInfo);
 		ScriptData(const ScriptData&);
 		~ScriptData();
 
@@ -73,8 +73,8 @@ namespace ScriptModule
 
 		bool loadFromFile(const String& filePath, String&error = String(""));
 
-		const String& getClassName() const;
-		const String& getClassType() const;
+		ScriptEntityInfo::ScriptInfo* getScriptInfo() const;
+		ScriptEntityInfo* getScriptEntityInfo() const;
 		const String& getFilePath() const;
 		const String& getContents() const;
 	};

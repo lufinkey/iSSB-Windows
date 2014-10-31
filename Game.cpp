@@ -6,7 +6,8 @@
 #include "SmashBros/Game/GameScreen.h"
 
 #ifndef SMASHBROS_SCRIPT_DISABLE
- #include "ScriptModule/ScriptManager.h"
+#include "ScriptModule/ScriptManager.h"
+#include "SmashBros/Loader.h"
 #endif //SMASHBROS_SCRIPT_DISABLE
 
 namespace SmashBros
@@ -55,7 +56,8 @@ namespace SmashBros
 		ScreenManager::GoToScreen("TitleScreen");
 
 #ifndef SMASHBROS_SCRIPT_DISABLE
-		ScriptModule::ScriptManager::loadModules();
+		ScriptModule::ScriptManager::load();
+		StageLoader::loadScriptEntities();
 #endif //SMASHBROS_SCRIPT_DISABLE
 	}
 

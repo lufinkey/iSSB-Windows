@@ -9,11 +9,18 @@
 #include <chaiscript/dispatchkit/bootstrap_stl.hpp>
 
 #include "modules/GameEngine/lib_GameEngine.h"
+#include "modules/GameEngine/inherit/lib_ge_inherit_Actor.h"
+#include "modules/GameEngine/inherit/lib_ge_inherit_TextActor.h"
+#include "modules/GameEngine/inherit/lib_ge_inherit_WireframeActor.h"
+
 #include "modules/SmashBros/lib_SmashBros.h"
+#include "modules/SmashBros/inherit/lib_sb_inherit_GameElement.h"
+#include "modules/SmashBros/inherit/lib_sb_inherit_Player.h"
+#include "modules/SmashBros/inherit/lib_sb_inherit_Stage.h"
 
 namespace ScriptModule
 {
-	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_ChaiScript_stdlib()
+	chaiscript::ModulePtr load_module_ChaiScript_stdlib()
 	{
 		chaiscript::ModulePtr m_chaiscript_stdlib = chaiscript::bootstrap::Bootstrap::bootstrap();
 		
@@ -44,10 +51,10 @@ namespace ScriptModule
 	chaiscript::ModulePtr ScriptManager::module_SmashBros_Item_protected;
 	chaiscript::ModulePtr ScriptManager::module_SmashBros_Projectile_protected;
 
-	ArrayList<ScriptEntityInfo*> ScriptManager::scriptEntities;
-	ArrayList<ScriptData*> ScriptManager::loadedScripts;
+	ArrayList<ScriptEntityInfo*> ScriptManager::scriptEntities = ArrayList<ScriptEntityInfo*>();
+	ArrayList<ScriptData*> ScriptManager::loadedScripts = ArrayList<ScriptData*>();
 
-	void ScriptManager::loadModules()
+	void ScriptManager::load()
 	{
 		if(loaded)
 		{
@@ -56,13 +63,64 @@ namespace ScriptModule
 
 		module_stdlib = load_module_ChaiScript_stdlib();
 
-		module_GameEngine = load_module_GameEngine();
+		module_GameEngine = GameEngine::load_module_GameEngine();
+		module_GameEngine_Actor_protected = GameEngine::load_module_GameEngine_Actor_protected();
+		module_GameEngine_TextActor_protected = GameEngine::load_module_GameEngine_TextActor_protected();
+		module_GameEngine_WireframeActor_protected = GameEngine::load_module_GameEngine_WireframeActor_protected();
 
+		module_SmashBros = SmashBros::load_module_SmashBros();
+		module_SmashBros_GameElement_protected = SmashBros::load_module_SmashBros_GameElement_protected();
+		module_SmashBros_Player_protected = SmashBros::load_module_SmashBros_Player_protected();
+		module_SmashBros_Stage_protected = SmashBros::load_module_SmashBros_Stage_protected();
 
 		loaded = true;
 	}
 
-	boolean ScriptManager::loadScript(const String& scriptPath, const String&className, const String&classType, const String& creator, const String& version)
+	void ScriptManager::addScriptEntityMembers(chaiscript::ChaiScript& script, ScriptData* scriptData)
+	{
+		ArrayList<ScriptEntityInfo::ScriptInfo*> scriptInfos;
+
+		const String& dataFilePath = scriptData->getFilePath();
+
+		ScriptEntityInfo* entityInfo = scriptData->getScriptEntityInfo();
+		ScriptEntityInfo::ScriptInfo* mainScriptInfo = (ScriptEntityInfo::ScriptInfo*)&entityInfo->getMainScript();
+
+		String entityPath = entityInfo->getPath() + '/';
+
+		if(!dataFilePath.equals(entityPath + mainScriptInfo->script))
+		{
+			scriptInfos.add(mainScriptInfo);
+		}
+
+		const ArrayList<ScriptEntityInfo::ScriptInfo>& otherScripts = entityInfo->getScripts();
+		for(int i=0; i<otherScripts.size(); i++)
+		{
+			ScriptEntityInfo::ScriptInfo* otherScriptInfo = (ScriptEntityInfo::ScriptInfo*)&otherScripts.get(i);
+			if(!dataFilePath.equals(entityPath + otherScriptInfo->script))
+			{
+				scriptInfos.add(otherScriptInfo);
+			}
+		}
+
+		for(int i=0; i<scriptInfos.size(); i++)
+		{
+			ScriptEntityInfo::ScriptInfo* otherScriptInfo = scriptInfos.get(i);
+			ScriptData* otherScriptData = ScriptManager::getScriptData(entityPath + otherScriptInfo->script);
+			addScriptInfoMembers(script, otherScriptData, *otherScriptInfo);
+		}
+	}
+
+	void ScriptManager::addScriptInfoMembers(chaiscript::ChaiScript& script, ScriptData* scriptData, const ScriptEntityInfo::ScriptInfo& scriptInfo)
+	{
+		SCRIPTMGR_LOADTYPEFUNCTIONSCHECK(GameEngine, Actor)
+		else SCRIPTMGR_LOADTYPEFUNCTIONSCHECK(GameEngine, TextActor)
+		else SCRIPTMGR_LOADTYPEFUNCTIONSCHECK(GameEngine, WireframeActor)
+		else SCRIPTMGR_LOADTYPEFUNCTIONSCHECK(SmashBros, GameElement)
+		else SCRIPTMGR_LOADTYPEFUNCTIONSCHECK(SmashBros, Player)
+		else SCRIPTMGR_LOADTYPEFUNCTIONSCHECK(SmashBros, Stage)
+	}
+
+	boolean ScriptManager::loadScript(const String& scriptPath, const ScriptEntityInfo& scriptInfo)
 	{
 		for(int i=0; i<loadedScripts.size(); i++)
 		{
@@ -72,7 +130,7 @@ namespace ScriptModule
 			}
 		}
 
-		ScriptData* data = new ScriptData(className, classType, creator, version);
+		ScriptData* data = new ScriptData(scriptInfo);
 		boolean success = data->loadFromFile(scriptPath);
 		if(success)
 		{
@@ -89,7 +147,7 @@ namespace ScriptModule
 
 		String errorMessage;
 		
-		ScriptData* mainScriptData = new ScriptData(entityInfo.getMainScript().name, entityInfo.getMainScript().type, entityInfo.getCreator(), entityInfo.getVersion());
+		ScriptData* mainScriptData = new ScriptData(entityInfo);
 		boolean success = mainScriptData->loadFromFile(entityPath + '/' + entityInfo.getMainScript().script, errorMessage);
 		if(!success)
 		{
@@ -105,7 +163,7 @@ namespace ScriptModule
 		for(int i=0; i<otherScripts.size(); i++)
 		{
 			ScriptEntityInfo::ScriptInfo scriptInfo = otherScripts.get(i);
-			ScriptData* scriptData = new ScriptData(scriptInfo.name, scriptInfo.type, entityInfo.getCreator(), entityInfo.getVersion());
+			ScriptData* scriptData = new ScriptData(entityInfo);
 			if(scriptData->loadFromFile(entityPath + '/' + scriptInfo.script, errorMessage))
 			{
 				otherScriptData.add(scriptData);
@@ -129,7 +187,22 @@ namespace ScriptModule
 			loadedScripts.add(otherScriptData.get(i));
 		}
 
+		Console::WriteLine((String)"Loaded Script Entity: " + entityInfo.getMainScript().name);
+
 		return true;
+	}
+
+	ScriptData* ScriptManager::getScriptData(const String& path)
+	{
+		for(int i=0; i<loadedScripts.size(); i++)
+		{
+			ScriptData* scriptData = loadedScripts.get(i);
+			if(scriptData->getFilePath().equals(path))
+			{
+				return scriptData;
+			}
+		}
+		return NULL;
 	}
 
 	void ScriptManager::unloadScript(const String& scriptPath)
@@ -166,7 +239,7 @@ namespace ScriptModule
 		{
 			argsName = "params";
 		}
-		String callHead = (String)"__callFunc(" + argsName + "){ return ";
+		String callHead = (String)"fun(" + argsName + "){ return ";
 		String callString =  name + "(";
 		for(unsigned int i = 0; i < args.size(); i++)
 		{
@@ -178,10 +251,12 @@ namespace ScriptModule
 		}
 		callString += ");}";
 
+		std::function<chaiscript::Boxed_Value(std::vector<chaiscript::Boxed_Value>&)> func_constructor;
+
 		//first try calling it with "this" keyword.
 		try
 		{
-			return script.eval<std::function<chaiscript::Boxed_Value(std::vector<chaiscript::Boxed_Value>&)>>(callHead + "this." + callString)(args);
+			func_constructor = script.eval<std::function<chaiscript::Boxed_Value(std::vector<chaiscript::Boxed_Value>&)>>(callHead + "this." + callString);
 		}
 		catch(const chaiscript::exception::eval_error&)
 		{
@@ -191,12 +266,14 @@ namespace ScriptModule
 		//try again without "this" keyword"
 		try
 		{
-			return script.eval<std::function<chaiscript::Boxed_Value(std::vector<chaiscript::Boxed_Value>&)>>(callHead + callString)(args);
+			func_constructor = script.eval<std::function<chaiscript::Boxed_Value(std::vector<chaiscript::Boxed_Value>&)>>(callHead + callString);
 		}
 		catch(const chaiscript::exception::eval_error&)
 		{
 			throw chaiscript::exception::eval_error((String)"no function exists with the name " + name);
 		}
+
+		return func_constructor(args);
 	}
 
 	chaiscript::Boxed_Value ScriptManager::callFunction(chaiscript::ChaiScript& script, const std::string& name, std::vector<chaiscript::Boxed_Value>& args)
@@ -206,7 +283,7 @@ namespace ScriptModule
 
 	chaiscript::Boxed_Value ScriptManager::getVariable(chaiscript::ChaiScript& script, const String& name)
 	{
-		String callHead = (String)"__getVar(){ return ";
+		String callHead = (String)"fun(){ return ";
 		String callString =  name + ";}";
 
 		//try getting it with "this" keyword.
@@ -242,7 +319,7 @@ namespace ScriptModule
 		{
 			argName = "param";
 		}
-		String callHead = (String)"__setVar(" + argName + "){ ";
+		String callHead = (String)"fun(" + argName + "){ ";
 		String callString =  name + "=" + argName + ";}";
 
 		//first try calling it with "this" keyword.

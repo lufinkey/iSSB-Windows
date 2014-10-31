@@ -1810,6 +1810,17 @@ namespace GameEngine
 		return characters[index];
 	}
 
+	void String::replace(char find, char replace)
+	{
+		for(int i=0; i<total; i++)
+		{
+			if(characters[i] == find)
+			{
+				characters[i] = replace;
+			}
+		}
+	}
+
 	void String::replace(const String&find, const String&rep)
 	{
 		if(find.total==0)

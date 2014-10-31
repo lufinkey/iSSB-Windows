@@ -6,6 +6,8 @@
 	<string>Luis Finke</string>
 	<key>version</key>
 	<string>1.0</string>
+	<key>icon</key>
+	<string>Icon.png</string>
 	<key>name</key>
 	<string>TemplateStage</string>
 	<key>mainScript</key>

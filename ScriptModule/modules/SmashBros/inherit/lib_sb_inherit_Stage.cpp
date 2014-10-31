@@ -13,13 +13,18 @@ namespace SmashBros
 			ScriptModule::ScriptManager::module_SmashBros,
 			ScriptModule::ScriptManager::module_SmashBros_Stage_protected)
 
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(Stage, float, float)
 		SCRIPTEDCLASS_MEMBERS_LOAD(Stage)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Stage, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Stage, Draw, Graphics2D&, long)
+	}
+
+	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(Stage)
+	{
+		SCRIPTEDCLASS_LOADTYPEFUNCTIONS_BODY(Stage)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(Stage, float, float)
 	}
 
 	SCRIPTEDCLASS_MEMBERS_DEFINE(Stage)
@@ -29,7 +34,8 @@ namespace SmashBros
 
 
 
-	SCRIPTEDCLASS_LOADPROTECTEDMODULE_HEADER(SmashBros, Stage)
+	//SCRIPTEDCLASS_LOADPROTECTEDMODULE_HEADER(SmashBros, Stage)
+	chaiscript::ModulePtr load_module_SmashBros_Stage_protected()
 	{
 		chaiscript::Module* m_sb_gameelement_protected = new chaiscript::Module();
 
@@ -49,7 +55,7 @@ namespace SmashBros
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_gameelement_protected, Stage, drawBottomLayer, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_gameelement_protected, Stage, drawMiddleLayer, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_gameelement_protected, Stage, drawTopLayer, );
-
+		
 		return chaiscript::ModulePtr(m_sb_gameelement_protected);
 	}
 

@@ -386,7 +386,8 @@ namespace GameEngine
 		m_gameengine_util->add(chaiscript::fun(&GameEngine::String::clear), "clear");
 		m_gameengine_util->add(chaiscript::fun(&GameEngine::String::length), "length");
 		m_gameengine_util->add(chaiscript::fun(&GameEngine::String::charAt), "charAt");
-		m_gameengine_util->add(chaiscript::fun(&GameEngine::String::replace), "replace");
+		m_gameengine_util->add(chaiscript::fun((void(GameEngine::String::*)(const String&,const String&))&GameEngine::String::replace), "replace");
+		m_gameengine_util->add(chaiscript::fun((void(GameEngine::String::*)(char,char))&GameEngine::String::replace), "replace");
 		m_gameengine_util->add(chaiscript::fun((GameEngine::String(GameEngine::String::*)(int)const) &GameEngine::String::substring), "substring");
 		m_gameengine_util->add(chaiscript::fun((GameEngine::String(GameEngine::String::*)(int,int)const) &GameEngine::String::substring), "substring");
 		m_gameengine_util->add(chaiscript::fun(&GameEngine::String::trim), "trim");

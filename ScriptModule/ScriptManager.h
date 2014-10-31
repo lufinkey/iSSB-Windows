@@ -7,8 +7,11 @@
 
 namespace ScriptModule
 {
+	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_ChaiScript_stdlib();
+
 	class ScriptManager
 	{
+		friend chaiscript::ModulePtr load_module_ChaiScript_stdlib();
 	private:
 		static bool loaded;
 
@@ -33,10 +36,15 @@ namespace ScriptModule
 		static chaiscript::ModulePtr module_SmashBros_Item_protected;
 		static chaiscript::ModulePtr module_SmashBros_Projectile_protected;
 
-		static void loadModules();
+		static void load();
 
-		static boolean loadScript(const String& scriptPath, const String&className="", const String&classType="", const String&creator="yourcompany", const String&version="1.0");
+		static void addScriptEntityMembers(chaiscript::ChaiScript& script, ScriptData* scriptData);
+		static void addScriptInfoMembers(chaiscript::ChaiScript& script, ScriptData* scriptData, const ScriptEntityInfo::ScriptInfo& scriptInfo);
+
+		static boolean loadScript(const String& scriptPath, const ScriptEntityInfo& entityInfo);
 		static boolean loadScriptEntity(const ScriptEntityInfo& entityInfo, String& error=String(""));
+
+		static ScriptData* getScriptData(const String&path);
 
 		static void unloadScript(const String& scriptPath);
 		static void unloadScriptEntity(const ScriptEntityInfo& entityInfo);

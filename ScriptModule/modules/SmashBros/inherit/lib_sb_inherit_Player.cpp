@@ -15,7 +15,6 @@ namespace SmashBros
 			ScriptModule::ScriptManager::module_SmashBros_GameElement_protected,
 			ScriptModule::ScriptManager::module_SmashBros_Player_protected)
 
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(Player, float, float, byte, byte)
 		SCRIPTEDCLASS_MEMBERS_LOAD(Player)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
@@ -74,6 +73,12 @@ namespace SmashBros
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, attackFinalSmash, byte)
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, jump)
+	}
+
+	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(Player)
+	{
+		SCRIPTEDCLASS_LOADTYPEFUNCTIONS_BODY(Player)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(Player, float, float, byte, byte)
 	}
 	
 	SCRIPTEDCLASS_MEMBERS_DEFINE(Player)

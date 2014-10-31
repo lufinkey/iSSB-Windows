@@ -421,7 +421,7 @@ namespace SmashBros
 		readyToFight->changeAnimation("normal", FORWARD);
 		readyToFight->Scale = 1.845f;
 		readyToFight->mouseOverUsesPixel(true);
-				
+		
 		rules_arrows = new Arrows(530,25,530,75);
 		switch(Global::gameMode)
 		{
@@ -429,7 +429,7 @@ namespace SmashBros
 			rules_arrows->setValue(Global::stockAmount);
 			rules_arrows->setProperties(Global::minLives, Global::maxLives, 1);
 			break;
-					
+			
 			case Global::MODE_TIME_LIMIT:
 			rules_arrows->setValue(Global::timeLimit);
 			rules_arrows->setProperties(Global::minTime, Global::maxTime, 1);
@@ -554,6 +554,7 @@ namespace SmashBros
 
 	void BrawlStageSelect::LoadContent()
 	{
+		StageSelectScreen::LoadContent();
 		Menus::menuNo = 4;
 		Global::gameType = 1;
 		Game::setBackgroundImage("Images/Menus/Backgrounds/bg1.png");
@@ -1385,6 +1386,7 @@ namespace SmashBros
 
 	void TrainingStageSelect::LoadContent()
 	{
+		StageSelectScreen::LoadContent();
 		Menus::menuNo = 14;
 		Global::gameType = Global::TYPE_TRAINING;
 		Global::gameMode = 0;

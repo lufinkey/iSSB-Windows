@@ -3,6 +3,8 @@
 
 #include "../../../ScriptManager.h"
 
+#include "../lib_SmashBros.h"
+
 #include "../../../../SmashBros/Player.h"
 #include "../../../../SmashBros/Item.h"
 #include "../../../../SmashBros/Projectile.h"

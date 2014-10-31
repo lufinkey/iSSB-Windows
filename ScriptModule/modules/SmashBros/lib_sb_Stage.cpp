@@ -77,7 +77,7 @@ namespace SmashBros
 		m_smashbros_stage->add(chaiscript::fun(&SmashBros::Stage::getViewBorders), "getViewBorders");
 		m_smashbros_stage->add(chaiscript::fun(&SmashBros::Stage::checkSafeArea), "checkSafeArea");
 		m_smashbros_stage->add_global_const(chaiscript::const_var(SmashBros::Stage::BG_FIXED), "STAGE_BG_FIXED");
-		m_smashbros_stage->add_global_const(chaiscript::const_var(SmashBros::Stage::BG_NORMAL), "STAGE_BG_FIXED");
+		m_smashbros_stage->add_global_const(chaiscript::const_var(SmashBros::Stage::BG_NORMAL), "STAGE_BG_NORMAL");
 
 
 

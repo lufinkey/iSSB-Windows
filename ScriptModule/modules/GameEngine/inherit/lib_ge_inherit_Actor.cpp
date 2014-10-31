@@ -18,8 +18,6 @@ namespace GameEngine
 			ScriptModule::ScriptManager::module_SmashBros,
 			ScriptModule::ScriptManager::module_GameEngine_Actor_protected)
 
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(Actor,)
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(Actor, float, float)
 		SCRIPTEDCLASS_MEMBERS_LOAD(Actor)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
@@ -33,6 +31,13 @@ namespace GameEngine
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onRelease)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onMoveFinish)
 		SCRIPTEDCLASS_FUNCTION_LOAD(bool, Actor, isOnScreen)
+	}
+
+	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(Actor)
+	{
+		SCRIPTEDCLASS_LOADTYPEFUNCTIONS_BODY(Actor)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(Actor)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(Actor, float, float)
 	}
 
 	SCRIPTEDCLASS_MEMBERS_DEFINE(Actor)

@@ -17,9 +17,6 @@ namespace GameEngine
 			ScriptModule::ScriptManager::module_GameEngine,
 			ScriptModule::ScriptManager::module_SmashBros,
 			ScriptModule::ScriptManager::module_GameEngine_TextActor_protected)
-
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(TextActor, const String&, Font*, const Color&)
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(TextActor, float, float, const String&, Font*, const Color&)
 		SCRIPTEDCLASS_MEMBERS_LOAD(TextActor)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
@@ -31,6 +28,13 @@ namespace GameEngine
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onClick)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, TextActor, onRelease)
 		SCRIPTEDCLASS_FUNCTION_LOAD(bool, TextActor, isOnScreen)
+	}
+
+	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(TextActor)
+	{
+		SCRIPTEDCLASS_LOADTYPEFUNCTIONS_BODY(TextActor)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(TextActor, const String&, Font*, const Color&)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(TextActor, float, float, const String&, Font*, const Color&)
 	}
 
 	SCRIPTEDCLASS_MEMBERS_DEFINE(TextActor)

@@ -19,8 +19,6 @@ namespace SmashBros
 			ScriptModule::ScriptManager::module_GameEngine_Actor_protected,
 			ScriptModule::ScriptManager::module_SmashBros_GameElement_protected)
 
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(GameElement)
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(GameElement, float, float)
 		SCRIPTEDCLASS_MEMBERS_LOAD(GameElement)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
@@ -34,6 +32,13 @@ namespace SmashBros
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onRelease)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, GameElement, onMoveFinish)
 		SCRIPTEDCLASS_FUNCTION_LOAD(bool, GameElement, isOnScreen)
+	}
+
+	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(GameElement)
+	{
+		SCRIPTEDCLASS_LOADTYPEFUNCTIONS_BODY(GameElement)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(GameElement)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(GameElement, float, float)
 	}
 
 	SCRIPTEDCLASS_MEMBERS_DEFINE(GameElement)

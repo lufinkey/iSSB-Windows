@@ -9,6 +9,11 @@
 #include "../../../SmashBros/Projectile.h"
 #include "../../../SmashBros/Stage.h"
 
+#include "../../ScriptMacros.h"
+#include "inherit/lib_sb_inherit_GameElement.h"
+#include "inherit/lib_sb_inherit_Player.h"
+#include "inherit/lib_sb_inherit_Stage.h"
+
 namespace SmashBros
 {
 	chaiscript::ModulePtr load_module_SmashBros()
@@ -42,6 +47,11 @@ namespace SmashBros
 		m_smashbros_types->add(chaiscript::user_type<SmashBros::Projectile>(), "Projectile");
 		m_smashbros_types->add(chaiscript::base_class<SmashBros::GameElement, SmashBros::Projectile>());
 		m_smashbros_types->add(chaiscript::user_type<SmashBros::Stage>(), "Stage");
+
+		//scripted classes
+		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_smashbros_types, GameElement)
+		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_smashbros_types, Player)
+		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_smashbros_types, Stage)
 
 		return chaiscript::ModulePtr(m_smashbros_types);
 	}

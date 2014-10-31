@@ -5,6 +5,11 @@
 
 #include "lib_ge_Thread.h"
 
+#include "../../ScriptMacros.h"
+#include "inherit/lib_ge_inherit_Actor.h"
+#include "inherit/lib_ge_inherit_TextActor.h"
+#include "inherit/lib_ge_inherit_WireframeActor.h"
+
 namespace GameEngine
 {
 	chaiscript::ModulePtr load_module_GameEngine()
@@ -57,6 +62,11 @@ namespace GameEngine
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::RectF>(), "RectF");
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::Rectangle>(), "Rectangle");
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::RectangleF>(), "RectangleF");
+
+		//scripted classes
+		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_gameengine_types, Actor)
+		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_gameengine_types, TextActor)
+		SCRIPTMGR_ADDSHAREDFUNCTIONS(m_gameengine_types, WireframeActor)
 
 		return chaiscript::ModulePtr(m_gameengine_types);
 	}

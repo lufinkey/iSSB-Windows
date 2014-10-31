@@ -35,6 +35,7 @@ namespace SmashBros
 	private:
 #ifndef SMASHBROS_SCRIPT_DISABLE
 		static ArrayList<ScriptModule::ScriptEntityInfo*> scriptEntities;
+		static ArrayList<int> disabledScriptEntities;
 #endif //SMASHBROS_SCRIPT_DISABLE
 
 		static String getMenuFilename(int stageNo);
@@ -44,8 +45,12 @@ namespace SmashBros
 	#if defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
 		static void loadScriptEntities(const String&path = (String)getenv("HOME")+"/Library/iSSB/addons/stages");
 	#else
-		static void loadScriptEntities(const String&path = "/addons/stages");
+		static void loadScriptEntities(const String&path = "addons/stages");
 	#endif
+		static void unloadScriptEntities();
+
+		static void setDisabledScriptEntities(const ArrayList<int>& disabled);
+		static ArrayList<ScriptModule::ScriptEntityInfo*> getScriptEntities();
 #endif //SMASHBROS_SCRIPT_DISABLE
 
 		static String getIconPath(int stageNo);

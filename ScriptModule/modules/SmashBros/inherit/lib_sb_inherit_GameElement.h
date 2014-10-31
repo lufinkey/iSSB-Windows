@@ -3,6 +3,8 @@
 
 #include "../../../ScriptManager.h"
 
+#include "../lib_SmashBros.h"
+
 #include "../../../../SmashBros/GameElement.h"
 
 #pragma once

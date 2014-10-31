@@ -16,6 +16,7 @@ namespace ScriptModule
 		path = info.path;
 		creator = info.creator;
 		version = info.version;
+		icon = info.icon;
 		mainScript = info.mainScript;
 		otherScripts = info.otherScripts;
 	}
@@ -30,6 +31,7 @@ namespace ScriptModule
 		path = info.path;
 		creator = info.creator;
 		version = info.version;
+		icon = info.icon;
 		mainScript = info.mainScript;
 		otherScripts = info.otherScripts;
 
@@ -74,6 +76,15 @@ namespace ScriptModule
 		}
 		str = boost::any_cast<std::string>(value);
 		version = str;
+
+		//icon
+
+		value = dict["icon"];
+		if (!value.empty())
+		{
+			str = boost::any_cast<std::string>(value);
+			icon = str;
+		}
 
 		//name
 
@@ -221,6 +232,11 @@ namespace ScriptModule
 		this->version = version;
 	}
 
+	void ScriptEntityInfo::setIcon(const String& icon)
+	{
+		this->icon = icon;
+	}
+
 	void ScriptEntityInfo::setMainScript(const ScriptEntityInfo::ScriptInfo& script)
 	{
 		mainScript = script;
@@ -257,6 +273,11 @@ namespace ScriptModule
 		return version;
 	}
 
+	const String& ScriptEntityInfo::getIcon() const
+	{
+		return icon;
+	}
+
 	const ScriptEntityInfo::ScriptInfo& ScriptEntityInfo::getMainScript() const
 	{
 		return mainScript;
@@ -278,6 +299,10 @@ namespace ScriptModule
 
 	bool ScriptEntityInfo::checkClassName(const String& className)
 	{
+		if(className.length() == 0)
+		{
+			return false;
+		}
 		for(int i=0; i<className.length(); i++)
 		{
 			char c = className.charAt(i);
@@ -296,20 +321,14 @@ namespace ScriptModule
 
 
 
-	ScriptData::ScriptData(const String&className, const String&classType, const String&creator, const String&version)
+	ScriptData::ScriptData(const ScriptEntityInfo& entityInfo)
 	{
-		this->className = fixClassName(className);
-		this->classType = fixClassName(classType);
-		this->creator = creator;
-		this->version = version;
+		this->entityInfo = ((ScriptEntityInfo*)&entityInfo);
 	}
 
 	ScriptData::ScriptData(const ScriptData&data)
 	{
-		className = data.className;
-		classType = data.classType;
-		version = data.version;
-		creator = data.creator;
+		entityInfo = data.entityInfo;
 		filePath = data.filePath;
 		contents = data.contents;
 	}
@@ -321,33 +340,10 @@ namespace ScriptModule
 
 	ScriptData& ScriptData::operator=(const ScriptData&data)
 	{
-		className = data.className;
-		classType = data.classType;
-		version = data.version;
-		creator = data.creator;
+		entityInfo = data.entityInfo;
 		filePath = data.filePath;
 		contents = data.contents;
 		return *this;
-	}
-
-	String ScriptData::fixClassName(const String& className)
-	{
-		String fixedClassName;
-
-		for(int i=0; i<className.length(); i++)
-		{
-			char c = className.charAt(i);
-			if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '_')
-			{
-				fixedClassName += c;
-			}
-			else
-			{
-				fixedClassName += '_';
-			}
-		}
-
-		return fixedClassName;
 	}
 
 	bool ScriptData::loadFromFile(const String& path, String& error)
@@ -360,46 +356,36 @@ namespace ScriptModule
 			error = (String)"unable to load";
 			return false;
 		}
-		if(className.length()==0)
-		{
-			int startIndex = 0;
-			int lastIndex = path.lastIndexOf('/');
-			if(lastIndex == -1)
-			{
-				startIndex = 0;
-			}
-			className = path.substring(startIndex);
-			int firstIndex = className.indexOf('.');
-			if(firstIndex == -1)
-			{
-				return true;
-			}
-			else if(firstIndex==0)
-			{
-				className = "";
-				filePath = "";
-				contents = "";
-
-				error = "invalid or unspecified class name";
-				return false;
-			}
-			else
-			{
-				className = className.substring(0, firstIndex);
-			}
-			className = fixClassName(className);
-		}
+		filePath = path;
+		contents.replace('\r', '\n');
 		return true;
 	}
 
-	const String& ScriptData::getClassName() const
+	ScriptEntityInfo* ScriptData::getScriptEntityInfo() const
 	{
-		return className;
+		return entityInfo;
 	}
 
-	const String& ScriptData::getClassType() const
+	ScriptEntityInfo::ScriptInfo* ScriptData::getScriptInfo() const
 	{
-		return classType;
+		const String& entityPath = entityInfo->getPath() + '/';
+		const ScriptEntityInfo::ScriptInfo& mainScript = entityInfo->getMainScript();
+		if(filePath.equals(entityPath + mainScript.script))
+		{
+			return ((ScriptEntityInfo::ScriptInfo*)&mainScript);
+		}
+
+		const ArrayList<ScriptEntityInfo::ScriptInfo>& otherScripts = entityInfo->getScripts();
+		for(int i=0; i<otherScripts.size(); i++)
+		{
+			const ScriptEntityInfo::ScriptInfo& scriptInfo = otherScripts.get(i);
+			if(filePath.equals(entityPath + scriptInfo.script))
+			{
+				return (ScriptEntityInfo::ScriptInfo*)&scriptInfo;
+			}
+		}
+
+		return NULL;
 	}
 
 	const String& ScriptData::getFilePath() const

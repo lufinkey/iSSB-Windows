@@ -18,8 +18,6 @@ namespace GameEngine
 			ScriptModule::ScriptManager::module_SmashBros,
 			ScriptModule::ScriptManager::module_GameEngine_WireframeActor_protected)
 
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(WireframeActor,)
-		SCRIPTEDCLASS_NEWFUNCTION_ADD(WireframeActor, float, float, int, int)
 		SCRIPTEDCLASS_MEMBERS_LOAD(WireframeActor)
 
 		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
@@ -31,6 +29,13 @@ namespace GameEngine
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onClick)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onRelease)
 		SCRIPTEDCLASS_FUNCTION_LOAD(bool, WireframeActor, isOnScreen)
+	}
+
+	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(WireframeActor)
+	{
+		SCRIPTEDCLASS_LOADTYPEFUNCTIONS_BODY(WireframeActor)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(WireframeActor,)
+		SCRIPTEDCLASS_NEWFUNCTION_ADD(WireframeActor, float, float, int, int)
 	}
 
 	SCRIPTEDCLASS_MEMBERS_DEFINE(WireframeActor)
