@@ -22,6 +22,7 @@ namespace GameEngine
 	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_GameEngine_Actor_protected();
 	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_GameEngine_TextActor_protected();
 	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_GameEngine_WireframeActor_protected();
+	CHAISCRIPT_MODULE_EXPORT chaiscript::ModulePtr load_module_GameEngine_MenuScreen_protected();
 }
 
 #endif //SMASHBROS_SCRIPT_DISABLE

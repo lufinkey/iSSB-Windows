@@ -468,6 +468,12 @@
     <ClCompile Include="GameEngine\Util\FileTools.cpp">
       <Filter>Source Files\GameEngine\Util</Filter>
     </ClCompile>
+    <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_MenuScreen.cpp">
+      <Filter>Source Files\ScriptModule\modules\GameEngine\inherit</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Screen.cpp">
+      <Filter>Source Files\ScriptModule\modules\GameEngine\inherit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine\Actor\Actor.h">
@@ -790,6 +796,12 @@
     </ClInclude>
     <ClInclude Include="GameEngine\Util\FileTools.h">
       <Filter>Header Files\GameEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_MenuScreen.h">
+      <Filter>Header Files\ScriptModule\modules\GameEngine\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Screen.h">
+      <Filter>Header Files\ScriptModule\modules\GameEngine\inherit</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

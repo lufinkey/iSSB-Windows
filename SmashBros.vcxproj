@@ -187,6 +187,8 @@
     <ClCompile Include="PlistCpp\src\pugixml.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Actor.cpp" />
+    <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_MenuScreen.cpp" />
+    <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Screen.cpp" />
     <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_TextActor.cpp" />
     <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_WireframeActor.cpp" />
     <ClCompile Include="ScriptModule\modules\GameEngine\lib_GameEngine.cpp" />
@@ -313,6 +315,8 @@
     <ClInclude Include="PlistCpp\src\pugiconfig.hpp" />
     <ClInclude Include="PlistCpp\src\pugixml.hpp" />
     <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Actor.h" />
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_MenuScreen.h" />
+    <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Screen.h" />
     <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_TextActor.h" />
     <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_WireframeActor.h" />
     <ClInclude Include="ScriptModule\modules\GameEngine\lib_GameEngine.h" />

@@ -12,6 +12,11 @@
 
 namespace GameEngine
 {
+	String stdstringToString(const std::string& str)
+	{
+		return String(str);
+	}
+
 	chaiscript::ModulePtr load_module_GameEngine()
 	{
 		chaiscript::Module* m_gameengine = new chaiscript::Module();
@@ -55,6 +60,7 @@ namespace GameEngine
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::PixelIterator>(), "PixelIterator");
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::PrefManager>(), "PrefManager");
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::String>(), "String");
+		//m_gameengine_types->add(chaiscript::type_conversion<std::string, GameEngine::String>(&stdstringToString));
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::ScriptThread>(), "Thread");
 
 		m_gameengine_types->add(chaiscript::user_type<GameEngine::Vector2<chaiscript::Boxed_Value>>(), "Vector2");
