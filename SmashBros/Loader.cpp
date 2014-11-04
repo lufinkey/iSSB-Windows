@@ -7,6 +7,7 @@
 #include "Game/Characters/Fox.h"
 #include "Game/Characters/Pikachu.h"
 #include "Game/Characters/Link.h"
+#include "Game/Characters/Kirby.h"
 
 #include "Game/Stages/FractalStage.h"
 #include "Game/Stages/HillsideBattleground.h"
@@ -42,6 +43,9 @@ namespace SmashBros
 
 			case Global::CHAR_LINK:
 			return "link.png";
+
+			case Global::CHAR_KIRBY:
+			return "kirby.png";
 
 			default:
 			if(charNo <= Global::totalCharacters)
@@ -85,6 +89,9 @@ namespace SmashBros
 			
 			case Global::CHAR_LINK:
 			return "Link";
+
+			case Global::CHAR_KIRBY:
+			return "Kirby";
 		}
 	}
 	
@@ -132,6 +139,11 @@ namespace SmashBros
 			case Global::CHAR_LINK:
 			p = new Link(x1,y1,playerNo,team);
 			p->charNo = Global::CHAR_LINK;
+			break;
+
+			case Global::CHAR_KIRBY:
+			p = new Kirby(x1,y1,playerNo,team);
+			p->charNo = Global::CHAR_KIRBY;
 			break;
 		}
 		return p;

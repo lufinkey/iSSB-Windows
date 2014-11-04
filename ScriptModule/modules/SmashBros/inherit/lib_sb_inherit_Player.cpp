@@ -172,6 +172,7 @@ namespace SmashBros
 		
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, bUp, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, doubleJump, );
+		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, maxDoubleJumps, );
 
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, walkSpeed, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, runSpeed, );

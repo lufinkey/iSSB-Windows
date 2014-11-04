@@ -135,6 +135,7 @@ namespace SmashBros
 		{
 			addToGrid(actors.get(i),x,y,cols,rows,xSpace,ySpace,i);
 		}
+		currentIndex = actors.size();
 	}
 
 	void ActorGrid::remove(Actor*a, boolean deallocate)
@@ -160,6 +161,7 @@ namespace SmashBros
 		{
 			addToGrid(actors.get(i),x,y,cols,rows,xSpace,ySpace,i);
 		}
+		currentIndex = actors.size();
 	}
 
 	void ActorGrid::remove(const ArrayList<Actor*>&actrs, boolean deallocate)
@@ -190,6 +192,8 @@ namespace SmashBros
 		{
 			addToGrid(actors.get(i),x,y,cols,rows,xSpace,ySpace,i);
 		}
+
+		currentIndex = actors.size();
 	}
 
 	void ActorGrid::addToGrid(Actor*a,float x1,float y1,int xAmount,int yAmount,float xspace,float yspace,int num)

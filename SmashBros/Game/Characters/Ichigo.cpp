@@ -25,7 +25,7 @@ namespace SmashBros
 		setHitbox(-14, 0, 28, 45);
 		setHitboxColor(Color::GREEN);
 		//showHitboxWireframe(true);
-		//setWireframeColor(Color.red);
+		//setWireframeColor(Color::RED);
 		//showWireframe(true);
 		
 		setHangPoint(7, 23);

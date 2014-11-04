@@ -474,6 +474,9 @@
     <ClCompile Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Screen.cpp">
       <Filter>Source Files\ScriptModule\modules\GameEngine\inherit</Filter>
     </ClCompile>
+    <ClCompile Include="SmashBros\Game\Characters\Kirby.cpp">
+      <Filter>Source Files\SmashBros\Game\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine\Actor\Actor.h">
@@ -802,6 +805,9 @@
     </ClInclude>
     <ClInclude Include="ScriptModule\modules\GameEngine\inherit\lib_ge_inherit_Screen.h">
       <Filter>Header Files\ScriptModule\modules\GameEngine\inherit</Filter>
+    </ClInclude>
+    <ClInclude Include="SmashBros\Game\Characters\Kirby.h">
+      <Filter>Header Files\SmashBros\Game\Characters</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

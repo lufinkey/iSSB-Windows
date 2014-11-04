@@ -83,6 +83,7 @@ namespace SmashBros
 		canFinalsmash = false;
 		bUp = false;
 		doubleJump = 0;
+		maxDoubleJumps = 1;
 		hanging = false;
 		
 		walkSpeed = 2;
@@ -5378,7 +5379,7 @@ namespace SmashBros
 	{
 		//Open for implementation, but call super method
 		onGround=false;
-		doubleJump=1;
+		doubleJump=maxDoubleJumps;
 		checkAttacks();
 		if((!hanging)&&(yvelocity>0)&&(canDo))
 		{
@@ -5409,7 +5410,7 @@ namespace SmashBros
 			onGround = false;
 			bUp=false;
 			canDo=true;
-			doubleJump=1;
+			doubleJump=maxDoubleJumps;
 			changeTwoSidedAnimation("hang", NO_CHANGE);
 			x=(collide->x+(collide->width/2)) + (getPlayerDirMult(collideHangSide) * hangPoint.x);
 			y=collide->y+((height/2)-hangPoint.y);
@@ -5901,7 +5902,10 @@ namespace SmashBros
 				yvelocity=-dist1;
 				y-=1;
 				changeTwoSidedAnimation("jump", FORWARD);
-				doubleJump=1;
+				if(doubleJump<=0)
+				{
+					doubleJump=maxDoubleJumps;
+				}
 			}
 			else
 			{
@@ -5926,10 +5930,10 @@ namespace SmashBros
 		up=true;
 		hanging=false;
 		y-=((float)hitbox->height + ((float)height*0.26f));
-		if(doubleJump==1)
+		if(doubleJump>0)
 		{
 			yvelocity=-2;
-			doubleJump=0;
+			doubleJump--;
 			changeTwoSidedAnimation("jump2", FORWARD);
 			x += (getPlayerDirMult() * hitbox->width);
 		}

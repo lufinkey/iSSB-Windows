@@ -129,9 +129,7 @@
 	// the second argument is the velocity of the "double" jump in the air.
 	jump(5.1f, 4.9f);
 	
-	//if you have a character that performs multiple double jumps, you can set the doubleJump variable to a
-	// specific value if the character is on the ground, and then adjust the second argument of jump(float,float)
-	// depending on the value of doubleJump.
+	//if you have a character that performs multiple double jumps, you can set the maxDoubleJumps attribute	// and then adjust the second argument of jump(float,float) based on the current doubleJump value
 }
 def Update(long gameTime)
 {

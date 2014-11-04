@@ -216,6 +216,7 @@ namespace SmashBros
 		
 		boolean bUp;
 		byte doubleJump;
+		byte maxDoubleJumps;
 
 		float walkSpeed;
 		float runSpeed;
