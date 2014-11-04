@@ -478,7 +478,7 @@ namespace GameEngine
 				//anim.drawFrame(graphics,0,x,y);
 				this->anim->direction=FORWARD;
 			}
-			else if(!(aName.equals(this->anim->name)))
+			else if(anim==NULL || !(aName.equals(this->anim->name)))
 			{
 				this->anim=animation;
 				//anim.drawFrame(graphics,0,x,y);
@@ -544,6 +544,14 @@ namespace GameEngine
 	
 	void Actor::removeAnimation(const String&animName) //removes an animation from Actor's AnimationManager
 	{
+		if(anim != NULL && anim->name.equals(animName))
+		{
+			anim = NULL;
+		}
+		if(lastAnim != NULL && lastAnim->name.equals(animName))
+		{
+			lastAnim = NULL;
+		}
 		animMgr->remove(animName);
 	}
 
