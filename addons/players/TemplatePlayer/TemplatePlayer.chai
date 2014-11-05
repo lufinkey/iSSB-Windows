@@ -82,7 +82,7 @@
 	{
 		//always call the parent class's onAnimationFinish event if you aren't going to make changes to the character's animation
 		//this can also be called to re-enable character's movement if it's disabled (because he was attacking or something like that)
-		Player::onAnimationFinish(name);
+		base_onAnimationFinish(name);
 	}
 }
 def setToDefaultValues()
@@ -120,24 +120,13 @@
 {
 	//event called when the character is destroyed (as in, he is hit out of the map by another character)
 }
-def jump()
-{
-	//function called to make the character jump.
-	
-	//you should call the other jump function to perform a regular jump.
-	// the first argument is the velocity of the first jump from the ground.
-	// the second argument is the velocity of the "double" jump in the air.
-	jump(5.1f, 4.9f);
-	
-	//if you have a character that performs multiple double jumps, you can set the maxDoubleJumps attribute	// and then adjust the second argument of jump(float,float) based on the current doubleJump value
-}
 def Update(long gameTime)
 {
 	//event called every frame.
 	//If you want to edit some variable every frame, or do something every frame, or check something every frame, do it here.
 	
 	//always call the parent class's Update function, or it may cause issues.
-	Player::Update(gameTime);
+	base_Update(gameTime);
 	
 	updateGravity();//updates the downward movement of the character from gravity
 	updateFrame();//updates any special overlay colors and such on the Player.
@@ -155,7 +144,7 @@
 	//event called when the character is drawn on the screen.
 	
 	//always call the parent class's Draw function, or the character will not be drawn on the screen
-	Player::Draw(g, gameTime);
+	base_Draw(g, gameTime);
 	
 	//IMPORTANT NOTE: ONLY override this if you're putting custom drawing logic in (such as if you have some sprite you
 	// want to draw on top of the character or something. Do NOT put game logic in here. It may work, but that does not
@@ -172,7 +161,7 @@
 	
 	//always call the parent class's onPlatformCollide function, unless you want to add special behavior when
 	// the character collides on a certain side of the platform
-	Player::onPlatformCollide(collide, dir);
+	base_onPlatformCollide(collide, dir);
 }
 def finishPlatformCollide(Platform*collide, byte dir)
 {
@@ -185,7 +174,7 @@
 	
 	//always call the parent class's finishPlatformCollide function, unless you want to add special behavior when
 	// the character finishes colliding on a certain side of the platform
-	Player::finishPlatformCollide(collide, dir);
+	base_finishPlatformCollide(collide, dir);
 }
 def onGroundCollide()
 {
@@ -194,7 +183,7 @@
 	
 	//always call the parent class's onGroundCollide function, unless you want to add special behavior when
 	// the character lands on the ground.
-	Player::onGroundCollide();
+	base_onGroundCollide();
 }
 def whilePlayerColliding(Player*collide, byte dir)
 {
@@ -379,7 +368,7 @@
 	
 	//since you already returned true inside onDeflectProjectileDamage, you won't have any consequences if
 	// you don't do anything inside this function (such as being sent flying).
-}
+}def jump(){	//function called to make the character jump.		//you should call the other jump function to perform a regular jump.	// the first argument is the velocity of the first jump from the ground.	// the second argument is the velocity of the "double" jump in the air.	jump(5.1f, 4.9f);		//if you have a character that performs multiple double jumps, you can set the maxDoubleJumps attribute	// and then adjust the second argument of jump(float,float) based on the current doubleJump value}def grab(){	//function called to make the character grab for another character		base_grab();	//always call the parent class's grab function first, and then add custom grabbing behavior,	// such as link's grapple hook or samus's grapple beam}
 def onFinishCharge()
 {
 	//event called if your character finishes charging an attack.
