@@ -226,6 +226,11 @@ namespace SmashBros
 		}
 		else
 		{
+			if(collide->holdingPlayer)
+			{
+				collide->releasePlayer();
+			}
+
 			//float oldXvel;
 			//float oldYvel;
 			float newyVel=(float)(yDir*(yAmount+(yMult*(collide->percent))/75));
@@ -344,6 +349,8 @@ namespace SmashBros
 			collide->hurt=2;
 			collide->landing=false;
 			collide->jumping=false;
+			collide->tossing=false;
+			collide->grabbing=false;
 			collide->moveLeft=0;
 			collide->moveRight=0;
 			collide->hanging=false;

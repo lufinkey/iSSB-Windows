@@ -199,6 +199,7 @@ namespace SmashBros
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, runAmount, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, recoverAmount, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, recoverRunAmount, );
+		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, grabTime, );
 
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, addFile, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, loadFile, );
@@ -246,6 +247,8 @@ namespace SmashBros
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, checkItemUseSideSmash, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, checkItemUseUpSmash, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, checkItemUseDownSmash, );
+		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, useItem, );
+		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, useItemSmash, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, discardItem, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, tossItem, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, grabPlayer, );

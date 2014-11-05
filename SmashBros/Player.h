@@ -101,6 +101,7 @@ namespace SmashBros
 		boolean onGround;
 		boolean jumping;
 		boolean skidding;
+		boolean tossing;
 		byte hurt;
 		long hurtTime;
 		float moveProgress;
@@ -116,7 +117,7 @@ namespace SmashBros
 		boolean grabbing;
 		boolean holdingPlayer;
 		boolean heldByPlayer;
-		long grabTime;
+		long grabStartTime;
 		Player* grabbedPlayer;
 
 		boolean cpu;
@@ -228,6 +229,7 @@ namespace SmashBros
 		float runAmount;
 		float recoverAmount;
 		float recoverRunAmount;
+		long grabTime;
 
 		void addFile(const String&file);
 		void loadFile(const String&file);
@@ -274,11 +276,14 @@ namespace SmashBros
 		boolean checkItemUseDown();
 		boolean checkItemUseSideSmash(byte type);
 		boolean checkItemUseUpSmash(byte type);
-		boolean checkItemUseDownSmash(byte type);
+		boolean checkItemUseDownSmash(byte type); 
+		boolean useItem(byte attackType);
+		boolean useItemSmash(byte attackType, byte stepType);
 		void discardItem();
-		void tossItem(byte tossDir);
+		void tossItem(byte tossAttackType);
 		void grabPlayer(Player*playr);
 		void releasePlayer();
+		void tossPlayer(byte tossAttackType, float xspeed, float yspeed);
 
 		void platformResponse(Platform*collide, byte dir, double multiplier);
 		Platform* getCurrentCollidePlatformActor(byte dir);

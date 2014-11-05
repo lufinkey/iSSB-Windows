@@ -767,7 +767,28 @@ namespace SmashBros
 				}
 				else
 				{
-					playr->discardItem();
+					switch(playr->buttondir)
+					{
+						case BUTTONDIR_CENTER:
+						playr->discardItem();
+						break;
+
+						case BUTTONDIR_UP:
+						playr->tossItem(Player::ATTACK_UPA);
+						break;
+
+						case BUTTONDIR_RIGHT:
+						playr->tossItem(Player::ATTACK_SIDEA);
+						break;
+
+						case BUTTONDIR_DOWN:
+						playr->tossItem(Player::ATTACK_DOWNA);
+						break;
+
+						case BUTTONDIR_LEFT:
+						playr->tossItem(Player::ATTACK_SIDEA);
+						break;
+					}
 				}
 			}
 			break;
