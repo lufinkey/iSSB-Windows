@@ -12,10 +12,12 @@ grab
 grabbed
 holding
 release
-throw
-throw_up
-throw_down
+toss
+toss_up
+toss_down
 melee_weapon
+melee_weapon_up
+melee_weapon_down
 hurt_minor
 hurt_fly
 hurt_flip
