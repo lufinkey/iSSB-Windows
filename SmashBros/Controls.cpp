@@ -760,7 +760,7 @@ namespace SmashBros
 					{
 						playr->grabAttack();
 					}
-					else
+					else if(playr->isOnGround())
 					{
 						playr->grab();
 					}

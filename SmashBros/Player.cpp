@@ -6078,7 +6078,9 @@ namespace SmashBros
 		releasePlayer();
 		grabbedPlayer->y -= 4;
 		grabbedPlayer->xvelocity = -1 * getPlayerDirMult();
-		jump();
+		xvelocity = getPlayerDirMult()*2;
+		yvelocity = -2;
+		onGround = false;
 		attackDownA();
 	}
 	

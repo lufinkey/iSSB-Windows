@@ -14,6 +14,7 @@ holding
 release
 throw
 throw_up
+throw_down
 melee_weapon
 hurt_minor
 hurt_fly
