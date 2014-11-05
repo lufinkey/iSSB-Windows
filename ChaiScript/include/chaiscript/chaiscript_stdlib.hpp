@@ -32,14 +32,14 @@ namespace chaiscript
       static ModulePtr library()
       {
         using namespace bootstrap;
-		
+
         ModulePtr lib = Bootstrap::bootstrap();
-		
+
         lib->add(standard_library::vector_type<std::vector<Boxed_Value> >("Vector"));
         lib->add(standard_library::string_type<std::string>("string"));
         lib->add(standard_library::map_type<std::map<std::string, Boxed_Value> >("Map"));
         lib->add(standard_library::pair_type<std::pair<Boxed_Value, Boxed_Value > >("Pair"));
-		
+
         return lib;
       }
 
