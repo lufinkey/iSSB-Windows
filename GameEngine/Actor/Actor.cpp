@@ -467,6 +467,10 @@ namespace GameEngine
 	void Actor::changeAnimation(const String&animName, unsigned char dir)
 	{
 		Animation*animation = animMgr->get(animName);
+		if(animation == NULL)
+		{
+			return;
+		}
 		if(dir==NO_CHANGE)
 		{
 			String aName=animation->name;
