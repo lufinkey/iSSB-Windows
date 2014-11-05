@@ -353,7 +353,7 @@ namespace ScriptModule
 	void ScriptManager_showErrorMessage(const chaiscript::exception::eval_error& evalError, const String& fileName)
 	{
 		String message;
-		if(evalError.start_position.line == 0)
+		if(!(evalError.start_position.line==0 && evalError.start_position.column==0))
 		{
 			message = (String)"ChaiScript threw an error in file \"" + fileName + "\" at line "
 				+ evalError.start_position.line + " at column " + evalError.start_position.column

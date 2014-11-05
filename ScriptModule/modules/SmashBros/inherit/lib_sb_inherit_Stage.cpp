@@ -7,18 +7,15 @@ namespace SmashBros
 {
 	SCRIPTEDCLASS_CONSTRUCTOR_HEADER(Stage, x1 _COMMA y1, float x1, float y1)
 	{
-		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
-			ScriptModule::ScriptManager::module_stdlib,
-			ScriptModule::ScriptManager::module_GameEngine,
-			ScriptModule::ScriptManager::module_SmashBros,
-			ScriptModule::ScriptManager::module_SmashBros_Stage_protected)
-
-		SCRIPTEDCLASS_MEMBERS_LOAD(Stage)
-
-		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
+		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT(Stage)
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Stage, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Stage, Draw, Graphics2D&, long)
+
+		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
+			ScriptModule::ScriptManager::module_GameEngine,
+			ScriptModule::ScriptManager::module_SmashBros,
+			ScriptModule::ScriptManager::module_SmashBros_Stage_protected)
 	}
 
 	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(Stage)

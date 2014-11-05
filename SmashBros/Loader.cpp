@@ -55,6 +55,7 @@ namespace SmashBros
 			else
 			{
 				//TODO implement getting of Scripted Players here.
+				return "random.png";
 			}
 			break;
 		}
@@ -382,7 +383,7 @@ namespace SmashBros
 				ScriptModule::ScriptEntityInfo* entityInfo = entities.get(scriptStageNum);
 				String scriptPath = entityInfo->getPath() + '/' + entityInfo->getMainScript().script;
 				ScriptModule::ScriptData* scriptData = ScriptModule::ScriptManager::getScriptData(scriptPath);
-				return SCRIPTEDCLASS_NEWFUNCTION_CALL(Stage)(scriptData, x1, y1, std::vector<chaiscript::Boxed_Value>());
+				SCRIPTMGR_ERRORHANDLE(return SCRIPTEDCLASS_NEWFUNCTION_CALL(Stage)(scriptData, x1, y1, std::vector<chaiscript::Boxed_Value>());, "TemplateStage.chai", )
 			}
 #endif //SMASHBROS_SCRIPT_DISABLE
 			return null;

@@ -107,7 +107,7 @@ namespace SmashBros
 				
 				if(Game::KeyPressed(controls[i][BUTTON_GRAB]) && !Game::PrevKeyPressed(controls[i][BUTTON_GRAB]))
 				{
-					Global::characters[i]->discardItem();
+					buttonZ(i,DOWN);
 				}
 			}
 		}
@@ -124,15 +124,15 @@ namespace SmashBros
 					buttonUp(i,UP);
 					if(Game::KeyPressed(controls[i][BUTTON_LEFT]))
 					{
-						Global::characters[i]->buttondir=4;
+						Global::characters[i]->buttondir=BUTTONDIR_LEFT;
 					}
 					else if(Game::KeyPressed(controls[i][BUTTON_RIGHT]))
 					{
-						Global::characters[i]->buttondir=2;
+						Global::characters[i]->buttondir=BUTTONDIR_RIGHT;
 					}
 					else if(Game::KeyPressed(controls[i][BUTTON_DOWN]))
 					{
-						Global::characters[i]->buttondir=3;
+						Global::characters[i]->buttondir=BUTTONDIR_DOWN;
 					}
 				}
 			 
@@ -141,15 +141,15 @@ namespace SmashBros
 					buttonDown(i,UP);
 					if(Game::KeyPressed(controls[i][BUTTON_LEFT]))
 					{
-						Global::characters[i]->buttondir=4;
+						Global::characters[i]->buttondir=BUTTONDIR_LEFT;
 					}
 					else if(Game::KeyPressed(controls[i][BUTTON_RIGHT]))
 					{
-						Global::characters[i]->buttondir=2;
+						Global::characters[i]->buttondir=BUTTONDIR_RIGHT;
 					}
 					else if(Game::KeyPressed(controls[i][BUTTON_UP]))
 					{
-						Global::characters[i]->buttondir=1;
+						Global::characters[i]->buttondir=BUTTONDIR_UP;
 					}
 				}
 			 
@@ -158,15 +158,15 @@ namespace SmashBros
 					buttonLeft(i,UP);
 					if(Game::KeyPressed(controls[i][BUTTON_RIGHT]))
 					{
-						Global::characters[i]->buttondir=2;
+						Global::characters[i]->buttondir=BUTTONDIR_RIGHT;
 					}
 					else if(Game::KeyPressed(controls[i][BUTTON_UP]))
 					{
-						Global::characters[i]->buttondir=1;
+						Global::characters[i]->buttondir=BUTTONDIR_UP;
 					}
 					else if(Game::KeyPressed(controls[i][BUTTON_DOWN]))
 					{
-						Global::characters[i]->buttondir=3;
+						Global::characters[i]->buttondir=BUTTONDIR_DOWN;
 					}
 				}
 			 
@@ -175,15 +175,15 @@ namespace SmashBros
 					buttonRight(i,UP);
 					if(Game::KeyPressed(controls[i][BUTTON_LEFT]))
 					{
-						Global::characters[i]->buttondir=4;
+						Global::characters[i]->buttondir=BUTTONDIR_LEFT;
 					}
 					else if(Game::KeyPressed(controls[i][BUTTON_UP]))
 					{
-						Global::characters[i]->buttondir=1;
+						Global::characters[i]->buttondir=BUTTONDIR_UP;
 					}
 					else if(Game::KeyPressed(controls[i][BUTTON_DOWN]))
 					{
-						Global::characters[i]->buttondir=3;
+						Global::characters[i]->buttondir=BUTTONDIR_DOWN;
 					}
 				}
 			 
@@ -202,10 +202,10 @@ namespace SmashBros
 					buttonB(i,UP);
 				}
 			 
-				/*if(!Game::KeyPressed(controls[i][BUTTON_GRAB]) && Game::PrevKeyPressed(controls[i][BUTTON_GRAB]))
+				if(!Game::KeyPressed(controls[i][BUTTON_GRAB]) && Game::PrevKeyPressed(controls[i][BUTTON_GRAB]))
 				{
-					discardItem(player1.clonename);
-				}*/
+					buttonZ(i,UP);
+				}
 			}
 		}
 	}
@@ -217,7 +217,7 @@ namespace SmashBros
 		{
 			case DOWN:
 			playr->smashTime=Global::worldTime+100;
-			playr->buttondir=1;
+			playr->buttondir=BUTTONDIR_UP;
 			playr->checkAttacks();
 			playr->upKey=true;
 			if(playr->hanging)
@@ -225,18 +225,25 @@ namespace SmashBros
 				playr->hanging=false;
 				playr->climbUp();
 			}
-			else if((playr->canDo)&&(!playr->isGrabbing())&&(!playr->hasGrabbed())&&(!playr->isGrabbed()))
+			else if(playr->canDo)
 			{
-				playr->jump();
+				if(playr->holdingPlayer)
+				{
+					playr->grabAttackUp();
+				}
+				else
+				{
+					playr->jump();
+				}
 				//ActorEndDownB();
 			}
 			break;
 	 
 			case UP:
 			playr->smashTime=0;
-			if(playr->buttondir==1)
+			if(playr->buttondir==BUTTONDIR_UP)
 			{
-				playr->buttondir=0;
+				playr->buttondir=BUTTONDIR_CENTER;
 			}
 			playr->up=false;
 			playr->upKey=false;
@@ -246,15 +253,15 @@ namespace SmashBros
 				playr->destroyCharge();
 				switch(chargeSmash)
 				{
-					case 1:
+					case AttackTemplates::SMASH_SIDE:
 					playr->attackSideSmash(Player::STEP_GO);
 					break;
-	 
-					case 2:
+					
+					case AttackTemplates::SMASH_UP:
 					playr->attackUpSmash(Player::STEP_GO);
 					break;
-	 
-					case 3:
+					
+					case AttackTemplates::SMASH_DOWN:
 					playr->attackDownSmash(Player::STEP_GO);
 					break;
 				}
@@ -273,18 +280,18 @@ namespace SmashBros
 		switch(type)
 		{
 			case DOWN:
-			playr->buttondir=3;
+			playr->buttondir=BUTTONDIR_DOWN;
 			playr->checkAttacks();
 			playr->smashTime=Global::worldTime+100;
-			playr->moveDown();
+			playr->moveDown(); //< grabbing attack is implemented in here
 			break;
-	 
+			
 			case UP:
 			playr->checkAttacks();
 			playr->smashTime=0;
-			if(playr->buttondir==3)
+			if(playr->buttondir==BUTTONDIR_DOWN)
 			{
-				playr->buttondir=0;
+				playr->buttondir=BUTTONDIR_CENTER;
 			}
 			playr->down=false;
 			if(playr->chargeSmash>0)
@@ -293,20 +300,20 @@ namespace SmashBros
 				playr->destroyCharge();
 				switch(chargeSmash)
 				{
-					case 1:
+					case AttackTemplates::SMASH_SIDE:
 					playr->attackSideSmash(Player::STEP_GO);
 					break;
-	 
-					case 2:
+					
+					case AttackTemplates::SMASH_UP:
 					playr->attackUpSmash(Player::STEP_GO);
 					break;
-	 
-					case 3:
+					
+					case AttackTemplates::SMASH_DOWN:
 					playr->attackDownSmash(Player::STEP_GO);
 					break;
 				}
 			}
-			else if((playr->isOnGround())&&(playr->canDo)&&(!playr->chargingAttack)&&(!playr->isGrabbing())&&(!playr->hasGrabbed())&&(!playr->isGrabbed()))
+			else if((playr->isOnGround())&&(playr->canDo)&&(!playr->chargingAttack)&&(!playr->holdingPlayer))
 			{
 				playr->changeTwoSidedAnimation("stand", NO_CHANGE);
 			}
@@ -324,7 +331,7 @@ namespace SmashBros
 		switch(type)
 		{
 			case DOWN:
-			playr->buttondir=4;
+			playr->buttondir=BUTTONDIR_LEFT;
 			playr->smashTime=Global::worldTime+100;
 			if((Global::worldTime<=playr->runTime && playr->isOnGround())||(playr->moveRight==2))
 			{
@@ -354,14 +361,27 @@ namespace SmashBros
 					break;
 				}
 			}
+			else if(playr->holdingPlayer)
+			{
+				switch(playr->getPlayerDir())
+				{
+					case Player::LEFT:
+					playr->grabAttackSide();
+					break;
+
+					case Player::RIGHT:
+					playr->grabAttackSwing();
+					break;
+				}
+			}
 			break;
-	 
+			
 			case UP:
 			playr->checkAttacks();
 			playr->smashTime=0;
-			if(playr->buttondir==4)
+			if(playr->buttondir==BUTTONDIR_LEFT)
 			{
-				playr->buttondir=0;
+				playr->buttondir=BUTTONDIR_CENTER;
 			}
 			if(playr->moveLeft==2 && playr->isOnGround())
 			{
@@ -374,20 +394,20 @@ namespace SmashBros
 				playr->destroyCharge();
 				switch(chargeSmash)
 				{
-					case 1:
+					case AttackTemplates::SMASH_SIDE:
 					playr->attackSideSmash(Player::STEP_GO);
 					break;
-	 
-					case 2:
+					
+					case AttackTemplates::SMASH_UP:
 					playr->attackUpSmash(Player::STEP_GO);
 					break;
-	 
-					case 3:
+					
+					case AttackTemplates::SMASH_DOWN:
 					playr->attackDownSmash(Player::STEP_GO);
 					break;
 				}
 			}
-			else if((playr->isOnGround())&&(playr->canDo)&&(!playr->chargingAttack)&&(!playr->isGrabbing())&&(!playr->hasGrabbed())&&(!playr->isGrabbed()))
+			else if((playr->isOnGround())&&(playr->canDo)&&(!playr->chargingAttack)&&(!playr->holdingPlayer))
 			{
 				playr->changeTwoSidedAnimation("stand", NO_CHANGE);
 			}
@@ -405,7 +425,7 @@ namespace SmashBros
 		switch(type)
 		{
 			case DOWN:
-			playr->buttondir=2;
+			playr->buttondir=BUTTONDIR_RIGHT;
 			playr->smashTime=Global::worldTime+100;
 			if((Global::worldTime<=playr->runTime && playr->isOnGround())||(playr->moveLeft==2))
 			{
@@ -435,14 +455,27 @@ namespace SmashBros
 					break;
 				}
 			}
+			else if(playr->holdingPlayer)
+			{
+				switch(playr->getPlayerDir())
+				{
+					case Player::LEFT:
+					playr->grabAttackSwing();
+					break;
+
+					case Player::RIGHT:
+					playr->grabAttackSide();
+					break;
+				}
+			}
 			break;
-	 
+			
 			case UP:
 			playr->checkAttacks();
 			playr->smashTime=0;
-			if(playr->buttondir==2)
+			if(playr->buttondir==BUTTONDIR_RIGHT)
 			{
-				playr->buttondir=0;
+				playr->buttondir=BUTTONDIR_CENTER;
 			}
 			if(playr->moveRight==2 && playr->isOnGround())
 			{
@@ -455,20 +488,20 @@ namespace SmashBros
 				playr->destroyCharge();
 				switch(chargeSmash)
 				{
-					case 1:
+					case AttackTemplates::SMASH_SIDE:
 					playr->attackSideSmash(Player::STEP_GO);
 					break;
-	 
-					case 2:
+					
+					case AttackTemplates::SMASH_UP:
 					playr->attackUpSmash(Player::STEP_GO);
 					break;
-	 
-					case 3:
+					
+					case AttackTemplates::SMASH_DOWN:
 					playr->attackDownSmash(Player::STEP_GO);
 					break;
 				}
 			}
-			else if((playr->isOnGround())&&(playr->canDo)&&(!playr->chargingAttack)&&(!playr->isGrabbing())&&(!playr->hasGrabbed())&&(!playr->isGrabbed()))
+			else if((playr->isOnGround())&&(playr->canDo)&&(!playr->chargingAttack)&&(!playr->holdingPlayer))
 			{
 				playr->changeTwoSidedAnimation("stand", NO_CHANGE);
 			}
@@ -489,7 +522,7 @@ namespace SmashBros
 			playr->checkAttacks();
 			playr->hanging=false;
 			playr->upKey=true;
-			if((playr->canDo)&&(playr->isGrabbing())&&(playr->hasGrabbed())&&(playr->isGrabbed()))
+			if((playr->canDo)&&(!playr->holdingPlayer))
 			{
 				playr->destroyCharge();
 				playr->jump();
@@ -509,69 +542,98 @@ namespace SmashBros
 		{
 			case DOWN:
 			playr->checkAttacks();
-			if((playr->canDo)&&(!playr->chargingAttack)&&(!playr->isGrabbing())&&(!playr->hasGrabbed())&&(!playr->isGrabbed())&&(!playr->hanging))
+			if((playr->canDo)&&(!playr->chargingAttack)&&(!playr->hanging))
 			{
-				//ActorEndDownB(pNum);
-				switch(playr->buttondir)
+				//grab attacks
+				if(playr->holdingPlayer)
 				{
-					case 0:
-					playr->attackA();
-					break;
-	 
-					case 1:
-					if(Global::worldTime<=playr->smashTime)
+					switch(playr->buttondir)
 					{
-						playr->attackUpSmash(Player::STEP_CHARGE);
-						if(playr->jumping)
-						{
-							playr->jumping=false;
-							playr->yvelocity=0;
-						}
+						case BUTTONDIR_CENTER:
+						playr->grabAttack();
+						break;
+
+						case BUTTONDIR_UP:
+						playr->grabAttackUp();
+						break;
+
+						case BUTTONDIR_RIGHT:
+						playr->grabAttackSide();
+						break;
+
+						case BUTTONDIR_DOWN:
+						playr->grabAttackDown();
+						break;
+
+						case BUTTONDIR_LEFT:
+						playr->grabAttackSide();
+						break;
 					}
-					else
-					{
-						playr->attackUpA();
-					}
-					break;
-	 
-					case 2:
-					if(Global::worldTime<=playr->smashTime)
-					{
-						playr->attackSideSmash(Player::STEP_CHARGE);
-					}
-					else
-					{
-						playr->attackSideA();
-					}
-					break;
-					
-					case 3:
-					if(Global::worldTime<=playr->smashTime)
-					{
-						playr->attackDownSmash(Player::STEP_CHARGE);
-						playr->canDropThrough=false;
-						playr->dropping=false;
-						playr->dropTime=0;
-					}
-					else
-					{
-						playr->attackDownA();
-					}
-					break;
-	 
-					case 4:
-					if(Global::worldTime<=playr->smashTime)
-					{
-						playr->attackSideSmash(Player::STEP_CHARGE);
-					}
-					else
-					{
-						playr->attackSideA();
-					}
-					break;
 				}
+				else //regular attacks
+				{
+					switch(playr->buttondir)
+					{
+						case BUTTONDIR_CENTER:
+						playr->attackA();
+						break;
+						
+						case BUTTONDIR_UP:
+						if(Global::worldTime<=playr->smashTime)
+						{
+							playr->attackUpSmash(Player::STEP_CHARGE);
+							if(playr->jumping)
+							{
+								playr->jumping=false;
+								playr->yvelocity=0;
+							}
+						}
+						else
+						{
+							playr->attackUpA();
+						}
+						break;
+						
+						case BUTTONDIR_RIGHT:
+						if(Global::worldTime<=playr->smashTime)
+						{
+							playr->attackSideSmash(Player::STEP_CHARGE);
+						}
+						else
+						{
+							playr->attackSideA();
+						}
+						break;
+						
+						case BUTTONDIR_DOWN:
+						if(Global::worldTime<=playr->smashTime)
+						{
+							playr->attackDownSmash(Player::STEP_CHARGE);
+							playr->canDropThrough=false;
+							playr->dropping=false;
+							playr->dropTime=0;
+						}
+						else
+						{
+							playr->attackDownA();
+						}
+						break;
+						
+						case BUTTONDIR_LEFT:
+						if(Global::worldTime<=playr->smashTime)
+						{
+							playr->attackSideSmash(Player::STEP_CHARGE);
+						}
+						else
+						{
+							playr->attackSideA();
+						}
+						break;
+					}
+				}
+
 				playr->smashTime=0;
-				playr->canDo=false;
+				playr->checkAttacks();
 			}
 			else if(playr->hanging)
 			{
@@ -615,31 +677,61 @@ namespace SmashBros
 			case DOWN:
 			playr->checkAttacks();
 			playr->smashTime=0;
-			if((playr->canDo)&&(!playr->isGrabbing())&&(!playr->hasGrabbed())&&(!playr->isGrabbed()))
+			if((playr->canDo))
 			{
-				switch(playr->buttondir)
+				//grab attacks
+				if(playr->holdingPlayer)
 				{
-					case 0:
-					playr->attackB();
-					break;
-	 
-					case 1:
-					playr->attackUpB();
-					break;
-	 
-					case 2:
-					playr->attackSideB();
-					break;
-	 
-					case 3:
-					playr->attackDownB();
-					break;
-	 
-					case 4:
-					playr->attackSideB();
-					break;
+					switch(playr->buttondir)
+					{
+						case BUTTONDIR_CENTER:
+						playr->grabAttack();
+						break;
+
+						case BUTTONDIR_UP:
+						playr->grabAttackUp();
+						break;
+
+						case BUTTONDIR_RIGHT:
+						playr->grabAttackSide();
+						break;
+
+						case BUTTONDIR_DOWN:
+						playr->grabAttackDown();
+						break;
+
+						case BUTTONDIR_LEFT:
+						playr->grabAttackSide();
+						break;
+					}
 				}
-				playr->canDo=false;
+				else //special attacks
+				{
+					switch(playr->buttondir)
+					{
+						case BUTTONDIR_CENTER:
+						playr->attackB();
+						break;
+						
+						case BUTTONDIR_UP:
+						playr->attackUpB();
+						break;
+						
+						case BUTTONDIR_RIGHT:
+						playr->attackSideB();
+						break;
+						
+						case BUTTONDIR_DOWN:
+						playr->attackDownB();
+						break;
+						
+						case BUTTONDIR_LEFT:
+						playr->attackSideB();
+						break;
+					}
+				}
+				
+				playr->checkAttacks();
 				playr->hanging=false;
 			}
 			break;
@@ -649,6 +741,38 @@ namespace SmashBros
 			{
 				playr->doChargingAttack(BUTTON_SPECIAL);
 			}
+			break;
+		}
+	}
+
+	void Controls::buttonZ(byte pNum, byte type)
+	{
+		Player*playr = Global::getPlayerActor(pNum);
+		switch(type)
+		{
+			case DOWN:
+			playr->checkAttacks();
+			if(playr->canDo)
+			{
+				if(playr->itemHolding == null)
+				{
+					if(playr->holdingPlayer)
+					{
+						playr->grabAttack();
+					}
+					else
+					{
+						playr->grab();
+					}
+				}
+				else
+				{
+					playr->discardItem();
+				}
+			}
+			break;
+
+			case UP:
 			break;
 		}
 	}

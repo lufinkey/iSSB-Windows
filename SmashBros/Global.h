@@ -102,6 +102,7 @@ namespace SmashBros
 		static const int ITEM_POISONMUSHROOM = 6;
 
 		static String getDirText(byte dir);
+		static String getAddonsFolder();
 
 		static long getWorldTime();
 

@@ -13,6 +13,7 @@ namespace SmashBros
 
 		//functions
 		m_smashbros_global->add(chaiscript::fun(&SmashBros::Global::getDirText), "Global_getDirText");
+		m_smashbros_global->add(chaiscript::fun(&SmashBros::Global::getAddonsFolder), "Global_getAddonsFolder");
 		m_smashbros_global->add(chaiscript::fun(&SmashBros::Global::getWorldTime), "Global_getWorldTime");
 		m_smashbros_global->add(chaiscript::fun(&SmashBros::Global::getPlayerName), "Global_getPlayerName");
 		m_smashbros_global->add(chaiscript::fun(&SmashBros::Global::getPlayerActor), "Global_getPlayerActor");

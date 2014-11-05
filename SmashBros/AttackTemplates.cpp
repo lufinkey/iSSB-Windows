@@ -731,15 +731,15 @@ namespace SmashBros
 			playr->attacksPriority=aP;
 			switch(smashType)
 			{
-				case 1:
+				case SMASH_SIDE:
 				playr->changeTwoSidedAnimation("smash_attack",FORWARD);
 				break;
 				
-				case 2:
+				case SMASH_UP:
 				playr->changeTwoSidedAnimation("smash_attack_up",FORWARD);
 				break;
 				
-				case 3:
+				case SMASH_DOWN:
 				playr->changeTwoSidedAnimation("smash_attack_down",FORWARD);
 				break;
 			}

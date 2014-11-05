@@ -28,6 +28,12 @@ namespace SmashBros
 
 		static const byte BUTTON_PAUSE = 8;
 
+		static const byte BUTTONDIR_CENTER = 0;
+		static const byte BUTTONDIR_UP = 1;
+		static const byte BUTTONDIR_RIGHT = 2;
+		static const byte BUTTONDIR_DOWN = 3;
+		static const byte BUTTONDIR_LEFT = 4;
+
 		static void loadControls();
 		static void setDefaultControls();
 
@@ -42,6 +48,7 @@ namespace SmashBros
 		static void buttonX(byte pNum, byte type);
 		static void buttonA(byte pNum, byte type);
 		static void buttonB(byte pNum, byte type);
+		static void buttonZ(byte pNum, byte type);
 	};
 }
 

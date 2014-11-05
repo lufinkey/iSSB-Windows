@@ -12,15 +12,7 @@ namespace GameEngine
 
 	SCRIPTEDCLASS_CONSTRUCTOR_HEADER(Actor, x1 _COMMA y1, float x1, float y1)
 	{
-		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
-			ScriptModule::ScriptManager::module_stdlib,
-			ScriptModule::ScriptManager::module_GameEngine,
-			ScriptModule::ScriptManager::module_SmashBros,
-			ScriptModule::ScriptManager::module_GameEngine_Actor_protected)
-
-		SCRIPTEDCLASS_MEMBERS_LOAD(Actor)
-
-		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
+		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT(Actor)
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, Draw, Graphics2D&, long)
@@ -31,6 +23,11 @@ namespace GameEngine
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onRelease)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Actor, onMoveFinish)
 		SCRIPTEDCLASS_FUNCTION_LOAD(bool, Actor, isOnScreen)
+
+		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
+			ScriptModule::ScriptManager::module_GameEngine,
+			ScriptModule::ScriptManager::module_SmashBros,
+			ScriptModule::ScriptManager::module_GameEngine_Actor_protected)
 	}
 
 	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(Actor)

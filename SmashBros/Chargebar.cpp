@@ -2,6 +2,7 @@
 #include "Chargebar.h"
 #include "Player.h"
 #include "Global.h"
+#include "AttackTemplates.h"
 
 namespace SmashBros
 {
@@ -44,15 +45,15 @@ namespace SmashBros
 				case TYPE_SMASHATTACK:
 				switch(playr->chargeSmash)
 				{
-					case 1:
+					case AttackTemplates::SMASH_SIDE:
 					playr->attackSideSmash(Player::STEP_GO);
 					break;
 					
-					case 2:
+					case AttackTemplates::SMASH_UP:
 					playr->attackUpSmash(Player::STEP_GO);
 					break;
 					
-					case 3:
+					case AttackTemplates::SMASH_DOWN:
 					playr->attackDownSmash(Player::STEP_GO);
 					break;
 				}

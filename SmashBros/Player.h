@@ -113,14 +113,16 @@ namespace SmashBros
 
 		boolean canDo;
 
+		boolean grabbing;
+		boolean holdingPlayer;
+		boolean heldByPlayer;
+		long grabTime;
+		Player* grabbedPlayer;
+
 		boolean cpu;
 		Player*currentEnemy;
 		long comboTime;
 		byte standardCombo;
-
-		boolean grabbed;
-		boolean hasgrabbed;
-		boolean grabbing;
 		
 		boolean canFinalsmash;
 		boolean hanging;
@@ -275,6 +277,8 @@ namespace SmashBros
 		boolean checkItemUseDownSmash(byte type);
 		void discardItem();
 		void tossItem(byte tossDir);
+		void grabPlayer(Player*playr);
+		void releasePlayer();
 
 		void platformResponse(Platform*collide, byte dir, double multiplier);
 		Platform* getCurrentCollidePlatformActor(byte dir);
@@ -364,9 +368,21 @@ namespace SmashBros
 		virtual boolean onDeflectProjectileDamage(Projectile*collide, int damage);
 		virtual void onDeflectProjectileLaunch(Projectile*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult);
 
+		virtual void jump();
+		virtual void grab();
+
+		virtual void onGrab(Player*held);
+		virtual void onGrabbed(Player*holder);
+
 		virtual void onFinishCharge();
 		virtual void doChargingAttack(byte button);
 
+		virtual void grabAttack();
+		virtual void grabAttackSide();
+		virtual void grabAttackSwing();
+		virtual void grabAttackUp();
+		virtual void grabAttackDown();
+		
 		virtual void attackA();
 		virtual void attackSideA();
 		virtual void attackUpA();
@@ -419,14 +435,12 @@ namespace SmashBros
 		byte getPlayerNo();
 		boolean CanDo();
 		int getStock();
-		boolean isGrabbed();
-		boolean hasGrabbed();
-		boolean isGrabbing();
 		boolean isJumping();
 		boolean isHanging();
 		int getSmashPower();
 		byte getMoveLeft();
 		byte getMoveRight();
+		Player* getGrabbedPlayer();
 		WireframeActor*getHitbox();
 		String getFolderPath();
 		boolean pickUpItem(Item*item);
@@ -437,6 +451,5 @@ namespace SmashBros
 
 		void stand();
 		void moveDown();
-		virtual void jump();
 	};
 }

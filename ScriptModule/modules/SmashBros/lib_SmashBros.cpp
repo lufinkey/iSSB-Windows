@@ -32,7 +32,7 @@ namespace SmashBros
 	chaiscript::ModulePtr load_module_SmashBros_types()
 	{
 		chaiscript::Module* m_smashbros_types = new chaiscript::Module();
-
+		
 		//classes
 		m_smashbros_types->add(chaiscript::user_type<SmashBros::GameElement>(), "GameElement");
 		m_smashbros_types->add(chaiscript::base_class<GameEngine::Actor, SmashBros::GameElement>());
@@ -42,6 +42,7 @@ namespace SmashBros
 		m_smashbros_types->add(chaiscript::base_class<SmashBros::GameElement, SmashBros::Item>());
 		m_smashbros_types->add(chaiscript::user_type<SmashBros::Platform>(), "Platform");
 		m_smashbros_types->add(chaiscript::base_class<SmashBros::GameElement, SmashBros::Platform>());
+		m_smashbros_types->add(chaiscript::base_class<GameEngine::Actor, SmashBros::Platform>());
 		m_smashbros_types->add(chaiscript::user_type<SmashBros::Player>(), "Player");
 		m_smashbros_types->add(chaiscript::base_class<SmashBros::GameElement, SmashBros::Player>());
 		m_smashbros_types->add(chaiscript::user_type<SmashBros::Projectile>(), "Projectile");

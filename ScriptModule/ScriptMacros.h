@@ -23,9 +23,8 @@ namespace ScriptModule
 		{
 			func = script->eval<std::function<T>>(funcName);
 		}
-		catch(const std::exception&e)
+		catch(const std::exception&)
 		{
-			Console::WriteLine(e.what());
 			//function is not defined in script
 			return false;
 		}
@@ -204,23 +203,6 @@ namespace ScriptModule
 
 
 
-#define SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(mainModule, ...) \
-	ScriptModule::ScriptEntityInfo::ScriptInfo* scriptInfo = scriptData->getScriptInfo(); \
-	{ \
-		this->usable = true; \
-		std::vector<chaiscript::ModulePtr> scriptedclass_modules = {__VA_ARGS__}; \
-		this->script = new chaiscript::ChaiScript(mainModule); \
-		this->scriptData = scriptData; \
-		for(unsigned int i=0; i<scriptedclass_modules.size(); i++) \
-		{ \
-			this->script->add(scriptedclass_modules[i]); \
-		} \
-		scriptedclass_modules.resize(0); \
-		this->script->add_global(chaiscript::var(this), "this"); \
-	}
-
-
-
 #define SCRIPTEDCLASS_LOADSHAREDFUNCTIONS_BODY(className) \
 	module->add(chaiscript::fun((chaiscript::Boxed_Value(SCRIPTEDCLASS_CLASSNAME(className)::*)(const String&,std::vector<chaiscript::Boxed_Value>&))&SCRIPTEDCLASS_CLASSNAME(className)::callFunction), "callFunction"); \
 	module->add(chaiscript::fun((chaiscript::Boxed_Value(SCRIPTEDCLASS_CLASSNAME(className)::*)(const std::string&,std::vector<chaiscript::Boxed_Value>&))&SCRIPTEDCLASS_CLASSNAME(className)::callFunction), "callFunction"); \
@@ -241,30 +223,43 @@ namespace ScriptModule
 
 
 
-#define SCRIPTEDCLASS_MEMBERS_LOAD(className) \
-	ScriptModule::ScriptManager::addScriptEntityMembers(*script, scriptData); \
-	loadScriptTypeFunctions(*script, scriptData, scriptInfo->name);
-
-
-
-#define SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT() \
+#define SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT(className) \
+		ScriptModule::ScriptEntityInfo::ScriptInfo* scriptInfo = scriptData->getScriptInfo(); \
+		this->usable = true; \
+		this->scriptData = scriptData; \
+		this->script = new chaiscript::ChaiScript(ScriptModule::ScriptManager::module_stdlib); \
 		SCRIPTMGR_ERRORHANDLE(this->script->eval(this->scriptData->getContents());, scriptData->getFilePath(), this->usable = false;); \
 		if(!(this->usable)) \
 		{ \
 			return; \
 		} \
+		ScriptModule::ScriptManager::addScriptEntityMembers(*script, scriptData); \
+		loadScriptTypeFunctions(*script, scriptData, scriptInfo->name); \
 		if(!ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_constructor, this->script, "constructor")) \
 		{ \
 			this->script->eval("def constructor(){return this;}"); \
 			ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_constructor, this->script, "constructor"); \
 		} \
-		ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_destructor, script, "destructor");
+		ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_destructor, script, "destructor"); \
 
 
 
 #define SCRIPTEDCLASS_FUNCTION_LOAD(returnType, className, memberName,...) \
 	ScriptModule::ScriptManager_loadScriptedClassMemberFunction(func_##memberName, script, #memberName); \
-	script->add(chaiscript::fun(( returnType(*)(SCRIPTEDCLASS_CLASSNAME(className)*, ##__VA_ARGS__) )&SCRIPTEDCLASS_CLASSNAME(className)::base_##memberName, this), "base_" #memberName);
+	script->add(chaiscript::fun(( returnType(*)(SCRIPTEDCLASS_CLASSNAME(className)*, ##__VA_ARGS__) )&SCRIPTEDCLASS_CLASSNAME(className)::base_##memberName, this), "base_" #memberName); \
+
+
+
+#define SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(...) \
+	{ \
+		std::vector<chaiscript::ModulePtr> scriptedclass_modules = {__VA_ARGS__}; \
+		for(unsigned int i=0; i<scriptedclass_modules.size(); i++) \
+		{ \
+			this->script->add(scriptedclass_modules[i]); \
+		} \
+		scriptedclass_modules.resize(0); \
+		this->script->add_global(chaiscript::var(this), "this"); \
+	}
 
 
 

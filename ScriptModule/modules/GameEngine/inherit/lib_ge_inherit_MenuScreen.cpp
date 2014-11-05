@@ -7,20 +7,17 @@ namespace GameEngine
 {
 	SCRIPTEDCLASS_CONSTRUCTOR_HEADER(MenuScreen, name, const String& name)
 	{
-		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
-			ScriptModule::ScriptManager::module_stdlib,
-			ScriptModule::ScriptManager::module_GameEngine,
-			ScriptModule::ScriptManager::module_SmashBros)
-
-		SCRIPTEDCLASS_MEMBERS_LOAD(MenuScreen)
-
-		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
+		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT(MenuScreen)
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, MenuScreen, Initialize)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, MenuScreen, LoadContent)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, MenuScreen, UnloadContent)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, MenuScreen, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, MenuScreen, Draw, Graphics2D&, long)
+
+		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
+			ScriptModule::ScriptManager::module_GameEngine,
+			ScriptModule::ScriptManager::module_SmashBros)
 	}
 
 	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(MenuScreen)

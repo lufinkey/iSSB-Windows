@@ -58,8 +58,20 @@ namespace SmashBros
 		SCRIPTEDCLASS_FUNCTION_DECLARE(boolean, Player, onDeflectProjectileDamage, Projectile*collide, int damage)
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, onDeflectProjectileLaunch, Projectile*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
 
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, jump)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, grab)
+
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, onGrab, Player*held)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, onGrabbed, Player*holder)
+
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, onFinishCharge)
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, doChargingAttack, byte button)
+
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, grabAttack)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, grabAttackSide)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, grabAttackSwing)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, grabAttackUp)
+		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, grabAttackDown)
 
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, attackA)
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, attackSideA)
@@ -73,8 +85,6 @@ namespace SmashBros
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, attackUpSmash, byte type)
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, attackDownSmash, byte type)
 		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, attackFinalSmash)
-
-		SCRIPTEDCLASS_FUNCTION_DECLARE(void, Player, jump)
 	};
 
 	SCRIPTEDCLASS_NEWFUNCTION_HEADER(Player, float, float, byte, byte);

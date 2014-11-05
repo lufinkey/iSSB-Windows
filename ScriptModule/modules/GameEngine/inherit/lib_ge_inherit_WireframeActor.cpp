@@ -12,15 +12,7 @@ namespace GameEngine
 
 	SCRIPTEDCLASS_CONSTRUCTOR_HEADER(WireframeActor, x1 _COMMA y1 _COMMA width _COMMA height, float x1, float y1, int width, int height)
 	{
-		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
-			ScriptModule::ScriptManager::module_stdlib,
-			ScriptModule::ScriptManager::module_GameEngine,
-			ScriptModule::ScriptManager::module_SmashBros,
-			ScriptModule::ScriptManager::module_GameEngine_WireframeActor_protected)
-
-		SCRIPTEDCLASS_MEMBERS_LOAD(WireframeActor)
-
-		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
+		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT(WireframeActor)
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, Update, long)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, Draw, Graphics2D&, long)
@@ -29,6 +21,11 @@ namespace GameEngine
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onClick)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, WireframeActor, onRelease)
 		SCRIPTEDCLASS_FUNCTION_LOAD(bool, WireframeActor, isOnScreen)
+
+		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
+			ScriptModule::ScriptManager::module_GameEngine,
+			ScriptModule::ScriptManager::module_SmashBros,
+			ScriptModule::ScriptManager::module_GameEngine_WireframeActor_protected)
 	}
 
 	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(WireframeActor)

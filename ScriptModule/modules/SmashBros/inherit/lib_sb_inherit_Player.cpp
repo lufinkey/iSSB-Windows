@@ -7,17 +7,7 @@ namespace SmashBros
 {
 	SCRIPTEDCLASS_CONSTRUCTOR_HEADER(Player, x1 _COMMA y1 _COMMA playerNo _COMMA team, float x1, float y1, byte playerNo, byte team)
 	{
-		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
-			ScriptModule::ScriptManager::module_stdlib,
-			ScriptModule::ScriptManager::module_GameEngine,
-			ScriptModule::ScriptManager::module_SmashBros,
-			ScriptModule::ScriptManager::module_GameEngine_Actor_protected,
-			ScriptModule::ScriptManager::module_SmashBros_GameElement_protected,
-			ScriptModule::ScriptManager::module_SmashBros_Player_protected)
-
-		SCRIPTEDCLASS_MEMBERS_LOAD(Player)
-
-		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT()
+		SCRIPTEDCLASS_CONSTRUCTOR_LOADSCRIPT(Player)
 
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, onMouseEnter)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, onMouseLeave)
@@ -56,8 +46,20 @@ namespace SmashBros
 		SCRIPTEDCLASS_FUNCTION_LOAD(boolean, Player, onDeflectProjectileDamage, Projectile*, int)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, onDeflectProjectileLaunch, Projectile*, int,float,float, int,float,float)
 
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, jump)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, grab)
+
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, onGrab)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, onGrabbed)
+
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, onFinishCharge)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, doChargingAttack, byte)
+
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, grabAttack)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, grabAttackSide)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, grabAttackSwing)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, grabAttackUp)
+		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, grabAttackDown)
 		
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, attackA)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, attackSideA)
@@ -72,7 +74,12 @@ namespace SmashBros
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, attackDownSmash, byte)
 		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, attackFinalSmash, byte)
 
-		SCRIPTEDCLASS_FUNCTION_LOAD(void, Player, jump)
+		SCRIPTEDCLASS_CONSTRUCTOR_ADDMODULES(
+			ScriptModule::ScriptManager::module_GameEngine,
+			ScriptModule::ScriptManager::module_SmashBros,
+			ScriptModule::ScriptManager::module_GameEngine_Actor_protected,
+			ScriptModule::ScriptManager::module_SmashBros_GameElement_protected,
+			ScriptModule::ScriptManager::module_SmashBros_Player_protected)
 	}
 
 	SCRIPTEDCLASS_LOADTYPEFUNCTIONS_HEADER(Player)
@@ -126,8 +133,20 @@ namespace SmashBros
 					collide _COMMA xDir _COMMA xAmount _COMMA xMult _COMMA yDir _COMMA yAmount _COMMA yMult,
 					Projectile*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult)
 
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, jump, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, grab, , , )
+
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, onGrab, , , held, Player*held)
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, onGrabbed, , , holder, Player*holder)
+
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, onFinishCharge, , , )
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, doChargingAttack, , , button, byte button)
+
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, grabAttack, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, grabAttackSide, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, grabAttackSwing, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, grabAttackUp, , , )
+	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, grabAttackDown, , , )
 	
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, attackA, , , )
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, attackSideA, , , )
@@ -141,8 +160,6 @@ namespace SmashBros
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, attackUpSmash, , , type, byte type)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, attackDownSmash, , , type, byte type)
 	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, attackFinalSmash, , , )
-
-	SCRIPTEDCLASS_FUNCTION_DEFINE(void, Player, jump, , , )
 
 
 
@@ -231,6 +248,8 @@ namespace SmashBros
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, checkItemUseDownSmash, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, discardItem, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, tossItem, );
+		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, grabPlayer, );
+		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, releasePlayer, );
 
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, platformResponse, );
 		SCRIPTEDCLASS_PROTECTEDMODULE_ADD(m_sb_player_protected, Player, getCurrentCollidePlatformActor, );

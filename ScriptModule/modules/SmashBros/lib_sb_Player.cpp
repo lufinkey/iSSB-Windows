@@ -22,6 +22,21 @@ namespace SmashBros
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::Update), "Update");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::Draw), "Draw");
 
+		m_smashbros_player->add(chaiscript::fun((void(SmashBros::Player::*)()) &SmashBros::Player::jump), "jump");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::grab), "grab");
+
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::onGrab), "onGrab");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::onGrabbed), "onGrabbed");
+
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::onFinishCharge), "onFinishCharge");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::doChargingAttack), "doChargingAttack");
+
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::grabAttack), "grabAttack");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::grabAttackSide), "grabAttackSide");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::grabAttackSwing), "grabAttackSwing");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::grabAttackUp), "grabAttackUp");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::grabAttackDown), "grabAttackDown");
+
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::attackA), "attackA");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::attackSideA), "attackSideA");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::attackUpA), "attackUpA");
@@ -77,6 +92,7 @@ namespace SmashBros
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getSmashPower), "getSmashPower");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getMoveLeft), "getMoveLeft");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getMoveRight), "getMoveRight");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getGrabbedPlayer), "getGrabbedPlayer");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getHitbox), "getHitbox");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getFolderPath), "getFolderPath");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::pickUpItem), "pickUpItem");
@@ -85,7 +101,6 @@ namespace SmashBros
 		m_smashbros_player->add(chaiscript::fun((boolean(SmashBros::Player::*)(GameEngine::Actor*)) &SmashBros::Player::hitboxRectsColliding), "hitboxRectsColliding");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::stand), "stand");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::moveDown), "moveDown");
-		m_smashbros_player->add(chaiscript::fun((void(SmashBros::Player::*)()) &SmashBros::Player::jump), "jump");
 
 		//constants
 		m_smashbros_player->add_global_const(chaiscript::const_var(SmashBros::Player::LEFT), "LEFT");
