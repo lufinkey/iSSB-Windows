@@ -634,8 +634,8 @@ namespace SmashBros
 			if(holdingPlayer)
 			{
 				grabbedPlayer->setPlayerDir(getOppPlayerDir());
-				grabbedPlayer->x = x + ((itemOffsetX + grabbedPlayer->hitbox->width) * getPlayerDirMult());
-				grabbedPlayer->y = y + itemOffsetY;
+				grabbedPlayer->x = x + (((itemOffsetX*Scale) + grabbedPlayer->hitbox->width) * getPlayerDirMult());
+				grabbedPlayer->y = y + (itemOffsetY*Scale) - (((grabbedPlayer->hitboxPoint.height*grabbedPlayer->Scale)/2)+(grabbedPlayer->hitboxPoint.y*grabbedPlayer->Scale));
 				grabbedPlayer->changeTwoSidedAnimation("grabbed", NO_CHANGE);
 			}
 		}
@@ -3840,8 +3840,8 @@ namespace SmashBros
 			}
 			else
 			{
-				grabbedPlayer->x = x + ((itemOffsetX + grabbedPlayer->hitbox->width) * getPlayerDirMult());
-				grabbedPlayer->y = y + itemOffsetY;
+				grabbedPlayer->x = x + (((itemOffsetX*Scale) + grabbedPlayer->hitbox->width) * getPlayerDirMult());
+				grabbedPlayer->y = y + (itemOffsetY*Scale) - (((grabbedPlayer->hitboxPoint.height*grabbedPlayer->Scale)/2)+(grabbedPlayer->hitboxPoint.y*grabbedPlayer->Scale));
 				grabbedPlayer->xvelocity = 0;
 				grabbedPlayer->yvelocity = 0;
 				grabbedPlayer->xVel = 0;
@@ -4266,6 +4266,21 @@ namespace SmashBros
 	{
 		if(alive)
 		{
+			if(holdingPlayer)
+			{
+				grabbedPlayer->x = x + (((itemOffsetX*Scale) + grabbedPlayer->hitbox->width - Scale) * getPlayerDirMult());
+				grabbedPlayer->y = y + itemOffsetY - (((grabbedPlayer->hitboxPoint.height*grabbedPlayer->Scale)/2)+(grabbedPlayer->hitboxPoint.y*grabbedPlayer->Scale));
+				grabbedPlayer->xvelocity = 0;
+				grabbedPlayer->yvelocity = 0;
+				grabbedPlayer->xVel = 0;
+				grabbedPlayer->yVel = 0;
+				grabbedPlayer->attacksHolder=-1;
+				grabbedPlayer->attacksPriority=0;
+				grabbedPlayer->setToDefaultValues();
+				grabbedPlayer->playerdir = getOppPlayerDir();
+				grabbedPlayer->changeTwoSidedAnimation("grabbed", NO_CHANGE);
+			}
+
 			GameElement::Draw(g, gameTime);
 			
 			if(setIndic)
@@ -4593,6 +4608,7 @@ namespace SmashBros
 		{
 			grabbing = false;
 			holdingPlayer = true;
+			playr->animFinish();
 			grabStartTime = Global::getWorldTime();
 			playr->heldByPlayer = true;
 			grabbedPlayer = playr;
@@ -4654,7 +4670,7 @@ namespace SmashBros
 	
 	void Player::hitHandlerRight(Player*collide)
 	{
-		if((collide->playerNo>0)&&!((Global::teamBattle)&&(team==collide->team))&&(collide!=grabbedPlayer))
+		if((collide->playerNo>0)&&!((Global::teamBattle)&&(team==collide->team))&&(collide!=grabbedPlayer)&&(collide->grabbedPlayer!=this))
 		{
 			if(cpu)
 			{
@@ -4669,7 +4685,7 @@ namespace SmashBros
 	
 	void Player::hitHandlerLeft(Player*collide)
 	{
-		if((collide->playerNo>0)&&!((Global::teamBattle)&&(team==collide->team))&&(collide!=grabbedPlayer))
+		if((collide->playerNo>0)&&!((Global::teamBattle)&&(team==collide->team))&&(collide!=grabbedPlayer)&&(collide->grabbedPlayer!=this))
 		{
 			if(cpu)
 			{
@@ -4728,6 +4744,10 @@ namespace SmashBros
 	
 	byte Player::isPlayerColliding(Player*collide)
 	{
+		if(holdingPlayer)
+		{
+			int i = 4;
+		}
 		if(Scale==0 || collide->Scale==0)
 		{
 			return 0;
@@ -6157,6 +6177,7 @@ namespace SmashBros
 
 	void Player::grabAttack()
 	{
+		resetAttackCollisions();
 		attackA();
 	}
 
