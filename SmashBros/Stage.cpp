@@ -204,7 +204,6 @@ namespace SmashBros
 		{
 			if(Global::characters[i]!=null)
 			{
-				
 				checkPlayerCollisions(Global::characters[i]);
 			}
 		}
