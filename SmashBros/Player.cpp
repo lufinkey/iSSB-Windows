@@ -6185,7 +6185,7 @@ namespace SmashBros
 	void Player::grabAttackDown()
 	{
 		Player* grabbedPlayer = this->grabbedPlayer;
-		tossPlayer(Player::ATTACK_UPA, 0.4f, 5.8f+(1.6f*grabbedPlayer->getPercent())/75);
+		tossPlayer(Player::ATTACK_DOWNA, 0.4f, 5.8f+(1.6f*grabbedPlayer->getPercent())/75);
 	}
 	
 	/**
