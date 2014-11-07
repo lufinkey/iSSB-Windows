@@ -59,6 +59,7 @@ namespace SmashBros
 		addTwoSidedAnimation("jump", "jump.png", 10, 6, 1);
 		addTwoSidedAnimation("jump2", "jump2.png", 26, 20, 1);
 		addTwoSidedAnimation("land", "land.png", 20, 3, 1);
+		addTwoSidedAnimation("skid", "skid.png", 30, 1, 1);
 		addTwoSidedAnimation("fall", "fall.png", 30, 2, 1);
 		addTwoSidedAnimation("hang", "hang.png", 1, 1, 1);
 		addTwoSidedAnimation("crouch", "crouch.png", 1, 1, 1);
@@ -376,7 +377,6 @@ namespace SmashBros
 	
 	boolean Mario::onDeflectProjectileCollision(Projectile*collide, byte dir)
 	{
-		Console::WriteLine(Global::getDirText(dir));
 		byte relDir = getRelPlayerDir(collide);
 		if(attacksHolder==11 && (relDir==getPlayerDir() || relDir==0))
 		{
@@ -852,6 +852,9 @@ namespace SmashBros
 
 	void Mario::FluddWater::Update(long gameTime)
 	{
+		Player* owner = Global::getPlayerActor(getPlayerNo());
+		this->x = owner->x+(owner->getPlayerDirMult()*(66*owner->Scale));
+		this->y = owner->y - owner->Scale;
 		Projectile::Update(gameTime);
 		Player*playr = Global::getPlayerActor(this->getPlayerNo());
 		if(!playr->isAlive() && !playr->isHurt())

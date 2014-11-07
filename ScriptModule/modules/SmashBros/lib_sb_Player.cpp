@@ -86,12 +86,12 @@ namespace SmashBros
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getPlayerNo), "getPlayerNo");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::CanDo), "canDo");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getStock), "getStock");
-		//TODO add grabbing functions
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::isJumping), "isJumping");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::isHanging), "isHanging");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getSmashPower), "getSmashPower");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getMoveLeft), "getMoveLeft");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getMoveRight), "getMoveRight");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::setPoint), "setPoint");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getGrabbedPlayer), "getGrabbedPlayer");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getHitbox), "getHitbox");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getFolderPath), "getFolderPath");
