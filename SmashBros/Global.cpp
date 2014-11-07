@@ -200,6 +200,8 @@ namespace SmashBros
 		delete currentStage;
 		currentStage = null;
 		ItemManager::RemoveAll();
+		Global::suddenDeath = false;
+		Global::gamePlaying = false;
 	}
 
 	void Global::createHUD()
@@ -254,6 +256,7 @@ namespace SmashBros
 		
 		itemsActive.clear();
 		
+		Global::suddenDeath = false;
 		Global::playerHasSmashBall = false;
 		Global::smashBallOnField = false;
 		
