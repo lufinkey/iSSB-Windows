@@ -445,6 +445,7 @@ namespace SmashBros
 		int getSmashPower();
 		byte getMoveLeft();
 		byte getMoveRight();
+		void setPoint(float x, float y);
 		Player* getGrabbedPlayer();
 		WireframeActor*getHitbox();
 		String getFolderPath();

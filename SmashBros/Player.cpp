@@ -634,8 +634,7 @@ namespace SmashBros
 			if(holdingPlayer)
 			{
 				grabbedPlayer->setPlayerDir(getOppPlayerDir());
-				grabbedPlayer->x = x + (((itemOffsetX*Scale) + grabbedPlayer->hitbox->width) * getPlayerDirMult());
-				grabbedPlayer->y = y + (itemOffsetY*Scale) - (((grabbedPlayer->hitboxPoint.height*grabbedPlayer->Scale)/2)+(grabbedPlayer->hitboxPoint.y*grabbedPlayer->Scale));
+				grabbedPlayer->setPoint(x+(((itemOffsetX*Scale)+grabbedPlayer->hitbox->width)*getPlayerDirMult()), y+(itemOffsetY*Scale));
 				grabbedPlayer->changeTwoSidedAnimation("grabbed", NO_CHANGE);
 			}
 		}
@@ -818,6 +817,12 @@ namespace SmashBros
 	byte Player::getMoveRight()
 	{
 		return moveRight;
+	}
+
+	void Player::setPoint(float x, float y)
+	{
+		this->x = x;
+		this->y = y - (((hitboxPoint.height*Scale)/2)+(hitboxPoint.y*Scale));
 	}
 
 	Player* Player::getGrabbedPlayer()
@@ -3840,8 +3845,7 @@ namespace SmashBros
 			}
 			else
 			{
-				grabbedPlayer->x = x + (((itemOffsetX*Scale) + grabbedPlayer->hitbox->width) * getPlayerDirMult());
-				grabbedPlayer->y = y + (itemOffsetY*Scale) - (((grabbedPlayer->hitboxPoint.height*grabbedPlayer->Scale)/2)+(grabbedPlayer->hitboxPoint.y*grabbedPlayer->Scale));
+				grabbedPlayer->setPoint(x+(((itemOffsetX*Scale)+grabbedPlayer->hitbox->width)*getPlayerDirMult()), y+(itemOffsetY*Scale));
 				grabbedPlayer->xvelocity = 0;
 				grabbedPlayer->yvelocity = 0;
 				grabbedPlayer->xVel = 0;
@@ -3850,6 +3854,7 @@ namespace SmashBros
 				grabbedPlayer->attacksPriority=0;
 				grabbedPlayer->setToDefaultValues();
 				grabbedPlayer->playerdir = getOppPlayerDir();
+				grabbedPlayer->onGround = false;
 				grabbedPlayer->changeTwoSidedAnimation("grabbed", NO_CHANGE);
 			}
 		}
@@ -4268,8 +4273,7 @@ namespace SmashBros
 		{
 			if(holdingPlayer)
 			{
-				grabbedPlayer->x = x + (((itemOffsetX*Scale) + grabbedPlayer->hitbox->width - Scale) * getPlayerDirMult());
-				grabbedPlayer->y = y + itemOffsetY - (((grabbedPlayer->hitboxPoint.height*grabbedPlayer->Scale)/2)+(grabbedPlayer->hitboxPoint.y*grabbedPlayer->Scale));
+				grabbedPlayer->setPoint(x+(((itemOffsetX*Scale)+grabbedPlayer->hitbox->width)*getPlayerDirMult()), y+(itemOffsetY*Scale));
 				grabbedPlayer->xvelocity = 0;
 				grabbedPlayer->yvelocity = 0;
 				grabbedPlayer->xVel = 0;
@@ -4574,7 +4578,6 @@ namespace SmashBros
 	{
 		if(itemHolding!=NULL)
 		{
-			//TODO implement tossing variable
 			String animName = getAnimName();
 			itemHolding->whenTossed(tossAttackType);
 			if(animName.equals(getAnimName()))
@@ -4609,6 +4612,7 @@ namespace SmashBros
 			grabbing = false;
 			holdingPlayer = true;
 			playr->animFinish();
+			playr->onGround = false;
 			grabStartTime = Global::getWorldTime();
 			playr->heldByPlayer = true;
 			grabbedPlayer = playr;
@@ -4662,8 +4666,7 @@ namespace SmashBros
 				grabbedPlayer->y = y - ((float)height/4);
 				break;
 			}
-			grabbedPlayer->xvelocity = xspeed * getPlayerDirMult();
-			grabbedPlayer->yvelocity = yspeed;
+			causeHurtLaunch(grabbedPlayer, (int)getPlayerDirMult(),xspeed,1, 1, yspeed, 1);
 			causeHurt(grabbedPlayer, getOppPlayerDir(), 100);
 		}
 	}
@@ -5394,7 +5397,7 @@ namespace SmashBros
 				if(hurt==2)
 				{
 					hurt=1;
-					if(yvelocity>=0)
+					if(yvelocity<=6)
 					{
 						hurt=0;
 					}
@@ -5439,6 +5442,7 @@ namespace SmashBros
 				{
 					if(down)
 					{
+						//TODO edit when new platform types are created
 						dropping=true;
 						canDropThrough=false;
 						dropTime=Global::worldTime+400;
@@ -5465,7 +5469,7 @@ namespace SmashBros
 				if(hurt==2)
 				{
 					hurt=1;
-					canDo=true;
+					checkAttacks();
 				}
 				yvelocity=-(std::abs(yvelocity)/2);
 				changeTwoSidedAnimation("hurt_flip", NO_CHANGE);
@@ -5510,22 +5514,22 @@ namespace SmashBros
 				}
 				else if((hurt>0)&&(yvelocity>6))
 				{
-					canDo=true;
 					if(hurt==2)
 					{
 						hurt=1;
+						checkAttacks();
 					}
-					yvelocity=-(abs(yvelocity)/2);
+					yvelocity=-(std::abs(yvelocity)/2);
 					changeTwoSidedAnimation("hurt_flip", NO_CHANGE);
 				}
 				else
 				{
 					if((!dropping)&&(yvelocity>=0))
 					{
-						canDo=true;
 						hurt=0;
 						this->platformResponse(collide, dir, 0);
 						xvelocity=0;
+						checkAttacks();
 					}
 				}
 			}
@@ -5872,7 +5876,9 @@ namespace SmashBros
 			AttackManager::AttackInfo*nfo = attackMgr.getAttackInfo(dir, attacksHolder, playerdir);
 			if(nfo==null)
 			{
-				byte newDir = getDir(this, collide);
+				updateHitbox();
+				collide->updateHitbox();
+				byte newDir = getDir(this->hitbox, collide->hitbox);
 				nfo = attackMgr.getAttackInfo(newDir, attacksHolder, playerdir);
 				if(nfo!=null && nfo->dirIsPixelBased)
 				{
@@ -6200,13 +6206,14 @@ namespace SmashBros
 	{
 		Player* grabbedPlayer = getGrabbedPlayer();
 		causeDamage(grabbedPlayer, 4);
-		tossPlayer(Player::ATTACK_UPA, 0.4f, -4.3f-(1.6f*grabbedPlayer->getPercent())/75);
+		tossPlayer(Player::ATTACK_UPA, 0.4f, -5.3f-((2.1f*grabbedPlayer->getPercent())/75));
 	}
 
 	void Player::grabAttackDown()
 	{
 		Player* grabbedPlayer = this->grabbedPlayer;
-		tossPlayer(Player::ATTACK_DOWNA, 0.4f, 5.8f+(1.6f*grabbedPlayer->getPercent())/75);
+		grabbedPlayer->setPoint(x + (10 * Scale), y - (10*Scale));
+		tossPlayer(Player::ATTACK_DOWNA, 0.4f, 6.2f+((2.1f*grabbedPlayer->getPercent())/75));
 	}
 	
 	/**
