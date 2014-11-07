@@ -10,7 +10,7 @@ hang
 crouch
 grab
 grabbed
-holding
+hold
 release
 toss
 toss_up

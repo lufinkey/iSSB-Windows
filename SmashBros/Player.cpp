@@ -622,9 +622,9 @@ namespace SmashBros
 			{
 				changeTwoSidedAnimation("stand", NO_CHANGE);
 			}
-			else if(animName.equals("holding_left") || animName.equals("holding_right"))
+			else if(animName.equals("hold_left") || animName.equals("hold_right"))
 			{
-				changeTwoSidedAnimation("holding", NO_CHANGE);
+				changeTwoSidedAnimation("hold", NO_CHANGE);
 			}
 			else if(animName.equals("grabbed_left") || animName.equals("grabbed_right"))
 			{
@@ -985,7 +985,7 @@ namespace SmashBros
 	{
 		if(n.equals("walk_left") || n.equals("walk_right") || n.equals("run_left") || n.equals("run_right") ||
 			n.equals("smash_charge_left") || n.equals("smash_charge_right") || n.equals("hang_left") || 
-			n.equals("hang_right") || n.equals("holding_left") || n.equals("holding_right") || n.equals("grabbed_left") ||
+			n.equals("hang_right") || n.equals("hold_left") || n.equals("hold_right") || n.equals("grabbed_left") ||
 			n.equals("grabbed_right"))
 		{
 			//do nothing
@@ -1070,7 +1070,7 @@ namespace SmashBros
 		{
 			if(holdingPlayer)
 			{
-				changeTwoSidedAnimation("holding", NO_CHANGE);
+				changeTwoSidedAnimation("hold", NO_CHANGE);
 			}
 			else if(down)
 			{
@@ -4616,7 +4616,7 @@ namespace SmashBros
 			grabStartTime = Global::getWorldTime();
 			playr->heldByPlayer = true;
 			grabbedPlayer = playr;
-			changeTwoSidedAnimation("holding", FORWARD);
+			changeTwoSidedAnimation("hold", FORWARD);
 			playr->setPlayerDir(getOppPlayerDir());
 			playr->changeTwoSidedAnimation("grabbed", FORWARD);
 			onGrab(playr);

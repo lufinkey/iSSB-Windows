@@ -450,7 +450,7 @@ namespace SmashBros
 		WireframeActor*getHitbox();
 		String getFolderPath();
 		boolean pickUpItem(Item*item);
-
+		
 		boolean hitboxRectsColliding(HitBox*collide);
 		boolean hitboxRectsColliding(WireframeActor*collide);
 		boolean hitboxRectsColliding(Actor*collide);
