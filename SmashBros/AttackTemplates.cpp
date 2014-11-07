@@ -200,7 +200,6 @@ namespace SmashBros
 			collide->xVel=0;
 			collide->yVel=0;
 			collide->attackTime=0;
-			collide->setToDefaultValues();
 			collide->chargingAttack=false;
 			collide->bUp=false;
 			collide->up=false;
@@ -220,8 +219,8 @@ namespace SmashBros
 			collide->runTime=0;
 			collide->chargeSmash=0;
 			collide->lastHit = playr->playerNo;
-			
 			collide->destroyCharge();
+			collide->setToDefaultValues();
 			
 			if(collide->itemHolding!=null)
 			{

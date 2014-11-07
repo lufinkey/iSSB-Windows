@@ -23,10 +23,11 @@ namespace SmashBros
 		static const byte BUTTON_STANDARD = 5;
 		static const byte BUTTON_SPECIAL = 6;
 		static const byte BUTTON_GRAB = 7;
+		static const byte BUTTON_NONE = 8;
 
 		static const byte BUTTONS_TOTAL2 = 1;
 
-		static const byte BUTTON_PAUSE = 8;
+		static const byte BUTTON_PAUSE = 9;
 
 		static const byte BUTTONDIR_CENTER = 0;
 		static const byte BUTTONDIR_UP = 1;

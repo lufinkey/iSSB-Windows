@@ -913,7 +913,6 @@ namespace SmashBros
 			collide->xVel=0;
 			collide->yVel=0;
 			collide->attackTime=0;
-			collide->setToDefaultValues();
 			collide->chargingAttack=false;
 			collide->bUp=false;
 			collide->up=false;
@@ -932,6 +931,9 @@ namespace SmashBros
 			collide->hurtFrame=4;
 			collide->runTime=0;
 			collide->chargeSmash=0;
+			collide->destroyCharge();
+			collide->setToDefaultValues();
+
 			if(holderNo>0)
 			{
 				collide->lastHit = holderNo;
@@ -940,8 +942,6 @@ namespace SmashBros
 			{
 				collide->lastHit = ownerNo;
 			}
-			
-			collide->destroyCharge();
 			
 			if(collide->itemHolding!=null)
 			{

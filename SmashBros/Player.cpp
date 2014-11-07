@@ -4271,20 +4271,6 @@ namespace SmashBros
 	{
 		if(alive)
 		{
-			if(holdingPlayer)
-			{
-				grabbedPlayer->setPoint(x+(((itemOffsetX*Scale)+grabbedPlayer->hitbox->width)*getPlayerDirMult()), y+(itemOffsetY*Scale));
-				grabbedPlayer->xvelocity = 0;
-				grabbedPlayer->yvelocity = 0;
-				grabbedPlayer->xVel = 0;
-				grabbedPlayer->yVel = 0;
-				grabbedPlayer->attacksHolder=-1;
-				grabbedPlayer->attacksPriority=0;
-				grabbedPlayer->setToDefaultValues();
-				grabbedPlayer->playerdir = getOppPlayerDir();
-				grabbedPlayer->changeTwoSidedAnimation("grabbed", NO_CHANGE);
-			}
-
 			GameElement::Draw(g, gameTime);
 			
 			if(setIndic)
@@ -4309,6 +4295,20 @@ namespace SmashBros
 			indicator->Draw(g, gameTime);
 			updateHitbox();
 			hitbox->Draw(g, gameTime);
+
+			if(holdingPlayer)
+			{
+				grabbedPlayer->setPoint(x+(((itemOffsetX*Scale)+grabbedPlayer->hitbox->width)*getPlayerDirMult()), y+(itemOffsetY*Scale));
+				grabbedPlayer->xvelocity = 0;
+				grabbedPlayer->yvelocity = 0;
+				grabbedPlayer->xVel = 0;
+				grabbedPlayer->yVel = 0;
+				grabbedPlayer->attacksHolder=-1;
+				grabbedPlayer->attacksPriority=0;
+				grabbedPlayer->setToDefaultValues();
+				grabbedPlayer->playerdir = getOppPlayerDir();
+				grabbedPlayer->changeTwoSidedAnimation("grabbed", NO_CHANGE);
+			}
 		}
 		else
 		{
@@ -4747,10 +4747,6 @@ namespace SmashBros
 	
 	byte Player::isPlayerColliding(Player*collide)
 	{
-		if(holdingPlayer)
-		{
-			int i = 4;
-		}
 		if(Scale==0 || collide->Scale==0)
 		{
 			return 0;
@@ -5737,7 +5733,10 @@ namespace SmashBros
 				}
 			}
 			whilePlayerColliding(playr,dir);
-			grabPlayer(playr);
+			if(grabbing)
+			{
+				grabPlayer(playr);
+			}
 		}
 		else if(playerCollisions.isColliding(playr->playerNo))
 		{
