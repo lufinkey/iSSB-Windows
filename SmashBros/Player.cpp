@@ -5400,7 +5400,7 @@ namespace SmashBros
 					checkAttacks();
 				}
 				lastHit=0;
-				if((canDo)&&((jumping && yvelocity>=-1)||(yvelocity>16))&&!landing)
+				if(canDo &&((jumping && yvelocity>=-1) || (yvelocity>16)) && !landing && !holdingPlayer)
 				{
 					if(chargingAttack || chargeSmash>0)
 					{
@@ -5428,13 +5428,13 @@ namespace SmashBros
 				canDropThrough=true;
 				checkAttacks();
 				lastHit=0;
-				if((canDo)&&((jumping && yvelocity>=-1)||(yvelocity>16))&&!landing)
+				if(canDo && ((jumping && yvelocity>=-1) || (yvelocity>16)) && !landing && !holdingPlayer)
 				{
 					jumping=false;
 					landing=true;
 					changeTwoSidedAnimation("land", FORWARD);
 				}
-				else if((yvelocity>0)&&(canDo)&&(!chargingAttack)&&(moveRight==0)&&(moveLeft==0)&&(chargeSmash==0)&&(!chargingAttack))
+				else if(yvelocity>0 && canDo && !chargingAttack && moveRight==0 && moveLeft==0 && chargeSmash==0 && !chargingAttack && !holdingPlayer)
 				{
 					if(down)
 					{
@@ -5502,13 +5502,13 @@ namespace SmashBros
 			case Platform::TYPE_GOTHROUGH:
 			if(dir == DIR_UP)
 			{
-				if(canDo && hurt==0 && yvelocity>=-0.5f && jumping && !landing)
+				if(canDo && hurt==0 && yvelocity>=-0.5f && jumping && !landing && !holdingPlayer)
 				{
 					jumping=false;
 					landing=true;
 					changeTwoSidedAnimation("land", FORWARD);
 				}
-				else if((hurt>0)&&(yvelocity>6))
+				else if(hurt>0 && yvelocity>6)
 				{
 					if(hurt==2)
 					{
@@ -5520,7 +5520,7 @@ namespace SmashBros
 				}
 				else
 				{
-					if((!dropping)&&(yvelocity>=0))
+					if(!dropping && yvelocity>=0)
 					{
 						hurt=0;
 						this->platformResponse(collide, dir, 0);
