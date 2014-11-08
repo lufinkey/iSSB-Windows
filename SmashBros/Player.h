@@ -179,7 +179,7 @@ namespace SmashBros
 
 		void barrierCollide(byte barrierNo);
 
-		void whilePlatformCollide(Platform*collide, byte dir);
+		void whilePlatformColliding(Platform*collide, byte dir);
 		void whileGroundColliding();
 		void finishGroundCollide();
 		void onHang(HangPoint*collide);

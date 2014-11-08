@@ -5127,7 +5127,7 @@ namespace SmashBros
 						lastGroundX = collide->x;
 					}
 				}
-				whilePlatformCollide(collide, dir);
+				whilePlatformColliding(collide, dir);
 				collide->whilePlayerColliding(this, dir);
 			}
 			else
@@ -5138,7 +5138,7 @@ namespace SmashBros
 				}
 				onPlatformCollide(collide, dir);
 				collide->onPlayerCollide(this, dir);
-				whilePlatformCollide(collide, dir);
+				whilePlatformColliding(collide, dir);
 				collide->whilePlayerColliding(this, dir);
 			}
 		}
@@ -5453,7 +5453,7 @@ namespace SmashBros
 		}
 	}
 	
-	void Player::whilePlatformCollide(Platform*collide, byte dir)
+	void Player::whilePlatformColliding(Platform*collide, byte dir)
 	{
 		//Open for implementation, but call super method
 		switch(collide->getType())
