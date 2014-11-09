@@ -68,6 +68,7 @@ namespace SmashBros
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getLastHitIndex), "getLastHitIndex");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getAttacksHolder), "getAttacksHolder");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getAttacksPriority), "getAttacksPriority");
+		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getComboNo), "getComboNo");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::isOnGround), "isOnGround");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getPlayerDir), "getPlayerDir");
 		m_smashbros_player->add(chaiscript::fun(&SmashBros::Player::getDirFacing), "getDirFacing");

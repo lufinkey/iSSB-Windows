@@ -7,13 +7,11 @@ namespace SmashBros
 {
 	class AttackTemplates
 	{
+		friend class Player;
 	private:
 		static void causeDamage(Player*playr, Player*collide, int amount);
-		friend class Player;
 		static void causeHurtLaunch(Player*playr, Player*collide, int xDir, float xAmount, float xMult, int yDir, float yAmount, float yMult);
-		friend class Player;
 		static void causeHurt(Player*playr, Player*collide, byte dir, long time);
-		friend class Player;
 
 	public:
 		static const byte SMASH_SIDE = 1;
@@ -21,8 +19,8 @@ namespace SmashBros
 		static const byte SMASH_DOWN = 3;
 
 		static void normalA(Player*playr, int aNo, double aP);
-		static void combo2A(Player*playr, long comTime, int aNo,double aP,int aNo2,double aP2);
-		static void combo3A(Player*playr, long comTime, int aNo,double aP,int aNo2,double aP2,int aNo3, double aP3);
+		static void combo2A(Player*playr, long comTime, int aNo,double aP,int aNo2,double aP2, boolean loopLast = false);
+		static void combo3A(Player*playr, long comTime, int aNo,double aP,int aNo2,double aP2,int aNo3, double aP3, boolean loopLast = false);
 		static void normalAirA(Player*playr, int aNo, double aP);
 		static void normalSideA(Player*playr, int aNo, double aP);
 		static void normalDashA(Player*playr, int aNo, double aP, float speed);

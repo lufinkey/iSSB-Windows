@@ -635,9 +635,37 @@ namespace SmashBros
 				playr->smashTime=0;
 				playr->checkAttacks();
 			}
-			else if(playr->hanging)
+			else if(!playr->canDo)
 			{
-				playr->climbUpAttack();
+				if(playr->hanging)
+				{
+					playr->climbUpAttack();
+				}
+				else if(!playr->chargingAttack)
+				{
+					switch(playr->buttondir)
+					{
+						case BUTTONDIR_CENTER:
+						playr->onQueueAttack(Player::ATTACK_A);
+						break;
+
+						case BUTTONDIR_UP:
+						playr->onQueueAttack(Player::ATTACK_UPA);
+						break;
+
+						case BUTTONDIR_RIGHT:
+						playr->onQueueAttack(Player::ATTACK_SIDEA);
+						break;
+
+						case BUTTONDIR_DOWN:
+						playr->onQueueAttack(Player::ATTACK_DOWNA);
+						break;
+
+						case BUTTONDIR_LEFT:
+						playr->onQueueAttack(Player::ATTACK_SIDEA);
+						break;
+					}
+				}
 			}
 			break;
 	 
@@ -734,8 +762,33 @@ namespace SmashBros
 				playr->checkAttacks();
 				playr->hanging=false;
 			}
+			else
+			{
+				switch(playr->buttondir)
+				{
+					case BUTTONDIR_CENTER:
+					playr->onQueueAttack(Player::ATTACK_B);
+					break;
+					
+					case BUTTONDIR_UP:
+					playr->onQueueAttack(Player::ATTACK_UPB);
+					break;
+					
+					case BUTTONDIR_RIGHT:
+					playr->onQueueAttack(Player::ATTACK_SIDEB);
+					break;
+					
+					case BUTTONDIR_DOWN:
+					playr->onQueueAttack(Player::ATTACK_DOWNB);
+					break;
+					
+					case BUTTONDIR_LEFT:
+					playr->onQueueAttack(Player::ATTACK_SIDEB);
+					break;
+				}
+			}
 			break;
-	 
+			
 			case UP:
 			if(playr->chargingAttack)
 			{

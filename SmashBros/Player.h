@@ -379,6 +379,7 @@ namespace SmashBros
 		virtual void onGrab(Player*held);
 		virtual void onGrabbed(Player*holder);
 
+		virtual void onQueueAttack(byte attackType);
 		virtual void onFinishCharge();
 		virtual void doChargingAttack(byte button);
 
@@ -422,6 +423,7 @@ namespace SmashBros
 		int getLastHitIndex();
 		int getAttacksHolder();
 		double getAttacksPriority();
+		byte getComboNo();
 		boolean isOnGround();
 		byte getPlayerDir();
 		byte getDirFacing();

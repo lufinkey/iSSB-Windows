@@ -242,7 +242,7 @@ namespace SmashBros
 		playr->attacksPriority=aP;
 	}
 
-	void AttackTemplates::combo2A(Player*playr, long comTime, int aNo,double aP,int aNo2,double aP2)
+	void AttackTemplates::combo2A(Player*playr, long comTime, int aNo,double aP,int aNo2,double aP2, boolean loopLast)
 	{
 		playr->jumping = false;
 		playr->hurt = 0;
@@ -262,16 +262,23 @@ namespace SmashBros
 			break;
 	 
 			case 1:
-			playr->standardCombo=0;
+			if(loopLast)
+			{
+				playr->comboTime=Global::worldTime;
+			}
+			else
+			{
+				playr->standardCombo=0;
+				playr->comboTime=0;
+			}
 			playr->attacksHolder=aNo2;
 			playr->attacksPriority=aP2;
 			playr->changeTwoSidedAnimation("standard_attack2", FORWARD);
-			playr->comboTime=0;
 			break;
 		}
 	}
 
-	void AttackTemplates::combo3A(Player*playr, long comTime, int aNo,double aP,int aNo2,double aP2,int aNo3, double aP3)
+	void AttackTemplates::combo3A(Player*playr, long comTime, int aNo,double aP,int aNo2,double aP2,int aNo3, double aP3, boolean loopLast)
 	{
 		playr->jumping = false;
 		playr->hurt = 0;
@@ -289,7 +296,7 @@ namespace SmashBros
 			playr->changeTwoSidedAnimation("standard_attack", FORWARD);
 			playr->comboTime=Global::worldTime;
 			break;
-	 
+			
 			case 1:
 			playr->standardCombo=2;
 			playr->attacksHolder=aNo2;
@@ -297,13 +304,20 @@ namespace SmashBros
 			playr->changeTwoSidedAnimation("standard_attack2", FORWARD);
 			playr->comboTime=Global::worldTime;
 			break;
-	 
+			
 			case 2:
-			playr->standardCombo=0;
+			if(loopLast)
+			{
+				playr->comboTime=Global::worldTime;
+			}
+			else
+			{
+				playr->standardCombo=0;
+				playr->comboTime=0;
+			}
 			playr->attacksHolder=aNo3;
 			playr->attacksPriority=aP3;
 			playr->changeTwoSidedAnimation("standard_attack3", FORWARD);
-			playr->comboTime=0;
 			break;
 		}
 	}

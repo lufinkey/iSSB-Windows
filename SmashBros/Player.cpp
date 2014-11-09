@@ -537,6 +537,11 @@ namespace SmashBros
 	{
 		return attacksPriority;
 	}
+
+	byte Player::getComboNo()
+	{
+		return standardCombo;
+	}
 	
 	boolean Player::isOnGround()
 	{
@@ -6169,15 +6174,20 @@ namespace SmashBros
 	{
 		//Open for implementation
 	}
+
+	void Player::onQueueAttack(byte attackType)
+	{
+		//Open for implementation
+	}
 	
 	void Player::onFinishCharge()
 	{
-		//
+		//Open for implementation
 	}
 	
 	void Player::doChargingAttack(byte button)
 	{
-		//
+		//Open for implementation
 	}
 
 	void Player::grabAttack()
