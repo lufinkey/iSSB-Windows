@@ -68,7 +68,7 @@ namespace SmashBros
 		changeScales = true;
 		for(int i=0; i<actors.size(); i++)
 		{
-			actors.get(i)->Scale = scale;
+			actors.get(i)->setScale(scale);
 		}
 	}
 
@@ -103,9 +103,9 @@ namespace SmashBros
 		currentIndex++;
 		if(a!=null)
 		{
-			if(changeScales && a->Scale==1)
+			if(changeScales && a->getScale()==1)
 			{
-				a->Scale = this->Scale;
+				a->setScale(this->getScale());
 			}
 			addToGrid(a,x,y,cols,rows,xSpace,ySpace,currentIndex);
 		}

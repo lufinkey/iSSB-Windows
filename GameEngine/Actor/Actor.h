@@ -26,6 +26,7 @@ namespace GameEngine
 
 		float Alpha;
 		float Rotation;
+		float Scale;
 
 		static const int totalEvents = 8;
 		bool enabledEvents[8];
@@ -51,7 +52,6 @@ namespace GameEngine
 		bool firstAnimChange;
 
 		Animation*anim;
-		Animation*lastAnim;
 
 		void createActor(float x, float y);
 
@@ -71,8 +71,6 @@ namespace GameEngine
 		static const unsigned char EVENT_MOVEFINISH = 5;
 
 		float xvelocity,yvelocity;
-
-		float Scale;
 
 		virtual ~Actor();
 		Actor();
@@ -99,7 +97,6 @@ namespace GameEngine
 		bool hasAnimation(const String&animName);
 
 		Animation*getAnimation();
-		Animation*getLastAnimation();
 
 		void setRelativeToView(bool toggle);
 		bool isRelativeToView();
@@ -159,6 +156,9 @@ namespace GameEngine
 		
 		void setAlpha(float alpha);
 		float getAlpha();
+
+		void setScale(float scale);
+		float getScale();
 		
 		void setVisible(bool toggle);
 		bool isVisible();

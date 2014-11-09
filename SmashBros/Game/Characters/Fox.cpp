@@ -35,7 +35,7 @@ namespace SmashBros
 		
 		setHangPoint(9, 8);
 		
-		oldScale = Scale;
+		oldScale = getScale();
 		
 		Console::WriteLine("finished creating player " + playerNo);
 	}
@@ -145,7 +145,7 @@ namespace SmashBros
 		{
 			finalSmashing = false;
 			finalsmashFinishing = false;
-			Scale = oldScale;
+			setScale(oldScale);
 			setVisible(true);
 		}
 		if(landmaster!=null)
@@ -280,7 +280,7 @@ namespace SmashBros
 	{
 		if(attacksHolder==2)
 		{
-			Animation*anim = getLastAnimation();
+			Animation*anim = getAnimation();
 			if((anim->getCurrentFrame()==1 || anim->getCurrentFrame()==3 || anim->getCurrentFrame()==5)
 				&& lastKickFrame!=anim->getCurrentFrame())
 			{
@@ -329,7 +329,7 @@ namespace SmashBros
 				attacksPriority=7;
 				setAlpha(0);
 				setVisible(false);
-				Scale = 0;
+				setScale(0);
 				finalSmashing=true;
 				finalsmashFinishing=false;
 				finalsmashTime = Global::getWorldTime() + 18000;
@@ -366,7 +366,7 @@ namespace SmashBros
 					landmaster = null;
 					AttackTemplates::finishFinalSmash(this);
 					finalSmashing = false;
-					Scale = oldScale;
+					setScale(oldScale);
 					setVisible(true);
 					float y1 = y - 200;
 					if(y1<((float)Global::currentStage->getItemBoundaries().y))
@@ -1004,7 +1004,7 @@ namespace SmashBros
 			break;
 		}
 		x = owner->x;
-		y = owner->y + (30*Scale);
+		y = owner->y + (30*getScale());
 	}
 
 	void Fox::LandmasterHoverBlast::onAnimationFinish(const String&name)
@@ -1046,7 +1046,7 @@ namespace SmashBros
 		anim->mirror(true);
 		addAnimation(anim);
 		
-		Scale = 0.7f;
+		setScale(0.7f);
 		
 		setSolid(true);
 		setOwnerSolid(false);
@@ -1072,12 +1072,12 @@ namespace SmashBros
 			{
 				case 0:
 				owner->setPlayerDir(LEFT);
-				createProjectile(new LandmasterShot(getPlayerNo(),x - (120*Scale), y - (24*Scale)));
+				createProjectile(new LandmasterShot(getPlayerNo(),x - (120*getScale()), y - (24*getScale())));
 				break;
 					
 				case 1:
 				owner->setPlayerDir(RIGHT);
-				createProjectile(new LandmasterShot(getPlayerNo(),x + (120*Scale), y - (24*Scale)));
+				createProjectile(new LandmasterShot(getPlayerNo(),x + (120*getScale()), y - (24*getScale())));
 				break;
 			}
 			idle();
@@ -1106,8 +1106,8 @@ namespace SmashBros
 					break;
 				}
 				yvelocity -= 5;
-				LandmasterHoverBlast* hoverBlast = new LandmasterHoverBlast(getPlayerNo(), x, y+(30*Scale));
-				hoverBlast->Scale = Scale;
+				LandmasterHoverBlast* hoverBlast = new LandmasterHoverBlast(getPlayerNo(), x, y+(30*getScale()));
+				hoverBlast->setScale(getScale());
 				createProjectile(hoverBlast);
 			}
 			if(owner->getMoveLeft()>0)

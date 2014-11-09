@@ -11,7 +11,7 @@ namespace SmashBros
 		active = false;
 		addAnimation(new Animation("normal",1,"Images/Game/Misc/offscreen_explode.png"));
 		changeAnimation("normal", FORWARD);
-		Scale = 1.1f;
+		setScale(1.1f);
 	}
 
 	OffScreenExplode::~OffScreenExplode()
@@ -48,7 +48,7 @@ namespace SmashBros
 	{
 		if(active)
 		{
-			drawActor(g, gameTime,(float)(x*Camera::Zoom), (float)(y*Camera::Zoom),Scale*Camera::Zoom);
+			drawActor(g, gameTime,(float)(x*Camera::Zoom), (float)(y*Camera::Zoom),getScale()*Camera::Zoom);
 			//GameElement::Draw(g, gameTime);
 		}
 	}

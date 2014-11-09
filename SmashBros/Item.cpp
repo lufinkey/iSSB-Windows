@@ -109,13 +109,13 @@ namespace SmashBros
 				switch(playr->getPlayerDir())
 				{
 					case Player::LEFT:
-					x = playr->x - (float)((playr->itemOffsetX + offsetX)*playr->Scale);
+					x = playr->x - (float)((playr->itemOffsetX + offsetX)*playr->getScale());
 					break;
 					
 					case Player::RIGHT:
-					x = playr->x + (float)((playr->itemOffsetX + offsetX)*playr->Scale);
+					x = playr->x + (float)((playr->itemOffsetX + offsetX)*playr->getScale());
 				}
-				y = playr->y + (float)((playr->itemOffsetY + offsetY)*playr->Scale);
+				y = playr->y + (float)((playr->itemOffsetY + offsetY)*playr->getScale());
 			}
 		}
 	}
@@ -501,13 +501,13 @@ namespace SmashBros
 					switch(playr->getPlayerDir())
 					{
 						case Player::LEFT:
-						x = playr->x - (float)((playr->itemOffsetX + offsetX)*playr->Scale);
+						x = playr->x - (float)((playr->itemOffsetX + offsetX)*playr->getScale());
 						break;
 						
 						case Player::RIGHT:
-						x = playr->x + (float)((playr->itemOffsetX + offsetX)*playr->Scale);
+						x = playr->x + (float)((playr->itemOffsetX + offsetX)*playr->getScale());
 					}
-					y = playr->y + (float)((playr->itemOffsetY + offsetY)*playr->Scale);
+					y = playr->y + (float)((playr->itemOffsetY + offsetY)*playr->getScale());
 				}
 			}
 		}
@@ -536,13 +536,13 @@ namespace SmashBros
 				switch(playr->getPlayerDir())
 				{
 					case Player::LEFT:
-					x = playr->x - (float)((playr->itemOffsetX + offsetX)*playr->Scale);
+					x = playr->x - (float)((playr->itemOffsetX + offsetX)*playr->getScale());
 					break;
 					
 					case Player::RIGHT:
-					x = playr->x + (float)((playr->itemOffsetX + offsetX)*playr->Scale);
+					x = playr->x + (float)((playr->itemOffsetX + offsetX)*playr->getScale());
 				}
-				y = playr->y + (float)((playr->itemOffsetY + offsetY)*playr->Scale);
+				y = playr->y + (float)((playr->itemOffsetY + offsetY)*playr->getScale());
 			}
 		}
 		GameElement::Draw(g, gameTime);
@@ -956,7 +956,7 @@ namespace SmashBros
 
 	byte Item::solidPlatformCollision(Platform*collide)
 	{
-		if(Scale==0 || collide->Scale==0)
+		if(getScale()==0 || collide->getScale()==0)
 		{
 			return 0;
 		}
@@ -996,13 +996,13 @@ namespace SmashBros
 				int xPnt = startX1; // bounds checker for this
 				int yPnt = startY1;
 				
-				float x1 = ((float)startX1/Scale);//pixel checker starter for this
-				float y1 = ((float)startY1/Scale);
-				float incr1 = (float)(1/Scale);
+				float x1 = ((float)startX1/getScale());//pixel checker starter for this
+				float y1 = ((float)startY1/getScale());
+				float incr1 = (float)(1/getScale());
 				
-				float x2 = ((float)startX2/collide->Scale);//pixel checker starter for collide
-				float y2 = ((float)startY2/collide->Scale);
-				float incr2 = (float)(1/collide->Scale);
+				float x2 = ((float)startX2/collide->getScale());//pixel checker starter for collide
+				float y2 = ((float)startY2/collide->getScale());
+				float incr2 = (float)(1/collide->getScale());
 				
 				boolean itemCol = false;
 				boolean colliding = false;
@@ -1174,9 +1174,9 @@ namespace SmashBros
 				int bottom=0;
 				boolean colliding = false;
 				
-				float x2 = ((float)startX/collide->Scale);//pixel checker starter for collide
-				float y2 = ((float)startY/collide->Scale);
-				float incr2 = (float)(1/collide->Scale);
+				float x2 = ((float)startX/collide->getScale());//pixel checker starter for collide
+				float y2 = ((float)startY/collide->getScale());
+				float incr2 = (float)(1/collide->getScale());
 
 				PixelIterator colPxlIter(collide);
 				colPxlIter.reset(x2,y2,incr2,incr2,(int)collideOverlap.width,(int)collideOverlap.height);
@@ -1257,7 +1257,7 @@ namespace SmashBros
 
 	byte Item::normalPlatformCollision(Platform*collide)
 	{
-		if(Scale==0 || collide->Scale==0)
+		if(getScale()==0 || collide->getScale()==0)
 		{
 			return 0;
 		}
@@ -1280,9 +1280,9 @@ namespace SmashBros
 				int endX = overlap.x + overlap.width;
 				int endY = overlap.y + overlap.height;
 				
-				float x1 = ((float)startX/Scale);//pixel checker starter for this
-				float y1 = ((float)startY/Scale);
-				float incr1 = (float)(1/Scale);
+				float x1 = ((float)startX/getScale());//pixel checker starter for this
+				float y1 = ((float)startY/getScale());
+				float incr1 = (float)(1/getScale());
 				
 				boolean itemCol = false;
 

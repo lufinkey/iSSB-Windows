@@ -198,7 +198,7 @@ namespace SmashBros
 		addAnimation(anim);
 		changeAnimation("normal",FORWARD);
 			
-		Scale = (float)(random()*1.5 + 0.2);
+		setScale((float)(random()*1.5 + 0.2));
 			
 		newScale = random()*1.5 + 0.2;
 			
@@ -210,8 +210,8 @@ namespace SmashBros
 			
 		int frames = (int)((double)dist/(float)speed);
 			
-		scaleIncr = (double)(newScale - Scale)/(double)frames;
-			
+		scaleIncr = (double)(newScale - getScale())/(double)frames;
+		
 		moveTo(moveX, moveY, speed);
 			
 		setColor(Color((unsigned char)(random()*255),(unsigned char)(random()*255), (unsigned char)(random()*255), 255));
@@ -223,7 +223,7 @@ namespace SmashBros
 		scaleIncr = 1;
 		isDead = false;
 		
-		Scale = (float)(random()*1.5 + 0.2); 
+		setScale((float)(random()*1.5 + 0.2)); 
 			
 		newScale = random()*1.5 + 0.2;
 			
@@ -235,8 +235,8 @@ namespace SmashBros
 			
 		int frames = (int)((double)dist/(float)speed);
 			
-		scaleIncr = (double)(newScale - Scale)/(double)frames;
-			
+		scaleIncr = (double)(newScale - getScale())/(double)frames;
+		
 		moveTo(moveX, moveY, speed);
 		
 		//setColor(Color((unsigned char)(random()*255),(unsigned char)(random()*255), (unsigned char)(random()*255), 255));
@@ -250,7 +250,7 @@ namespace SmashBros
 	void FractalStage::RandomThing::Update(long gameTime)
 	{
 		GameElement::Update(gameTime);
-		Scale += (float)scaleIncr;
+		setScale((float)scaleIncr);
 	}
 	
 	void FractalStage::RandomThing::onMoveFinish()
@@ -268,8 +268,8 @@ namespace SmashBros
 		anim->addFrame("Images/Game/Stages/TestStage/swirl.png");
 		swirl->addAnimation(anim);
 		swirl->changeAnimation("normal", FORWARD);
-		swirl->Scale = Scale*0.1f;
-			
+		swirl->setScale(getScale()*0.1f);
+		
 		addAnimation(new Animation("normal",1,"Images/Game/Stages/TestStage/nic_cage.png"));
 		changeAnimation("normal",FORWARD);
 	}
@@ -305,14 +305,14 @@ namespace SmashBros
 		if(!isrotating)
 		{
 				
-			swirl->Scale = Scale*0.1f;
+			swirl->setScale(getScale()*0.1f);
 				
-			swirl->x = x - (float)(46*Scale);
-			swirl->y = y - (float)(3*Scale);
+			swirl->x = x - (float)(46*getScale());
+			swirl->y = y - (float)(3*getScale());
 			swirl->Draw(g, gameTime);
 				
-			swirl->x = x + (float)(34*Scale);
-			swirl->y = y - (float)(2*Scale);
+			swirl->x = x + (float)(34*getScale());
+			swirl->y = y - (float)(2*getScale());
 			swirl->Draw(g, gameTime);
 		}
 

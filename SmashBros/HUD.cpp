@@ -58,7 +58,7 @@ namespace SmashBros
 		{
 			ReadyGo->changeAnimation("ready", FORWARD);
 		}
-		ReadyGo->Scale = 0.7f;
+		ReadyGo->setScale(0.7f);
 		
 		FinishGame = new Actor(View::ScaleWidth() * 0.5f,View::ScaleHeight() * 0.5f);
 		FinishGame->setRelativeToView(false);
@@ -356,7 +356,7 @@ namespace SmashBros
 				stockIcon->addAnimation(new Animation("normal", 1, image));
 				stockIcon->changeAnimation("normal", FORWARD);
 			}
-			stockIcon->Scale = 1.6f;
+			stockIcon->setScale(1.6f);
 			
 			stockText = new TextActor("", AssetManager::getFont("Fonts/arial.ttf", Font::BOLD, 18),Color::WHITE);
 			/*{
@@ -405,7 +405,7 @@ namespace SmashBros
 		percentText->addAnimation(new Animation("8",1,"Images/Game/HUD/PercentText/8.png"));
 		percentText->addAnimation(new Animation("9",1,"Images/Game/HUD/PercentText/9.png"));
 		percentText->addAnimation(new Animation("%",1,"Images/Game/HUD/PercentText/percent.png"));
-		percentText->Scale = 0.28f;
+		percentText->setScale(0.28f);
 		
 		int exists = AssetManager::loadImage(path + "symbol.png");
 		
@@ -600,7 +600,7 @@ namespace SmashBros
 	HUD::TrainingMenu::TrainingMenu(HUD*hud)
 	{
 		bg = new Actor(0,0);
-		bg->Scale = 1.9f;
+		bg->setScale(1.9f);
 		bg->addAnimation(new Animation("normal",1,"Images/Game/HUD/Training/bg.png"));
 		bg->changeAnimation("normal", FORWARD);
 		bg->setVisible(false);
@@ -952,19 +952,19 @@ namespace SmashBros
 	void HUD::OptionPanel::Update(long gameTime)
 	{
 		Actor::Update(gameTime);
-		left->Scale = Scale;
-		left->x = x-((float)arrowXOffset*Scale);
+		left->setScale(getScale());
+		left->x = x-((float)arrowXOffset*getScale());
 		left->y = y;
-		right->Scale = Scale;
-		right->x = x+((float)arrowXOffset*Scale);
+		right->setScale(getScale());
+		right->x = x+((float)arrowXOffset*getScale());
 		right->y = y;
 		left->Update(gameTime);
 		right->Update(gameTime);
-		label->setSize((unsigned int)((float)textSize*Scale));
+		label->setSize((unsigned int)((float)textSize*getScale()));
 		label->x = x;
-		label->y = y + ((float)labelYOffset*Scale);
+		label->y = y + ((float)labelYOffset*getScale());
 		label->Update(gameTime);
-			
+		
 		if(left->wasClicked() && !left->isClicked())
 		{
 			value--;

@@ -24,17 +24,17 @@ namespace GameEngine
 
 	void PixelIterator::reset(float x1, float y1, float incrX, float incrY, int w, int h)
 	{
-		Animation*lastAnim = actor->getLastAnimation();
-		img = lastAnim->getCurrentImage();
+		Animation*anim = actor->getAnimation();
+		img = anim->getCurrentImage();
 
 		bool mirror = false;
 		bool mirrorVertical = false;
 		
-		if((lastAnim->isMirrored() && !actor->mirrored) || (!lastAnim->isMirrored() && actor->mirrored))
+		if((anim->isMirrored() && !actor->mirrored) || (!anim->isMirrored() && actor->mirrored))
 		{
 			mirror = true;
 		}
-		if((lastAnim->isMirroredVertical() && !actor->mirroredVertical) || (!lastAnim->isMirroredVertical() && actor->mirroredVertical))
+		if((anim->isMirroredVertical() && !actor->mirroredVertical) || (!anim->isMirroredVertical() && actor->mirroredVertical))
 		{
 			mirrorVertical = true;
 		}

@@ -96,7 +96,7 @@ namespace SmashBros
 			if(queueStandardCombo)
 			{
 				changeTwoSidedAnimation("standard_attack3", FORWARD);
-				createProjectile(new ComboPunches(getPlayerNo(), x + (KIRBY_PUNCHOFFSET*Scale*getPlayerDirMult()), y));
+				createProjectile(new ComboPunches(getPlayerNo(), x + (KIRBY_PUNCHOFFSET*getScale()*getPlayerDirMult()), y));
 				if(attacksPriority > 0.6)
 				{
 					attacksPriority -= 0.3;
@@ -212,7 +212,7 @@ namespace SmashBros
 				AttackTemplates::combo3A(this, 500, 0,1.76, 1,2.48, 2,2.86, true);
 				if(getComboNo() == 2 && comboNo == 2)
 				{
-					createProjectile(new ComboPunches(getPlayerNo(), x + (KIRBY_PUNCHOFFSET*Scale*getPlayerDirMult()), y));
+					createProjectile(new ComboPunches(getPlayerNo(), x + (KIRBY_PUNCHOFFSET*getScale()*getPlayerDirMult()), y));
 				}
 			}
 			else

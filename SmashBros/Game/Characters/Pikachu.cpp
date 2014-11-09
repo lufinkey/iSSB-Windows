@@ -29,7 +29,7 @@ namespace SmashBros
 		
 		name = "Pikachu";
 
-		Scale = 1.0f;
+		setScale(1.0f);
 
 		xprevious = x;
 		yprevious = y;
@@ -656,8 +656,8 @@ namespace SmashBros
 				{
 					causeDamage(collide,smashPower/4);
 					collide->yvelocity = -1;
-					collide->y -= (5*Scale*collide->Scale);
-					collide->x = x - getPlayerDirMult()*(5*Scale);
+					collide->y -= (5*getScale()*collide->getScale());
+					collide->x = x - getPlayerDirMult()*(5*getScale());
 					causeHurt(collide, getOppPlayerDir(), 200);
 				}
 				else if(frameNo == 7)
@@ -1283,7 +1283,7 @@ namespace SmashBros
 		waitFrames = 0;
 		destroyTime = Global::getWorldTime() + 1000;
 
-		Scale = 0.6f;
+		setScale(0.6f);
 
 		setDeflectable(true);
 		detectAllPlatformsSolid(true);
@@ -1830,7 +1830,7 @@ namespace SmashBros
 
 	Pikachu::Thunderbolt::ThunderboltGhost::ThunderboltGhost(Thunderbolt*bolt, byte playerNo, byte dir, bool drift, float x1, float y1) : ThunderboltType(playerNo, x1, y1)
 	{
-		Scale = 0.6f;
+		setScale(0.6f);
 		waitFrames = 8;
 		this->drift = drift;
 		leader = bolt;

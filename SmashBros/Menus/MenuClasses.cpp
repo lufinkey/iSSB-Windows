@@ -68,7 +68,7 @@ namespace SmashBros
 		anim->addFrame("Images/Menus/titlescreen.png");
 		titleScreen->addAnimation(anim);
 		titleScreen->changeAnimation("title", FORWARD);
-		titleScreen->Scale = 1.876f;
+		titleScreen->setScale(1.876f);
 	}
 
 	void TitleScreen::Update(long gameTime)
@@ -409,7 +409,7 @@ namespace SmashBros
 		rules_bar->addAnimation(normal);
 		rules_bar->addAnimation(hover);
 		rules_bar->changeAnimation("normal", FORWARD);
-		rules_bar->Scale = 1.8f;
+		rules_bar->setScale(1.8f);
 		rules_bar_value = new TextActor(510,60,"02",AssetManager::getFont("Fonts/arial.ttf", Font::BOLD, 30),Color::BLACK);
 		rules_bar_value->setAlignment(TextActor::ALIGN_BOTTOMLEFT);
 		rules_bar_text = new TextActor(560,60,"",AssetManager::getFont("Fonts/arial.ttf", Font::BOLD, 26),Color::BLACK);
@@ -419,7 +419,7 @@ namespace SmashBros
 		readyToFight->addAnimation(new Animation("normal",1,"Images/Menus/Buttons/Generic/readytofight.png"));
 		readyToFight->addAnimation(new Animation("hover",1,"Images/Menus/Buttons/Generic/readytofight_selected.png"));
 		readyToFight->changeAnimation("normal", FORWARD);
-		readyToFight->Scale = 1.845f;
+		readyToFight->setScale(1.845f);
 		readyToFight->mouseOverUsesPixel(true);
 		
 		rules_arrows = new Arrows(530,25,530,75);
@@ -437,7 +437,7 @@ namespace SmashBros
 		}
 
 		teams_button = new TeamsButton(260,35);
-		teams_button->Scale = 1.7f;
+		teams_button->setScale(1.7f);
 		
 		teams_button->addAnimation(new Animation("normal",1,"Images/Menus/Buttons/Group/freeforall.png"));
 		teams_button->addAnimation(new Animation("hover",1,"Images/Menus/Buttons/Group/freeforall_selected.png"));
@@ -629,7 +629,7 @@ namespace SmashBros
 		this->key = key;
 		this->menu = menu;
 		selected = false;
-		Scale = 1.4f;
+		setScale(1.4f);
 
 		addAnimation(new Animation("small",1,"Images/Menus/Buttons/Keys/key_small.png"));
 		addAnimation(new Animation("large",1,"Images/Menus/Buttons/Keys/key_large.png"));
@@ -645,7 +645,7 @@ namespace SmashBros
 			keyCode = Controls::controls[menu->currentPlayer][key];
 		}
 
-		keyText = new TextActor(Keys::GetKeyText(keyCode),AssetManager::getFont("Fonts/arial.ttf",Font::BOLD,(int)(16*Scale)),Color::BLACK);
+		keyText = new TextActor(Keys::GetKeyText(keyCode),AssetManager::getFont("Fonts/arial.ttf",Font::BOLD,(int)(16*getScale())),Color::BLACK);
 
 		String labelText = "";
 
@@ -688,7 +688,7 @@ namespace SmashBros
 			break;
 		}
 
-		label = new TextActor(labelText,AssetManager::getFont("Fonts/arial.ttf",Font::BOLD,(int)(16*Scale)),Color::BLACK);
+		label = new TextActor(labelText,AssetManager::getFont("Fonts/arial.ttf",Font::BOLD,(int)(16*getScale())),Color::BLACK);
 		label->setAlignment(TextActor::ALIGN_CENTER);
 
 		updateText();
@@ -736,34 +736,34 @@ namespace SmashBros
 
 		if(keyText->getAlignment()==TextActor::ALIGN_BOTTOMLEFT)
 		{
-			keyText->x = x - (float)width/2 + (float)(8*Scale);
-			keyText->y = y + (float)height/2 - (float)(8*Scale);
+			keyText->x = x - (float)width/2 + (float)(8*getScale());
+			keyText->y = y + (float)height/2 - (float)(8*getScale());
 		}
 		else if(keyText->getAlignment()==TextActor::ALIGN_BOTTOMRIGHT)
 		{
-			keyText->x = x + (float)width/2 - (float)(8*Scale);
-			keyText->y = y + (float)height/2 - (float)(8*Scale);
+			keyText->x = x + (float)width/2 - (float)(8*getScale());
+			keyText->y = y + (float)height/2 - (float)(8*getScale());
 		}
 
 		label->x = x;
-		label->y = y + (float)height/2 + (float)label->height/2 + 2*Scale;
+		label->y = y + (float)height/2 + (float)label->height/2 + 2*getScale();
 	}
 
 	void ControlOptions::KeyButton::Draw(Graphics2D&g, long gameTime)
 	{
 		if(keyText->getAlignment()==TextActor::ALIGN_BOTTOMLEFT)
 		{
-			keyText->x = x - (float)width/2 + (float)(8*Scale);
-			keyText->y = y + (float)height/2 - (float)(8*Scale);
+			keyText->x = x - (float)width/2 + (float)(8*getScale());
+			keyText->y = y + (float)height/2 - (float)(8*getScale());
 		}
 		else if(keyText->getAlignment()==TextActor::ALIGN_BOTTOMRIGHT)
 		{
-			keyText->x = x + (float)width/2 - (float)(8*Scale);
-			keyText->y = y + (float)height/2 - (float)(8*Scale);
+			keyText->x = x + (float)width/2 - (float)(8*getScale());
+			keyText->y = y + (float)height/2 - (float)(8*getScale());
 		}
 
 		label->x = x;
-		label->y = y + (float)height/2 + (float)label->height/2 + 2*Scale;
+		label->y = y + (float)height/2 + (float)label->height/2 + 2*getScale();
 
 		Actor::Draw(g, gameTime);
 		keyText->Draw(g, gameTime);
@@ -932,9 +932,9 @@ namespace SmashBros
 	{
 		this->menu = menu;
 		this->playerNo = playerNo;
-		Scale = 2.0f;
+		setScale(2.0f);
 		selected = false;
-		label = new TextActor((String)"P" + (int)playerNo, AssetManager::getFont("Fonts/arial.ttf",Font::BOLD,(int)(16*Scale)), Color::BLACK);
+		label = new TextActor((String)"P" + (int)playerNo, AssetManager::getFont("Fonts/arial.ttf",Font::BOLD,(int)(16*getScale())), Color::BLACK);
 		label->setAlignment(TextActor::ALIGN_CENTER);
 		addAnimation(new Animation("normal", 1, "Images/Menus/Buttons/Generic/options_tab_small.png"));
 		addAnimation(new Animation("selected", 1, "Images/Menus/Buttons/Generic/options_tab_small_selected.png"));
@@ -1154,10 +1154,10 @@ namespace SmashBros
 		prevMenusoundfx = Preferences::menuSoundFXOn();
 
 		menumusic = new MenuBarToggle(300,130,"Menu Music",prevMenumusic);
-		menumusic->Scale = 1.6f;
+		menumusic->setScale(1.6f);
 
 		menusoundfx = new MenuBarToggle(300,200,"Menu SoundFX",prevMenusoundfx);
-		menusoundfx->Scale = 1.6f;
+		menusoundfx->setScale(1.6f);
 		menusoundfx->setTextOffsetX(17);
 	}
 
@@ -1221,7 +1221,7 @@ namespace SmashBros
 	void DisplayOptions::Initialize()
 	{
 		fullScreen = new MenuBarToggle(300,130,"Full Screen");
-		fullScreen->Scale = 1.6f;
+		fullScreen->setScale(1.6f);
 		prevFullscreen = fullScreen->getToggle();
 		
 		fps = new MenuBarValue(300, 200, "Frame Rate");
@@ -1234,7 +1234,7 @@ namespace SmashBros
 			fps->setValue(30);
 		}
 		fps->setProperties(30, 60, 30);
-		fps->Scale = 1.6f;
+		fps->setScale(1.6f);
 	}
 
 	void DisplayOptions::LoadContent()
@@ -1332,13 +1332,13 @@ namespace SmashBros
 		trainingBanner = new Actor(260,35);
 		trainingBanner->addAnimation(new Animation("normal",1,"Images/Menus/Buttons/Solo/training_mode.png"));
 		trainingBanner->changeAnimation("normal",FORWARD);
-		trainingBanner->Scale = 1.8f;
+		trainingBanner->setScale(1.8f);
 				
 		readyToFight = new ReadyToFightBar(450, 380);
 		readyToFight->addAnimation(new Animation("normal",1,"Images/Menus/Buttons/Generic/readytofight.png"));
 		readyToFight->addAnimation(new Animation("hover",1,"Images/Menus/Buttons/Generic/readytofight_selected.png"));
 		readyToFight->changeAnimation("normal", FORWARD);
-		readyToFight->Scale = 1.845f;
+		readyToFight->setScale(1.845f);
 	}
 
 	void TrainingCharSelect::LoadContent()
@@ -1426,15 +1426,15 @@ namespace SmashBros
 		time = new MenuBarValue(300,130,"Time Limit","min");
 		time->setProperties(Global::minTime, Global::maxTime, 1);
 		time->setValue(Global::timeLimit);
-		time->Scale = 1.6f;
+		time->setScale(1.6f);
 				
 		stocks = new MenuBarValue(330,200,"Stock");
 		stocks->setProperties(Global::minLives, Global::maxLives, 1);
 		stocks->setValue(Global::stockAmount);
-		stocks->Scale = 1.6f;
+		stocks->setScale(1.6f);
 				
 		button_items = new MenuBarSmallButton(660,500,"Item Switch","ItemsMenu");
-		button_items->Scale = 1.8f;
+		button_items->setScale(1.8f);
 	}
 
 	void RulesMenu::LoadContent()

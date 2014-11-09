@@ -21,7 +21,7 @@ namespace SmashBros
 		
 		name = "Mario";
 
-		Scale = 1.1f;
+		setScale(1.1f);
 
 		setItemOffset(4, 2);
 		
@@ -585,8 +585,8 @@ namespace SmashBros
 			{
 				if(chargedDownAttack)
 				{
-					FluddWater*fludd = new FluddWater(getPlayerNo(), x+(getPlayerDirMult()*(66*Scale)), y-(1*Scale));
-					fludd->Scale = Scale;
+					FluddWater*fludd = new FluddWater(getPlayerNo(), x+(getPlayerDirMult()*(66*getScale())), y-(1*getScale()));
+					fludd->setScale(getScale());
 					AttackTemplates::singleProjectile(this, 13, 0, fludd);
 					changeTwoSidedAnimation("special_attack_down", FORWARD);
 					chargedDownAttack = false;
@@ -853,8 +853,8 @@ namespace SmashBros
 	void Mario::FluddWater::Update(long gameTime)
 	{
 		Player* owner = Global::getPlayerActor(getPlayerNo());
-		this->x = owner->x+(owner->getPlayerDirMult()*(66*owner->Scale));
-		this->y = owner->y - owner->Scale;
+		this->x = owner->x+(owner->getPlayerDirMult()*(66*owner->getScale()));
+		this->y = owner->y - owner->getScale();
 		Projectile::Update(gameTime);
 		Player*playr = Global::getPlayerActor(this->getPlayerNo());
 		if(!playr->isAlive() && !playr->isHurt())

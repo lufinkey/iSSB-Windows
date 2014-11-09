@@ -22,7 +22,7 @@ namespace SmashBros
 			a->addAnimation(new Animation(CharacterLoader::getName(i),1, CharacterLoader::getPreviewPath(i)));
 		}
 		a->changeAnimation(CharacterLoader::getName(Global::CHAR_MARIO),FORWARD);
-		a->Scale = 2.0f;
+		a->setScale(2.0f);
 		a->setAlpha(1);
 	}
 
@@ -362,7 +362,7 @@ namespace SmashBros
 			cardAvailable[i-1]=false;
 			cardTypes[i-1] = (byte)type.get(i-1);
 			Actor*a = setUpCard(i,type.get(i-1));
-			a->Scale = 1.65f;
+			a->setScale(1.65f);
 			Actor*a2 = new Actor(0,0);
 			TextActor*a3 = new TextActor(" ", AssetManager::getFont("Fonts/arial.ttf", Font::BOLD, 12), Color::WHITE);
 			a3->setAlignment(TextActor::ALIGN_CENTER);
@@ -389,7 +389,7 @@ namespace SmashBros
 			addToGrid(a,25+(space/10),500,num,1,space,0,i);
 			coinPoints[i-1].x=(int)a->x;
 			coinPoints[i-1].y=(int)a->y;
-			a->Scale = 1.4f;
+			a->setScale(1.4f);
 			charCoins.add(a);
 		}
 	}
@@ -653,7 +653,7 @@ namespace SmashBros
 
 	CharSelectScreen::CharIcon::CharIcon(int num, float x1, float y1, Animation*anim) : Actor(x1,y1)
 	{
-		Scale = 1.8f;
+		setScale(1.8f);
 		addAnimation(anim);
 		changeAnimation(anim->name, FORWARD);
 		this->num = num;
@@ -708,7 +708,7 @@ namespace SmashBros
 		teamFlag->addAnimation(new Animation("green",1, "Images/Menus/CharacterSelect/flags/green.png"));
 		teamFlag->changeAnimation("red", FORWARD);
 			
-		teamFlag->Scale = 1.4f;
+		teamFlag->setScale(1.4f);
 	}
 
 	CharSelectScreen::CharCard::~CharCard()

@@ -31,7 +31,7 @@ namespace SmashBros
 		
 		name = "Sonic";
 		
-		Scale = 0.95f;
+		setScale(0.95f);
 		
 		setHitbox(-10, -12, 22, 31);
 		setHitboxColor(Color::GREEN);

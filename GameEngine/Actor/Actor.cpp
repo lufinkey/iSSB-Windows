@@ -9,7 +9,6 @@ namespace GameEngine
 	void Actor::createActor(float x, float y) //common method called by 2 constructors
 	{
 		anim = NULL;
-		lastAnim = NULL;
 		currentImageX = 0;
 		currentImageY = 0;
 		currentImageW = 0;
@@ -89,17 +88,17 @@ namespace GameEngine
 
 	bool Actor::pixelAtPoint(int col, int row)
 	{
-		BufferedImage*currentImage = lastAnim->getCurrentImage();
+		BufferedImage*currentImage = anim->getCurrentImage();
 		int x1 = 0;
 		int y1 = 0;
 		bool mirror = false;
 		bool mirrorVertical = false;
 
-		if((lastAnim->isMirrored() && !this->mirrored) || (!lastAnim->isMirrored() && this->mirrored))
+		if((anim->isMirrored() && !this->mirrored) || (!anim->isMirrored() && this->mirrored))
 		{
 			mirror = true;
 		}
-		if((lastAnim->isMirroredVertical() && !this->mirroredVertical) || (!lastAnim->isMirroredVertical() && this->mirroredVertical))
+		if((anim->isMirroredVertical() && !this->mirroredVertical) || (!anim->isMirroredVertical() && this->mirroredVertical))
 		{
 			mirrorVertical = true;
 		}
@@ -131,14 +130,14 @@ namespace GameEngine
 
 	void Actor::updateSize()
 	{
-		if(lastAnim!=NULL)
+		if(anim!=NULL)
 		{
-			BufferedImage*img = lastAnim->getCurrentImage();
-			switch(lastAnim->getType())
+			BufferedImage*img = anim->getCurrentImage();
+			switch(anim->getType())
 			{
 				default:
-				this->width = (int)((float)(img->getWidth()/lastAnim->getCols())*Scale);
-				this->height = (int)((float)(img->getHeight()/lastAnim->getRows())*Scale);
+				this->width = (int)((float)(img->getWidth()/anim->getCols())*Scale);
+				this->height = (int)((float)(img->getHeight()/anim->getRows())*Scale);
 				break;
 				
 				case 0:
@@ -179,13 +178,17 @@ namespace GameEngine
 				currentImageY = (anim->getSequenceFrame(anim->getCurrentFrame())/anim->getCols())*currentImageH;
 				break;
 			}
-			lastAnim = anim;
 			updateSize();
 		}
 	}
 
 	void Actor::drawActor(Graphics2D& g, long gameTime, float x1, float y1, double scale, bool relativeToScreen)
 	{
+		if(scale == 0)
+		{
+			return;
+		}
+
 		if(frameTime==0)
 		{
 			int addTime;
@@ -261,6 +264,7 @@ namespace GameEngine
 
 		Alpha = actor.Alpha;
 		Rotation = actor.Rotation;
+		Scale = actor.Scale;
 		
 		for(int i=0; i<totalEvents; i++)
 		{
@@ -289,12 +293,9 @@ namespace GameEngine
 		firstAnimChange = actor.firstAnimChange;
 
 		anim = animMgr->get(actor.anim->name);
-		lastAnim = animMgr->get(actor.anim->name);
 
 		xvelocity = actor.xvelocity;
 		yvelocity = actor.yvelocity;
-
-		Scale = actor.Scale;
 	}
 
 	Actor::Actor(float x1,float y1)
@@ -323,6 +324,7 @@ namespace GameEngine
 
 		Alpha = actor.Alpha;
 		Rotation = actor.Rotation;
+		Scale = actor.Scale;
 		
 		for(int i=0; i<totalEvents; i++)
 		{
@@ -350,12 +352,9 @@ namespace GameEngine
 		firstAnimChange = actor.firstAnimChange;
 
 		anim = animMgr->get(actor.anim->name);
-		lastAnim = animMgr->get(actor.anim->name);
 
 		xvelocity = actor.xvelocity;
 		yvelocity = actor.yvelocity;
-
-		Scale = actor.Scale;
 
 		return *this;
 	}
@@ -365,7 +364,7 @@ namespace GameEngine
 		updateAnim();
 		
 		prevclicked = clicked;
-			
+		
 		xSpeed = x - xprev;
 		ySpeed = y - yprev;
 			
@@ -518,14 +517,7 @@ namespace GameEngine
 			//anim.drawFrame(graphics,anim.frames,x,y);
 			this->anim->direction=BACKWARD;
 		}
-		if(firstAnimChange)
-		{
-			sf::Vector2i size = animation->getSize();
-			width = (int)(size.x*Scale);
-			height = (int)(size.y*Scale);
-			lastAnim = anim;
-		}
-		firstAnimChange = false;
+		updateAnim();
 	}
 
 	void Actor::changeAnimationDirection(unsigned char dir)
@@ -544,6 +536,10 @@ namespace GameEngine
 	void Actor::addAnimation(Animation*a) //add an animation to Actor's AnimationManager
 	{
 		animMgr->add(a);
+		if(anim == NULL)
+		{
+			changeAnimation(a->name, FORWARD);
+		}
 	}
 	
 	void Actor::removeAnimation(const String&animName) //removes an animation from Actor's AnimationManager
@@ -551,10 +547,6 @@ namespace GameEngine
 		if(anim != NULL && anim->name.equals(animName))
 		{
 			anim = NULL;
-		}
-		if(lastAnim != NULL && lastAnim->name.equals(animName))
-		{
-			lastAnim = NULL;
 		}
 		animMgr->remove(animName);
 	}
@@ -567,11 +559,6 @@ namespace GameEngine
 	Animation*Actor::getAnimation()
 	{
 		return anim;
-	}
-
-	Animation*Actor::getLastAnimation()
-	{
-		return lastAnim;
 	}
 
 	void Actor::setRelativeToView(bool toggle)
@@ -1235,7 +1222,18 @@ namespace GameEngine
 	{
 		return Alpha;
 	}
-		
+
+	void Actor::setScale(float scale)
+	{
+		Scale = scale;
+		updateSize();
+	}
+	
+	float Actor::getScale()
+	{
+		return Scale;
+	}
+
 	void Actor::setVisible(bool toggle)
 	{
 		visible = toggle;
