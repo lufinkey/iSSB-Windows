@@ -159,7 +159,14 @@ namespace SmashBros
 	{
 		if(n.equals("standard_attack3_left") || n.equals("standard_attack3_right"))
 		{
-			if(!queueStandardCombo)
+			if(queueStandardCombo)
+			{
+				if(attacksPriority > 0.8)
+				{
+					attacksPriority -= 0.3;
+				}
+			}
+			else
 			{
 				Player::onAnimationFinish(n);
 			}
@@ -438,7 +445,7 @@ namespace SmashBros
 					//A3
 					causeDamage(collide, 2);
 					collide->y -= 6;
-					//collide->x += getPlayerDirMult()*3;
+					collide->x += 0.5f * getPlayerDirMult();
 					causeHurt(collide, getOppPlayerDir(), 100);
 					break;
 				
@@ -615,7 +622,7 @@ namespace SmashBros
 				{
 					x += getPlayerDirMult()*5;
 				}
-				AttackTemplates::combo3A(this, 500, 0,1.98, 1,2.21, 2,3.04, true);
+				AttackTemplates::combo3A(this, 500, 0,1.98, 1,2.21, 2,2.64, true);
 			}
 			else
 			{
@@ -636,30 +643,23 @@ namespace SmashBros
 		addAttackInfo(DIR_UP, 8, LEFT, 8, 400, -1,4,3.2f, -1,1,2);
 		addAttackInfo(DIR_UP, 8,RIGHT, 8, 400,  1,4,3.2f, -1,1,2);
 		
-		//if(((playr->moveLeft==2) || (playr->moveRight==2)) && (playr->onGround==1))
-		//{
-			//normalDashA(playr, 3,2.3, 3.5);
-		//}
-		//else
-		//{
-			if(!checkItemUseSide())
+		if(!checkItemUseSide())
+		{
+			if(isOnGround())
 			{
-				if(isOnGround())
+				x += getPlayerDirMult()*5;
+				AttackTemplates::normalSideA(this, 4,2.411);
+			}
+			else
+			{
+				if(!bUp)
 				{
-					x += getPlayerDirMult()*5;
-					AttackTemplates::normalSideA(this, 4,2.411);
-				}
-				else
-				{
-					if(!bUp)
-					{
-						AttackTemplates::normalAirSideA(this, 8,2.234);
-						xvelocity += getPlayerDirMult()*1;
-						yvelocity-=1.5;
-					}
+					AttackTemplates::normalAirSideA(this, 8,2.234);
+					xvelocity += getPlayerDirMult()*1;
+					yvelocity-=1.5;
 				}
 			}
-		//}
+		}
 	}
 	
 	void Fox::attackUpA()
