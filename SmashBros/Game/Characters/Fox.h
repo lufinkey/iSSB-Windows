@@ -54,14 +54,15 @@ namespace SmashBros
 			void shoot();
 		};
 
-		boolean finalSmashing;
 		long finalsmashTime;
+		boolean finalSmashing;
 		boolean finalsmashFinishing;
 		boolean prevJumping;
 		float oldScale;
 		int lastKickFrame;
 		byte lastBUpChargeDir;
 		byte lastDir;
+		boolean queueStandardCombo;
 		Landmaster*landmaster;
 
 	public:
@@ -69,7 +70,7 @@ namespace SmashBros
 		virtual ~Fox();
 
 		virtual void Update(long gameTime);
-
+		virtual void setToDefaultValues();
 		virtual void Load();
 		virtual void LoadAttackTypes();
 		virtual void onDestroy();
@@ -81,8 +82,7 @@ namespace SmashBros
 		virtual boolean onDeflectItemCollision(Item*collide, byte dir);
 
 		virtual void onPlayerHit(Player*collide, byte dir);
-		virtual void onFinishCharge();
-		virtual void doChargingAttack(byte button);
+		virtual void onQueueAttack(byte attackType);
 
 		virtual void attackA();
 		virtual void attackSideA();

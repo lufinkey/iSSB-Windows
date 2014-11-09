@@ -15,6 +15,7 @@ namespace SmashBros
 		lastKickFrame = 0;
 		lastBUpChargeDir = 0;
 		lastDir = 0;
+		queueStandardCombo = false;
 		landmaster = null;
 		
 		walkSpeed = 4.5f;
@@ -32,7 +33,7 @@ namespace SmashBros
 		//setWireframeColor(Color::RED);
 		//showWireframe(true);
 		
-		setHangPoint(15, 8);
+		setHangPoint(9, 8);
 		
 		oldScale = Scale;
 		
@@ -45,6 +46,11 @@ namespace SmashBros
 		{
 			landmaster = null;
 		}
+	}
+
+	void Fox::setToDefaultValues()
+	{
+		queueStandardCombo = false;
 	}
 	
 	void Fox::Load()
@@ -88,7 +94,7 @@ namespace SmashBros
 		//addTwoSidedAnimation("dash_attack", "dash_attack.png", 12, 6, 1);
 		addTwoSidedAnimation("standard_attack", "standard_attack.png", 14, 4, 1);
 		addTwoSidedAnimation("standard_attack2", "standard_attack2.png", 14, 4, 1);
-		addTwoSidedAnimation("standard_attack3", "standard_attack3.png", 10, 6, 1);
+		addTwoSidedAnimation("standard_attack3", "standard_attack3.png", 14, 6, 1);
 		addTwoSidedAnimation("standard_attack_side", "standard_attack_side.png", 16, 4, 1);
 		addTwoSidedAnimation("standard_attack_up", "standard_attack_up.png", 21, 7, 1);
 		addTwoSidedAnimation("standard_attack_down", "standard_attack_down.png", 10, 4, 1);
@@ -151,7 +157,15 @@ namespace SmashBros
 	
 	void Fox::onAnimationFinish(const String&n)
 	{
-		if(n.equals("special_prep_side_left") || n.equals("special_prep_side_right"))
+		if(n.equals("standard_attack3_left") || n.equals("standard_attack3_right"))
+		{
+			if(!queueStandardCombo)
+			{
+				Player::onAnimationFinish(n);
+			}
+			queueStandardCombo = false;
+		}
+		else if(n.equals("special_prep_side_left") || n.equals("special_prep_side_right"))
 		{
 			landing=false;
 			yvelocity=0;
@@ -423,8 +437,8 @@ namespace SmashBros
 					case 2:
 					//A3
 					causeDamage(collide, 2);
-					collide->y -= 5;
-					collide->x += getPlayerDirMult()*3;
+					collide->y -= 6;
+					//collide->x += getPlayerDirMult()*3;
 					causeHurt(collide, getOppPlayerDir(), 100);
 					break;
 				
@@ -580,14 +594,12 @@ namespace SmashBros
 		return false;
 	}
 	
-	void Fox::onFinishCharge()
+	void Fox::onQueueAttack(byte attackType)
 	{
-		//
-	}
-	
-	void Fox::doChargingAttack(byte button)
-	{
-		//
+		if(attackType == ATTACK_A)
+		{
+			queueStandardCombo = true;
+		}
 	}
 	
 	void Fox::attackA()
@@ -599,8 +611,11 @@ namespace SmashBros
 		{
 			if(isOnGround())
 			{
-				x += getPlayerDirMult()*5;
-				AttackTemplates::combo3A(this, 500, 0,1.98, 1,2.21, 2,3.04);
+				if(getComboNo()!=2)
+				{
+					x += getPlayerDirMult()*5;
+				}
+				AttackTemplates::combo3A(this, 500, 0,1.98, 1,2.21, 2,3.04, true);
 			}
 			else
 			{
@@ -1031,7 +1046,7 @@ namespace SmashBros
 		anim->mirror(true);
 		addAnimation(anim);
 		
-		Scale = 0.8f;
+		Scale = 0.7f;
 		
 		setSolid(true);
 		setOwnerSolid(false);
