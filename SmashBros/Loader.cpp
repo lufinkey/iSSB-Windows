@@ -200,6 +200,12 @@ namespace SmashBros
 			win_fps = 8;
 			win_rows = 4;
 			break;
+
+			case Global::CHAR_KIRBY:
+			win_fps = 8;
+			win_cols = 6;
+			win_rows = 5;
+			break;
 		}
 		
 		String charFolder = getFolder(charNo);
