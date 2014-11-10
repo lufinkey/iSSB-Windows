@@ -202,7 +202,7 @@ namespace SmashBros
 			break;
 
 			case Global::CHAR_KIRBY:
-			win_fps = 8;
+			win_fps = 16;
 			win_cols = 6;
 			win_rows = 5;
 			break;

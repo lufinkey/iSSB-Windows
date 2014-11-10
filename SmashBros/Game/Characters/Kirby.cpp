@@ -75,10 +75,10 @@ namespace SmashBros
 		addTwoSidedAnimation("standard_attack2", "standard_attack2.png", 12, 3, 1);
 		addTwoSidedAnimation("standard_attack3", "standard_attack3.png", 18, 6, 1);
 		addTwoSidedAnimation("standard_attack_side", "standard_attack_side.png", 20, 8, 1);
-		addTwoSidedAnimation("standard_attack_up", "standard_attack_up.png", 16, 5, 1);
+		addTwoSidedAnimation("standard_attack_up", "standard_attack_up.png", 20, 5, 1);
 		addTwoSidedAnimation("standard_attack_down", "standard_attack_down.png", 16, 4, 1);
 		addTwoSidedAnimation("air_attack", "air_attack.png", 26, 9, 1);
-		addTwoSidedAnimation("air_attack_side", "air_attack_side.png", 26, 8, 1);
+		addTwoSidedAnimation("air_attack_side", "air_attack_side.png", 20, 8, 1);
 		addTwoSidedAnimation("air_attack_up", "air_attack_up.png", 18, 6, 1);
 		addTwoSidedAnimation("air_attack_down", "air_attack_down.png", 30, 11, 1);
 	}
@@ -240,6 +240,8 @@ namespace SmashBros
 	{
 		addAttackInfo(DIR_LEFT, 4, LEFT, 9, 300, -1,2,2.1f, -1,3,3.3f);
 		addAttackInfo(DIR_RIGHT,4,RIGHT, 9, 300,  1,2,2.1f, -1,3,3.3f);
+		addAttackInfo(DIR_LEFT, 8, LEFT, 4, 200, -1,2.1f,2.5f, -1,1.2f,2.1f);
+		addAttackInfo(DIR_RIGHT,8,RIGHT, 4, 200,  1,2.1f,2.5f, -1,1.2f,2.1f);
 
 		if(!checkItemUseSide())
 		{
@@ -251,7 +253,7 @@ namespace SmashBros
 			{
 				if(!bUp)
 				{
-					//TODO add side air attack
+					AttackTemplates::normalAirSideA(this, 8,1.8f);
 				}
 			}
 		}
@@ -259,10 +261,14 @@ namespace SmashBros
 
 	void Kirby::attackUpA()
 	{
-		addAttackInfo(DIR_UP, 5, LEFT,  7, 300, -1,0,0, -1,2.9f,2.1f);
-		addAttackInfo(DIR_UP, 5, RIGHT, 7, 300,  1,0,0, -1,2.9f,2.1f);
-		addAttackInfo(DIR_LEFT,  5, RIGHT, 7, 300, -1,1.1f,1.7f, -1,2.9f,2.1f);
-		addAttackInfo(DIR_RIGHT, 5, LEFT,  7, 300,  1,1.1f,1.7f, -1,2.9f,2.1f);
+		addAttackInfo(DIR_UP, 5, LEFT,  7, 300, -1,0,0, -1,2.9f,2.4f);
+		addAttackInfo(DIR_UP, 5, RIGHT, 7, 300,  1,0,0, -1,2.9f,2.4f);
+		addAttackInfo(DIR_LEFT,  5, RIGHT, 7, 300, -1,0.8f,1.7f, -1,2.8f,2.4f);
+		addAttackInfo(DIR_RIGHT, 5, LEFT,  7, 300,  1,0.8f,1.7f, -1,2.8f,2.4f);
+		addAttackInfo(DIR_UP, 9, LEFT,  7, 300, -1,0,0, -1,3.0f,2.5f);
+		addAttackInfo(DIR_UP, 9, RIGHT, 7, 300,  1,0,0, -1,3.0f,2.5f);
+		addAttackInfo(DIR_LEFT,  9, RIGHT, 7, 300, -1,0.8f,1.8f, -1,2.9f,2.6f);
+		addAttackInfo(DIR_RIGHT, 9, LEFT,  7, 300,  1,0.8f,1.8f, -1,2.9f,2.6f);
 
 		if(!checkItemUseUp())
 		{
@@ -274,7 +280,7 @@ namespace SmashBros
 			{
 				if(!bUp)
 				{
-					//TODO add up air attack
+					AttackTemplates::normalAirUpA(this, 9,2.066f);
 				}
 			}
 		}
@@ -286,6 +292,8 @@ namespace SmashBros
 		addAttackInfo(DIR_RIGHT,6,RIGHT, 6, 200,  1,3,2, -1,3,2);
 		addAttackInfo(DIR_DOWN, 6, LEFT, 6, 200, -1,2,1.4f, 1,3.5f,3.4f);
 		addAttackInfo(DIR_DOWN, 6,RIGHT, 6, 200,  1,2,1.4f, 1,3.5f,3.4f);
+		addAttackInfo(DIR_DOWN, 10, LEFT, 6, 200, -1,0,0, 1,3.9f,3.6f);
+		addAttackInfo(DIR_DOWN, 10,RIGHT, 6, 200,  1,0,0, 1,3.9f,3.6f);
 		
 		if(!checkItemUseDown())
 		{
@@ -298,7 +306,7 @@ namespace SmashBros
 			{
 				if(!bUp)
 				{
-					//TODO add down air attack
+					AttackTemplates::normalAirDownA(this, 10,2.052f);
 				}
 			}
 		}
