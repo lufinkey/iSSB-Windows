@@ -518,6 +518,7 @@ namespace GameEngine
 			this->anim->direction=BACKWARD;
 		}
 		updateAnim();
+		firstAnimChange = false;
 	}
 
 	void Actor::changeAnimationDirection(unsigned char dir)
