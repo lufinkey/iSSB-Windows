@@ -75,6 +75,12 @@ namespace SmashBros
 		addTwoSidedAnimation("standard_attack2", "standard_attack2.png", 12, 3, 1);
 		addTwoSidedAnimation("standard_attack3", "standard_attack3.png", 18, 6, 1);
 		addTwoSidedAnimation("standard_attack_side", "standard_attack_side.png", 20, 8, 1);
+		addTwoSidedAnimation("standard_attack_up", "standard_attack_up.png", 16, 5, 1);
+		addTwoSidedAnimation("standard_attack_down", "standard_attack_down.png", 16, 4, 1);
+		addTwoSidedAnimation("air_attack", "air_attack.png", 26, 9, 1);
+		addTwoSidedAnimation("air_attack_side", "air_attack_side.png", 26, 8, 1);
+		addTwoSidedAnimation("air_attack_up", "air_attack_up.png", 18, 6, 1);
+		addTwoSidedAnimation("air_attack_down", "air_attack_down.png", 30, 11, 1);
 	}
 
 	void Kirby::LoadAttackTypes()
@@ -204,6 +210,11 @@ namespace SmashBros
 
 	void Kirby::attackA()
 	{
+		addAttackInfo(DIR_LEFT,  7, LEFT,  10, 300, -1,2.1f,3.6f, -1,1.9f,3.7f);
+		addAttackInfo(DIR_RIGHT, 7, RIGHT, 10, 300,  1,2.1f,3.6f, -1,1.9f,3.7f);
+		addAttackInfo(DIR_UP, 7, LEFT,  10, 300, -1,1.2f,2.95f, -1,2.75f,3.6f);
+		addAttackInfo(DIR_UP, 7, RIGHT, 10, 300,  1,1.2f,2.95f, -1,2.75f,3.6f);
+
 		if(!checkItemUse())
 		{
 			if(isOnGround())
@@ -219,7 +230,7 @@ namespace SmashBros
 			{
 				if(!bUp)
 				{
-					//TODO normal air attack
+					AttackTemplates::normalAirA(this, 7,1.66);
 				}
 			}
 		}
@@ -227,24 +238,20 @@ namespace SmashBros
 
 	void Kirby::attackSideA()
 	{
-		if(((moveLeft==2) || (moveRight==2)) && (isOnGround()))
+		addAttackInfo(DIR_LEFT, 4, LEFT, 9, 300, -1,2,2.1f, -1,3,3.3f);
+		addAttackInfo(DIR_RIGHT,4,RIGHT, 9, 300,  1,2,2.1f, -1,3,3.3f);
+
+		if(!checkItemUseSide())
 		{
-			//TODO add dash attack (attacksHolder = 3)
-		}
-		else
-		{
-			if(!checkItemUseSide())
+			if(isOnGround())
 			{
-				if(isOnGround())
+				AttackTemplates::normalSideA(this, 4,2.36);
+			}
+			else
+			{
+				if(!bUp)
 				{
-					AttackTemplates::normalSideA(this, 4,2.36);
-				}
-				else
-				{
-					if(!bUp)
-					{
-						//TODO add side air attack
-					}
+					//TODO add side air attack
 				}
 			}
 		}
@@ -252,12 +259,49 @@ namespace SmashBros
 
 	void Kirby::attackUpA()
 	{
-		//
+		addAttackInfo(DIR_UP, 5, LEFT,  7, 300, -1,0,0, -1,2.9f,2.1f);
+		addAttackInfo(DIR_UP, 5, RIGHT, 7, 300,  1,0,0, -1,2.9f,2.1f);
+		addAttackInfo(DIR_LEFT,  5, RIGHT, 7, 300, -1,1.1f,1.7f, -1,2.9f,2.1f);
+		addAttackInfo(DIR_RIGHT, 5, LEFT,  7, 300,  1,1.1f,1.7f, -1,2.9f,2.1f);
+
+		if(!checkItemUseUp())
+		{
+			if(isOnGround())
+			{
+				AttackTemplates::normalUpA(this, 5,1.6);
+			}
+			else
+			{
+				if(!bUp)
+				{
+					//TODO add up air attack
+				}
+			}
+		}
 	}
 
 	void Kirby::attackDownA()
 	{
-		//
+		addAttackInfo(DIR_LEFT, 6, LEFT, 6, 200, -1,3,2, -1,3,2);
+		addAttackInfo(DIR_RIGHT,6,RIGHT, 6, 200,  1,3,2, -1,3,2);
+		addAttackInfo(DIR_DOWN, 6, LEFT, 6, 200, -1,2,1.4f, 1,3.5f,3.4f);
+		addAttackInfo(DIR_DOWN, 6,RIGHT, 6, 200,  1,2,1.4f, 1,3.5f,3.4f);
+		
+		if(!checkItemUseDown())
+		{
+			if(isOnGround())
+			{
+				x += 3*getPlayerDirMult();
+				AttackTemplates::normalDownA(this, 6,2.13);
+			}
+			else
+			{
+				if(!bUp)
+				{
+					//TODO add down air attack
+				}
+			}
+		}
 	}
 
 	void Kirby::attackB()
