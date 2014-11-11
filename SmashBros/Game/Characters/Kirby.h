@@ -19,6 +19,8 @@ namespace SmashBros
 		};
 
 		boolean queueStandardCombo;
+		boolean prepping;
+		boolean finishing;
 
 	public:
 		Kirby(float x1, float y1, byte playerNo, byte team);
@@ -27,6 +29,7 @@ namespace SmashBros
 		virtual void Update(long gameTime);
 		virtual void Draw(Graphics2D&g, long gameTime);
 		virtual void setToDefaultValues();
+		virtual boolean checkIfAble();
 		virtual void Load();
 		virtual void LoadAttackTypes();
 		virtual void onAnimationFinish(const String&n);

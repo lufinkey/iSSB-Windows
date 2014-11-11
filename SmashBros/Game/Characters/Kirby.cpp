@@ -11,6 +11,8 @@ namespace SmashBros
 	Kirby::Kirby(float x1, float y1, byte playerNo, byte team) : Player(x1, y1, playerNo, team)
 	{
 		queueStandardCombo = false;
+		prepping = false;
+		finishing = false;
 
 		weight = 0.08;
 
@@ -33,10 +35,21 @@ namespace SmashBros
 	{
 		//
 	}
+
+	boolean Kirby::checkIfAble()
+	{
+		if(prepping || finishing)
+		{
+			return false;
+		}
+		return true;
+	}
 	
 	void Kirby::setToDefaultValues()
 	{
 		queueStandardCombo = false;
+		prepping = false;
+		finishing = false;
 	}
 	
 	void Kirby::Load()
@@ -81,6 +94,12 @@ namespace SmashBros
 		addTwoSidedAnimation("air_attack_side", "air_attack_side.png", 20, 8, 1);
 		addTwoSidedAnimation("air_attack_up", "air_attack_up.png", 18, 6, 1);
 		addTwoSidedAnimation("air_attack_down", "air_attack_down.png", 30, 11, 1);
+		addTwoSidedAnimation("special_prep_hold_side", "special_prep_hold_side.png", 6, 1, 1);
+		addTwoSidedAnimation("special_prep_side", "special_prep_side.png", 28, 5, 1);
+		addTwoSidedAnimation("special_attack_side", "special_attack_side.png", 28, 4, 1);
+		addTwoSidedAnimation("special_finish_side", "special_finish_side.png", 28, 2, 1);
+		addTwoSidedAnimation("special_finish_hold_side", "special_finish_hold_side.png", 6, 1, 1);
+		addTwoSidedAnimation("special_finish_putaway_side", "special_finish_putaway_side.png", 28, 3, 1);
 	}
 
 	void Kirby::LoadAttackTypes()
@@ -113,6 +132,29 @@ namespace SmashBros
 				Player::onAnimationFinish(n);
 			}
 			queueStandardCombo = false;
+		}
+		else if(n.equals("special_prep_hold_side_left") || n.equals("special_prep_hold_side_right"))
+		{
+			changeTwoSidedAnimation("special_prep_side", FORWARD);
+		}
+		else if(n.equals("special_prep_side_left") || n.equals("special_prep_side_right"))
+		{
+			prepping = false;
+			AttackTemplates::normalSideB(this, 12,3.07);
+		}
+		else if(n.equals("special_attack_side_left") || n.equals("special_attack_side_right"))
+		{
+			Player::onAnimationFinish(n);
+			finishing = true;
+			changeTwoSidedAnimation("special_finish_side", FORWARD);
+		}
+		else if(n.equals("special_finish_side_left") || n.equals("special_finish_side_right"))
+		{
+			changeTwoSidedAnimation("special_finish_hold_side", FORWARD);
+		}
+		else if(n.equals("special_finish_hold_side_left") || n.equals("special_finish_hold_side_right"))
+		{
+			changeTwoSidedAnimation("special_finish_putaway_side", FORWARD);
 		}
 		else
 		{
@@ -319,7 +361,14 @@ namespace SmashBros
 
 	void Kirby::attackSideB()
 	{
-		//
+		addAttackInfo(DIR_LEFT,  12, LEFT,  17, 300, -1,3.1f,3.1f, -1,2.1f,2.2f);
+		addAttackInfo(DIR_RIGHT, 12, RIGHT, 17, 300,  1,3.1f,3.1f, -1,2.1f,2.2f);
+
+		if(!bUp)
+		{
+			prepping = true;
+			changeTwoSidedAnimation("special_prep_hold_side", FORWARD);
+		}
 	}
 
 	void Kirby::attackUpB()
