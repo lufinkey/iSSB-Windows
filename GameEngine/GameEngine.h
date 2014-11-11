@@ -41,7 +41,7 @@ namespace GameEngine
 {
 	static double random()
 	{
-		return (double)rand()/RAND_MAX;
+		return (double)std::rand()/RAND_MAX;
 	}
 }
 

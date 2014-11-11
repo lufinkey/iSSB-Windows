@@ -70,7 +70,7 @@ namespace GameEngine
 
 	void Application::Run()
 	{
-		srand((unsigned)time(NULL));
+		std::srand((unsigned int)std::time(NULL));
 		clock.restart();
 
 		game = this;
@@ -388,13 +388,19 @@ namespace GameEngine
 
 	void Application::keyPressed(int keycode)
 	{
-		KeyState[keycode] = true;
-		lastKey = keycode;
+		if(keycode<totalKeys)
+		{
+			KeyState[keycode] = true;
+			lastKey = keycode;
+		}
 	}
 
 	void Application::keyReleased(int keycode)
 	{
-		KeyState[keycode] = false;
+		if(keycode<totalKeys)
+		{
+			KeyState[keycode] = false;
+		}
 	}
 
 	void Application::mousePressed(int eventcode)

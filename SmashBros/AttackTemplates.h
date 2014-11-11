@@ -32,10 +32,12 @@ namespace SmashBros
 		static void normalAirDownA(Player*playr, int aNo, double aP);
 		static void singleAirDownA(Player*playr, int aNo, double aP);
 		static void dropAirDownA(Player*playr, int type, int aNo, double aP, float speed, float speed2);
+		static void normalB(Player*playr, int aNo, double aP);
 		static void chargeB(Player*playr, float spMin, float spMax, long totalTime);
 		static void homingB(Player*playr, int aNo, double aP, float speed);
 		static void singleProjectile(Player*playr, int aNo, double aP, Projectile*projectile);
-		static void normalSideB(Player*playr, int aNo, double aP, float xDist);
+		static void normalSideB(Player*playr, int aNo, double aP);
+		static void moveSideB(Player*playr, int aNo, double aP, float xDist);
 		static void dashSideB(Player*playr, int aNo, double aP, float speed);
 		static void rollAttack(Player*playr, int aNo, double aP, float speed, long time);
 		static void launchUpB(Player*playr, int aNo, double aP, float yVeloc, float yVeloc2);

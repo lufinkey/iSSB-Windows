@@ -474,6 +474,15 @@ namespace SmashBros
 		}
 	}
 
+	void AttackTemplates::normalB(Player*playr, int aNo, double aP)
+	{
+		playr->jumping = false;
+		playr->hurt = 0;
+		playr->changeTwoSidedAnimation("special_attack", FORWARD);
+		playr->attacksHolder=aNo;
+		playr->attacksPriority=aP;
+	}
+
 	void AttackTemplates::chargeB(Player*playr, float spMin, float spMax, long totalTime)
 	{
 		playr->jumping = false;
@@ -604,7 +613,16 @@ namespace SmashBros
 		playr->attacksPriority=aP;
 	}
 
-	void AttackTemplates::normalSideB(Player*playr, int aNo, double aP, float xDist)
+	void AttackTemplates::normalSideB(Player*playr, int aNo, double aP)
+	{
+		playr->jumping = false;
+		playr->hurt = 0;
+		playr->changeTwoSidedAnimation("special_attack_side", FORWARD);
+		playr->attacksHolder=aNo;
+		playr->attacksPriority=aP;
+	}
+
+	void AttackTemplates::moveSideB(Player*playr, int aNo, double aP, float xDist)
 	{
 		playr->jumping = false;
 		playr->hurt = 0;

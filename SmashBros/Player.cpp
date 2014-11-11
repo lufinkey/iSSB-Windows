@@ -96,8 +96,8 @@ namespace SmashBros
 		fallRun = 2;
 		walkAmount = 1;
 		runAmount = 1;
-		recoverAmount = 0.2f;
-		recoverRunAmount = 0.3f;
+		recoverAmount = 0.3f;
+		recoverRunAmount = 0.4f;
 		grabTime = 2000;
 		
 		this->playerNo = playerNo;

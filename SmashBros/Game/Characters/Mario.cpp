@@ -553,7 +553,7 @@ namespace SmashBros
 	{
 		if(!bUp)
 		{
-			AttackTemplates::normalSideB(this, 11,3.9f, 2.99f);
+			AttackTemplates::moveSideB(this, 11,3.9f, 2.99f);
 			if(!isOnGround())
 			{
 				xvelocity += getPlayerDirMult()*2;
